@@ -1,0 +1,613 @@
+IT-AUTOFLIGHT Changelog
+Copyright (c) 2019 Joshua Davidson (Octal450)
+I will note if new ITAF tuning or config is required. Simply check the "ITAF CONFIG.txt" file.
+
+---------------------------------------------------------------------------------------------------------------------
+
+V4.0.1:
+[Control Loop]
+* Fixed: Throttle servo used incorrect rates
+
+[Nasal]
+* Fixed: Bad FLCH engagement
+* Fixed: Delay in updating modes causing some problems
+* Changed: Minimum altitude error for FLCH engagement
+
+---------------------------------------------------------------------------------------------------------------------
+
+V4.0.0:
+[Control Loop]
+* Fixed: V/S internal being slowed while AP is not active
+
+[Nasal]
+* Added: Completely new controller
+* Added: Mode reversion behavior when VOR or ILS signal is lost
+* Fixed: LNAV stays active when route is lost or no longer active
+* Fixed: True Course toggle accidently used instead of TRK toggle
+* Fixed: Internal altitude takes too long to update
+* Fixed: Sometimes, ALT CAP did not engage properly
+* Fixed: Erroneous vertical mode could be selected in ALT HLD mode when no new altitude was set
+* Fixed: Sometimes, a jerk occurs when engaging FLCH mode from ALT HLD
+* Fixed: Flaw in control reset logic caused controls to be reset while control loop is running
+* Changed: Cancelling LOC also cancels G/S
+* Changed: G/A CLB no longer arms ALT CAP mode
+* Changed: Auto bank limit logic
+* Changed: G/A engagement after touchdown trips AP off
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.2.5:
+[Control Loop]
+* Fixed: FPA Overshoot from large errors
+* Fixed: Useless integrators causing drift (New tuning required - just removed the "-" from hdg and vorloc)
+* Fixed: Heading Predictor might produce invalid headings such 361 or 368478688
+* Fixed: Severe mistake in autoland
+* Fixed: Bug in heading predictor
+* Improved: Rollout Aileron
+
+[Nasal]
+* Fixed: AP Autoland disengage/engage logic
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.2.4:
+[Logic]
+* Fixed: V/S and FPA going above limits when mode engages
+* Changed: ALT HLD round
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.2.3:
+[Logic]
+* Fixed: Master system input and output not synced
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.2.2:
+[Control Loop]
+* Fixed: FPA PID using wrong gains
+* Improved: HDG/LNAV mode
+* Improved: VS, FPA Stability
+* Improved: FLCH Mach
+
+[Logic]
+* Improved: System Gain Calculation (New tuning required)
+
+[GUI]
+* Changed: Dialog is now in gui/dialogs and no longer uses Nasal to load
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.2.1:
+[Control Loop]
+* Added: Yaw Axis now respects disable-final
+* Fixed: Certain properties not being synced properly
+* Improved: Overall stability of system
+* Improved: Flight Director
+* Improved: Autoland and Rollout behavior (New tuning required)
+
+[Logic]
+* Fixed: Generic controls being reset when disable-final is on
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.2.0:
+[Control Loop]
+* Added: Correct FPA hold
+* Added: Dynamic gains for FPA and V/S
+* Fixed: FLCH PID staying active even if all master systems are off
+* Fixed: V/S instability at high speed or altitude
+* Fixed: V/S is not precise at low speed
+* Fixed: V/S syncing problems
+* Fixed: Wrong property on track input
+* Fixed: ALT hold instability at high speed
+* Improved: Roll and Pitch Rate damping
+* Improved: ALT hold behavior
+* Changed: Heading and Altitude Predictors
+
+[Logic]
+* Added: Calculate Kp for V/S IT-CONTROLLER
+* Fixed: Pressing HDG HLD could sometimes produce an invalid heading
+* Fixed: Programming mistake causing problems in some conditions
+* Improved: Altitude Capture logic
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.1.0:
+[Control Loop]
+* Added: Block IV IT-CONTROLLERs for Roll and Pitch Rate (New tuning required)
+* Added: ROLLOUT Aileron, Elevator, and Rudder Control
+* Added: New Dynamic FLCH/FPA Min/Max Calculation
+* Added: Tuning Mode allows inputting Roll/Pitch Rates directly
+* Added: Ability to disable final controllers
+* Fixed: FLCH Oscillation after Lagspike
+* Fixed: Correct TRK Behavior
+* Improved: FLCH Speed/Mach by Pitch
+* Improved: LNAV Tracking
+* Improved: Yoke Input Damping
+* Improved: Autothrust
+* Improved: Autotrim System
+* Changed: Thrust Retard System
+
+[Logic]
+* Added: ROLLOUT Logic
+* Added: Calculate Kp for Roll/Pitch Rate IT-CONTROLLERs
+* Fixed: LOC intercept problems from right side of localizer
+* Fixed: Correct TRK Behavior
+* Fixed: SPD/Mach Transfer Behavior
+* Fixed: LNAV arming bug
+* Improved: VOR/LOC and ILS Arming Logic
+* Improved: HDG HLD and ALT HLD now use 5 seconds ahead for smoother operation
+* Improved: LNAV Advance is now dynamic
+* Changed: HDG can no longer be armed on ground
+* Changed: Thrust Retard System
+* Changed: LNAV Engagement and Arming Logic
+
+[GUI]
+* Added: True Course Toggle
+* Fixed: Track Toggle
+* Fixed: Speed/Mach Limits
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.0.3:
+[Control Loop]
+* Fixed: Speed smoothing issues
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.0.2:
+[Logic]
+* Added: Reset flight controls to neutral after disconnect
+* Fixed: Sometimes, the system will say PITCH, when THRUST is active
+* Improved: Thrustmode selector
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.0.1:
+[Control Loop]
+* Made Autotrim tighter
+
+---------------------------------------------------------------------------------------------------------------------
+
+V3.0.0:
+* Released: IT-AUTOFLIGHT V3.0.0 RC3 as IT-AUTOFLIGHT V3.0.0 Stable
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 200 (RC3):
+
+[Control Loop]
+* Improved: Auto Bank Limit
+
+[Logic]
+* Added: Proper Auto Bank Limit
+* Improved: FPA Calc
+* Improved: Overhauled VOR/LOC and G/S Logic
+* Improved: Cleanup Code
+* Improved: Optimized and Cleaned Up Code
+
+[GUI]
+* Changed: Bank Limit Selection
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 197 (RC2):
+
+[Logic]
+* Added: A/THR now engages when TOGA is pressed in TO Mode only (Not GA)
+* Fixed: LNAV Waypoint Advanced only working in LNAV mode
+
+[GUI]
+* Fix Autopilot Dialog V/S and FPA
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 196 Bugfix 1 (RC2):
+
+[Control Loop]
+* Fixed: VOR/LOC not allowed to bank aircraft
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 196 (RC2):
+
+[Control Loop]
+* Added: V/S Syncing
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 195 (RC2):
+
+[Control Loop]
+* Improved: V/S FPM Tracking
+* Improved: FPA Tracking
+* Improved: Flight Director Roll/Pitch Guidance
+* Improved: VOR/LOC (New tuning required)
+* Improved: Rudder VOR/LOC (New tuning required)
+* Removed: CWS Mode
+
+[Logic]
+* Removed: CWS Logic
+
+[GUI]
+* Removed: CWS Buttons
+* Removed: B/C Checkbox
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 191 (RC1):
+
+[Control Loop]
+* Added: Roll/Pitch Degree Syncing when all Flight Directors and Autopilots are off
+* Improved: Roll Degree Smoothing
+* Improved: Roll/Pitch CMD Smoothing
+* Removed: Pitch Degree Smoothing
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 184:
+
+[Control Loop]
+* Removed: VNAV
+
+[Logic]
+* Removed: VNAV
+
+[GUI]
+* Removed: VNAV Buttons
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 182 Bugfix 1:
+
+[Control Loop]
+* Fixed: Jerky movement when AP Engagement
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 182:
+
+[Control Loop]
+* Improved: Roll/Pitch Smoothing
+* Improved: Aileron/Elevator Smoothing
+* Removed: HDG Smoothing
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 181 Bugfix 3:
+
+[Control Loop]
+* Fixed: Manual flight needing to chase Fight Director in most Pitch modes
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 181 Bugfix 2:
+
+[Control Loop]
+* Fixed: HDG smoothing causing incorrect bank command when entering HDG/LNAV mode from another mode
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 181 Bugfix 1:
+
+[Control Loop]
+* Fixed: LNAV Direction Handler using the wrong input values
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 181 Update 1:
+
+[Control Loop]
+* Improved: Smoothed FLCH when target speed/mach is adjusted
+* Improved: Smoothed HDG when target heading is adjusted
+* Improved: Smoothed VS when target vs is adjusted
+* Improved: TOGA Guidance
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 181:
+
+[Control Loop]
+* Fixed: Rudder Align during Autoland not working
+* Improved: Autoland Flare
+
+[Logic]
+* Changed: Autoland can engage without AP being on (New config required)
+* Removed: Flare altitude
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 180 Update 2:
+
+[Control Loop]
+* Improved: G/S Tracking (New tuning required)
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 180 Update 1:
+
+[Control Loop]
+* Improved: FLCH (Speed/Mach by Pitch)
+* Improved: TOGA Guidance
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 180 Bugfix 2:
+
+[Logic]
+* Fixed: Retard gets stuck on in certain situations
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 180 Bugfix 1:
+
+[Logic]
+* Fixed: NIL error in certain situations I have not encountered
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 180:
+[Control Loop]
+* Improved: V/S FPM Tracking (New tuning required)
+* Improved: ALT CAP/HLD
+* Improved: FLCH (Speed/Mach by Pitch)
+* Improved: TOGA Guidance
+* Changed: ALT CAP/HLD now works with real difference values
+* Removed: Seperate V/S FLCH PID
+
+[Logic]
+* Improved: ALT CAP
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 174 Update 1:
+[Control Loop]
+* Fixed: Restore Original FLCH System
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 174:
+[Control Loop]
+* Improved: FLCH
+
+[Logic]
+* Fixed: VNAV TOD Logic
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 173:
+[Control Loop]
+* Added: Flight Director Limits
+* Fixed: FLCH in Manual Flight
+* Improved: FLCH (Speed/Mach by Pitch)
+* Changed: FLCH Kp Hardcoded, tune with V/S (New tuning required)
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 172:
+[Control Loop]
+* Added: 5 Second Mach Predictor
+* Improved: V/S FPM Tracking (New tuning required)
+* Improved: ALT CAP/HLD
+* Improved: FLCH (Speed/Mach by Pitch) (New tuning required)
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 171 Bugfix 1:
+[Logic]
+* Fixed: ALT CAP engaging even the aircraft is going in the opposite direction of the target altitude
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 171:
+[Logic]
+* Fixed: G/S mode does not switch the VNAV system off properly
+* Changed: LAND 3 is now just called LAND
+* Changed: Default IAS is now 250kts
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 170 Update 2:
+[Logic]
+* Improved: ALT CAP now uses target pitch instead of current pitch, stops ALT CAP issues if AP off
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 170 Update 1:
+[Logic]
+* Changed: Switch VOR/LOC and ILS system to a maketimer
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 170 Bugfix 1:
+[Control Loop]
+* Fixed: Ability to tune Roll PID restored when output/lat set to a not-used roll mode
+* Fixed: Aileron controller using wrong Kp values in Roll Mode 4 (Align)
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 170:
+[Control Loop]
+* Fixed: Roll Flight Director does not work properly in T/O, ALIGN, or LVL modes
+* Improved: IAS/Mach by pitch
+* Removed: 15 Second IAS/Mach predictors
+
+[Logic]
+* Fixed: T/O LVL Roll mode does not engage properly
+* Fixed: VNAV sometimes engaging, where VNAV calculation is not possible
+* Fixed: VNAV disregarding current altitude, when setting CLB/DES/XX mode, if the previous 
+  waypoint had no altitude restrection
+* Changed: FLCH button behavior if target alt is less than 250 feet away from current altitude
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 169 Bugfix 1:
+[Logic]
+* Fixed: TOGA does not correctly engage PITCH, T/O, and T/O CLB modes on the ground
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 169 Update 1:
+[Control Loop]
+* Added: Add default bank limit selection in config (Config update required)
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 169:
+[Control Loop]
+* Improved: Altitude Capture/Hold
+* Changed: Altitude Predict time is now 7 seconds
+
+[LOGIC]
+* Fixed: Not all VNAV timers would stop when VNAV was no longer active
+* Improved: Min/Max Reset
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 167:
+[Control Loop]
+* Added: 15 Second Mach Prediction
+* Improved: Mach by Pitch
+
+[LOGIC]
+* Added: Go Around Mode activates HDG HLD automatically
+* Fixed: VOR/LOC and ILS no longer rearm if they are active
+* Fixed: Pressing ILS while in LAND 3 or FLARE mode causes AUTOLAND to disable
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 165 Update 1:
+[Control Loop]
+* Changed: HDG/LNAV Target Roll Feeder (New tuning required)
+* Changed: Roll Controller Logic
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 165:
+[Control Loop]
+* Added: 15 Second IAS Prediction
+* Fixed: VNAV SPD and VNAV HLD
+* Improved: IAS by Pitch
+* Improved: VS Tracking
+* Improved: FLCH climb/descend
+
+[LOGIC]
+* Added: Messages when LNAV or VNAV cannot be engaged
+* Fixed: VNAV Instruction Logic
+* Fixed: VNAV HLD
+* Fixed: VNAV Top Of Descent Calculation
+* Fixed: VNAV Descent Logic
+* Fixed: Various other minor bugfixes
+* Improved: VNAV Transition Smoothness
+* Improved: VNAV Altitude Capture
+* Changed: VNAV Altitude Targets
+* Changed: VNAV Status Messages
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 156 (The final bugfix update for 155, hence the new build number):
+[LOGIC]
+* Fixed: VOR/LOC and ILS cannot be armed while TO CLB or GA CLB is active
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 155 Bugfix 4:
+[Control Loop]
+* Fixed: Fix Autothrottle not retarding properly
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 155 Bugfix 3:
+[Control Loop]
+* Fixed: FLCH not allowing enough climb performance on certain aircraft
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 155 Update 2:
+[Control Loop]
+* Changed: ITAF Generic Autothrottle now uses Airspeed Instrument
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 155 Update 1:
+[Control Loop]
+* Changed: IAS/Mach inputs now use Airspeed Instrument
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 155 Bugfix 2:
+[LOGIC]
+* Fixed: VOR/LOC and ILS don't become armed
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 155 Bugfix 1:
+[LOGIC]
+* Changed: Restore previous VOR/LOC and ILS arming system
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 155:
+[Control Loop]
+* Added: VNAV FLCH, Altitude Hold, and V/S Modes
+* Fixed: Rough Yoke Inputs when modes change
+* Changed: FLCH Controller (New tuning required)
+* Changed: V/S Controller used in FLCH for FPS.
+
+[LOGIC]
+* Added: VNAV Main Logic
+* Added: VNAV Climb/Descend/Hold Logic
+* Fixed: Altitude Hold Min/Max Reset
+* Changed: LNAV and VNAV won't engage until you set up Route Manager Correctly
+* Changed: VOR/LOC and ILS arming system
+* Changed: VNAV Status Output
+
+[GUI]
+* Added: VNAV Section
+* Changed: Minor Button adjustments
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 132:
+[Control Loop]
+* Added: Option to use NAV2 Radio instead of NAV1
+* Added: Started B/C system, not complete, or ready
+
+[LOGIC]
+* Fixed: Autothrust PITCH/THRUST logic not working properly in TOGA mode
+* Fixed: Various Bugs in VOR/LOC and ILS arm system
+
+[GUI]
+* Added: NAV2 and B/C Options (Note: B/C is greyed out)
+* Changed: Controls for Magnetic/True Heading
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 130 Bugfix 2:
+[LOGIC]
+* Fixed: Min/Max reset doesn't always occur, causing ALT CAP to not engage ALT HLD
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 130 Bugfix 1:
+[Control Loop]
+* Fixed: Restore working FLCH controller Mach by Pitch, config values
+
+---------------------------------------------------------------------------------------------------------------------
+
+Build 130:
+[Control Loop]
+* Added: Yoke output smoothing
+* Changed: LNAV roll angle max
+* Changed: FLCH Controller
+
+[LOGIC]
+* Added: LNAV and VNAV won't engage until you set up Route Manager Correctly
+* Added: LNAV Waypoints advance at 1nm for better waypoint transition
+* Changed: Order of code
+
+---------------------------------------------------------------------------------------------------------------------
+
+LOG STARTED AT BUILD 130
+Changelog for earlier builds NOT AVAILABLE.
