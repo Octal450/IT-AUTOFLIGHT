@@ -8,6 +8,7 @@ V4.0.2:
 [Nasal]
 * Added: System resets automatically after flight complete
 * Fixed: TOGA can sometimes erroneously disarm LNAV
+* Fixed: LNAV Capture/Arm Logic fixed
 
 ---------------------------------------------------------------------------------------------------------------------
 
