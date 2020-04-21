@@ -13,6 +13,7 @@ V4.0.2:
 * Fixed: TOGA can sometimes erroneously disarm LNAV
 * Fixed: LNAV Capture/Arm Logic
 * Fixed: HDG/TRK bug syncing did not work properly
+* Fixed: G/A CLB mode ignores altitude target
 
 ---------------------------------------------------------------------------------------------------------------------
 
