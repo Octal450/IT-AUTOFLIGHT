@@ -5,10 +5,18 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 ---------------------------------------------------------------------------------------------------------------------
 
 V4.0.3:
+[Control Loop]
+* Fixed: VOR/LOC gain static, causes "wiggling" behavior if intercepting closer to runway (New tuning required)
+* Fixed: Rollout Aileron does not care about small banks
+
 [Nasal]
 * Added: HDG SEL/HLD logic for aircraft like 747 that differentiate it
 * Fixed: Autoland without A/P setting ignored if A/P is turned off in ALGN or FLARE modes
 * Fixed: Nasal error due to incorrect initialization of some stuff
+* Fixed: "PITCH" was written with an erroneous space as " PITCH"
+
+[GUI]
+* Weird formatting issues in the FMA
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -21,7 +29,7 @@ V4.0.2:
 * Fixed: TOGA can sometimes erroneously disarm LNAV
 * Fixed: LNAV Capture/Arm Logic
 * Fixed: HDG/TRK bug syncing did not work properly
-* Fixed: G/A CLB mode ignores altitude target
+* Changed: G/A CLB mode now respects altitude target
 
 ---------------------------------------------------------------------------------------------------------------------
 
