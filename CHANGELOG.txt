@@ -6,7 +6,8 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 V4.0.3:
 [Control Loop]
-* Fixed: VOR/LOC gain static, causes "wiggling" behavior if intercepting closer to runway (New tuning required)
+* Added: Ability to set custom throttle limits
+* Fixed: VOR/LOC gain static, causes "wiggling" behavior if intercepting closer to runway (New config required)
 * Fixed: Rollout Aileron does not care about small banks
 
 [Nasal]
@@ -68,7 +69,7 @@ V4.0.0:
 V3.2.5:
 [Control Loop]
 * Fixed: FPA Overshoot from large errors
-* Fixed: Useless integrators causing drift (New tuning required - just removed the "-" from hdg and vorloc)
+* Fixed: Useless integrators causing drift (New config required - just removed the "-" from hdg and vorloc)
 * Fixed: Heading Predictor might produce invalid headings such 361 or 368478688
 * Fixed: Severe mistake in autoland
 * Fixed: Bug in heading predictor
@@ -100,7 +101,7 @@ V3.2.2:
 * Improved: FLCH Mach
 
 [Logic]
-* Improved: System Gain Calculation (New tuning required)
+* Improved: System Gain Calculation (New config required)
 
 [GUI]
 * Changed: Dialog is now in gui/dialogs and no longer uses Nasal to load
@@ -113,7 +114,7 @@ V3.2.1:
 * Fixed: Certain properties not being synced properly
 * Improved: Overall stability of system
 * Improved: Flight Director
-* Improved: Autoland and Rollout behavior (New tuning required)
+* Improved: Autoland and Rollout behavior (New config required)
 
 [Logic]
 * Fixed: Generic controls being reset when disable-final is on
@@ -144,7 +145,7 @@ V3.2.0:
 
 V3.1.0:
 [Control Loop]
-* Added: Block IV IT-CONTROLLERs for Roll and Pitch Rate (New tuning required)
+* Added: Block IV IT-CONTROLLERs for Roll and Pitch Rate (New config required)
 * Added: ROLLOUT Aileron, Elevator, and Rudder Control
 * Added: New Dynamic FLCH/FPA Min/Max Calculation
 * Added: Tuning Mode allows inputting Roll/Pitch Rates directly
@@ -252,8 +253,8 @@ Build 195 (RC2):
 * Improved: V/S FPM Tracking
 * Improved: FPA Tracking
 * Improved: Flight Director Roll/Pitch Guidance
-* Improved: VOR/LOC (New tuning required)
-* Improved: Rudder VOR/LOC (New tuning required)
+* Improved: VOR/LOC (New config required)
+* Improved: Rudder VOR/LOC (New config required)
 * Removed: CWS Mode
 
 [Logic]
@@ -350,7 +351,7 @@ Build 181:
 Build 180 Update 2:
 
 [Control Loop]
-* Improved: G/S Tracking (New tuning required)
+* Improved: G/S Tracking (New config required)
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -378,7 +379,7 @@ Build 180 Bugfix 1:
 
 Build 180:
 [Control Loop]
-* Improved: V/S FPM Tracking (New tuning required)
+* Improved: V/S FPM Tracking (New config required)
 * Improved: ALT CAP/HLD
 * Improved: FLCH (Speed/Mach by Pitch)
 * Improved: TOGA Guidance
@@ -410,16 +411,16 @@ Build 173:
 * Added: Flight Director Limits
 * Fixed: FLCH in Manual Flight
 * Improved: FLCH (Speed/Mach by Pitch)
-* Changed: FLCH Kp Hardcoded, tune with V/S (New tuning required)
+* Changed: FLCH Kp Hardcoded, tune with V/S (New config required)
 
 ---------------------------------------------------------------------------------------------------------------------
 
 Build 172:
 [Control Loop]
 * Added: 5 Second Mach Predictor
-* Improved: V/S FPM Tracking (New tuning required)
+* Improved: V/S FPM Tracking (New config required)
 * Improved: ALT CAP/HLD
-* Improved: FLCH (Speed/Mach by Pitch) (New tuning required)
+* Improved: FLCH (Speed/Mach by Pitch) (New config required)
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -508,7 +509,7 @@ Build 167:
 
 Build 165 Update 1:
 [Control Loop]
-* Changed: HDG/LNAV Target Roll Feeder (New tuning required)
+* Changed: HDG/LNAV Target Roll Feeder (New config required)
 * Changed: Roll Controller Logic
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -581,7 +582,7 @@ Build 155:
 [Control Loop]
 * Added: VNAV FLCH, Altitude Hold, and V/S Modes
 * Fixed: Rough Yoke Inputs when modes change
-* Changed: FLCH Controller (New tuning required)
+* Changed: FLCH Controller (New config required)
 * Changed: V/S Controller used in FLCH for FPS.
 
 [LOGIC]
