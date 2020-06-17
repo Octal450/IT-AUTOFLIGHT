@@ -6,7 +6,6 @@
 <PropertyList>
 	
 	<!-- Predictors -->
-	
 	<predict-simple>
 		<name>IAS 5 SECOND PREDICTOR</name>
 		<debug>false</debug>
@@ -62,7 +61,6 @@
 	</predict-simple>
 	
 	<!-- Autopilot Helpers/Calculators -->
-	
 	<filter>
 		<name>KTS INPUT FILTER</name>
 		<debug>false</debug>
@@ -691,7 +689,6 @@
 	</filter>
 	
 	<!-- Roll Axis -->
-	
 	<filter>
 		<name>IT-CONTROLLER: HDG/LNAV ROLL</name>
 		<debug>false</debug>
@@ -1027,7 +1024,6 @@
 	</filter>
 	
 	<!-- Pitch Axis -->
-	
 	<filter>
 		<name>ALTITUDE CAPTURE/HOLD</name>
 		<debug>false</debug>
@@ -1628,7 +1624,7 @@
 							<property>/orientation/pitch-deg</property>
 							<value>5</value>
 						</dif>
-						<value>-10</value>
+						<value>-15</value>
 					</max>
 				</expression>
 			</u_min>
@@ -1926,7 +1922,6 @@
 	</filter>
 	
 	<!-- Yaw Axis -->
-	
 	<pi-simple-controller>
 		<name>RUDDER VORLOC TRK</name>
 		<debug>false</debug>
@@ -2029,7 +2024,6 @@
 	</filter>
 	
 	<!-- Flight Director -->
-	
 	<filter>
 		<name>IT-CONTROLLER: TARGET ROLL CMD</name>
 		<debug>false</debug>
