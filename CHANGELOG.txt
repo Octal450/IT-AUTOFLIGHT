@@ -4,6 +4,20 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
+V4.0.4:
+[Control Loop]
+* Added: Rollout pitch now lowers nose at specied rate (New config required)
+* Improved: FLCH controllers and acceleration/deceleration behavior
+* Improved: Completely overhauled FLARE and FPA controllers
+* Improved: Minor things to improve stability
+
+[Nasal]
+* Fixed: Go Around mode might set an invalid airspeed
+* Fixed: Go Around initiation using TOGA button while on ground causes system to reset
+* Changed: Moved option to use NAV2 Radio into Input instead of Settings
+
+---------------------------------------------------------------------------------------------------------------------
+
 V4.0.3:
 [Control Loop]
 * Added: Ability to set custom throttle limits
