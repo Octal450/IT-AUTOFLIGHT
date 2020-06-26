@@ -16,6 +16,9 @@ V4.0.4:
 * Fixed: Go Around initiation using TOGA button while on ground causes system to reset
 * Changed: Moved option to use NAV2 Radio into Input instead of Settings
 
+[GUI]
+* VS and FPA are now run through an absolute value filter for animating cockpits easier
+
 ---------------------------------------------------------------------------------------------------------------------
 
 V4.0.3:
