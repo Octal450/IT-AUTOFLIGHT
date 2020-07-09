@@ -630,7 +630,7 @@ var ITAF = {
 			Output.lnavArm.setBoolValue(0);
 			Output.locArm.setBoolValue(0);
 			Output.apprArm.setBoolValue(0);
-			me.syncHDG();
+			me.syncHdg();
 			Output.lat.setValue(0);
 			Text.lat.setValue("HDG");
 			Internal.hdgHldValue = Input.hdg.getValue();
@@ -666,7 +666,7 @@ var ITAF = {
 				me.armTextCheck();
 			}
 		} else if (n == 3) {
-			me.syncHDG();
+			me.syncHdg();
 			Output.lnavArm.setBoolValue(0);
 			me.armTextCheck();
 		} 
@@ -680,7 +680,7 @@ var ITAF = {
 			Output.vert.setValue(0);
 			me.resetClimbRateLim();
 			Text.vert.setValue("ALT HLD");
-			me.syncALT();
+			me.syncAlt();
 			me.armTextCheck();
 		} else if (n == 1) { # V/S
 			if (abs(Input.altDiff) >= 25) {
@@ -902,10 +902,10 @@ var ITAF = {
 	syncMach: func() {
 		Input.mach.setValue(math.clamp(math.round(Velocities.indicatedMach.getValue(), 0.001), 0.5, 0.9));
 	},
-	syncHDG: func() {
+	syncHdg: func() {
 		Input.hdg.setValue(math.round(Internal.hdgPredicted.getValue())); # Switches to track automatically
 	},
-	syncALT: func() {
+	syncAlt: func() {
 		Input.alt.setValue(math.clamp(math.round(Internal.altPredicted.getValue(), 100), 0, 50000));
 		Internal.alt.setValue(math.clamp(math.round(Internal.altPredicted.getValue(), 100), 0, 50000));
 	},
