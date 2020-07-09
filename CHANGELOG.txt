@@ -4,6 +4,18 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
+V4.0.5:
+[Control Loop]
+* Streamlined properties for knots and mach
+
+[Nasal]
+* Streamlined properties for knots and mach
+
+[GUI]
+* Mach now has a *1000  filter for animating cockpits easier
+
+---------------------------------------------------------------------------------------------------------------------
+
 V4.0.4:
 [Control Loop]
 * Added: Rollout pitch now lowers nose at specied rate (New config required)
