@@ -15,8 +15,8 @@ var FPLN = {
 	active: props.globals.getNode("/autopilot/route-manager/active", 1),
 	activeTemp: 0,
 	currentCourse: 0,
-	currentWP: props.globals.getNode("/autopilot/route-manager/current-wp", 1),
-	currentWPTemp: 0,
+	currentWp: props.globals.getNode("/autopilot/route-manager/current-wp", 1),
+	currentWpTemp: 0,
 	deltaAngle: 0,
 	deltaAngleRad: 0,
 	distCoeff: 0,
@@ -412,7 +412,7 @@ var ITAF = {
 		Input.bankLimitSWTemp = Input.bankLimitSW.getValue();
 		Velocities.trueAirspeedKtTemp = Velocities.trueAirspeedKt.getValue();
 		FPLN.activeTemp = FPLN.active.getValue();
-		FPLN.currentWPTemp = FPLN.currentWP.getValue();
+		FPLN.currentWpTemp = FPLN.currentWp.getValue();
 		FPLN.numTemp = FPLN.num.getValue();
 		
 		# Bank Limit
@@ -450,14 +450,14 @@ var ITAF = {
 		
 		# Waypoint Advance Logic
 		if (FPLN.numTemp > 0 and FPLN.activeTemp == 1) {
-			if ((FPLN.currentWPTemp + 1) < FPLN.numTemp) {
+			if ((FPLN.currentWpTemp + 1) < FPLN.numTemp) {
 				Velocities.groundspeedMps = Velocities.groundspeedKt.getValue() * 0.5144444444444;
-				FPLN.wpFlyFrom = FPLN.currentWPTemp;
+				FPLN.wpFlyFrom = FPLN.currentWpTemp;
 				if (FPLN.wpFlyFrom < 0) {
 					FPLN.wpFlyFrom = 0;
 				}
 				FPLN.currentCourse = getprop("/autopilot/route-manager/route/wp[" ~ FPLN.wpFlyFrom ~ "]/leg-bearing-true-deg"); # Best left at getprop
-				FPLN.wpFlyTo = FPLN.currentWPTemp + 1;
+				FPLN.wpFlyTo = FPLN.currentWpTemp + 1;
 				if (FPLN.wpFlyTo < 0) {
 					FPLN.wpFlyTo = 0;
 				}
@@ -483,7 +483,7 @@ var ITAF = {
 				Internal.lnavAdvanceNm.setValue(FPLN.turnDist);
 				
 				if (FPLN.wp0Dist.getValue() <= FPLN.turnDist) {
-					FPLN.currentWP.setValue(FPLN.currentWPTemp + 1);
+					FPLN.currentWp.setValue(FPLN.currentWpTemp + 1);
 				}
 			}
 		}
@@ -689,7 +689,7 @@ var ITAF = {
 				Output.apprArm.setBoolValue(0);
 				Output.vert.setValue(1);
 				Text.vert.setValue("V/S");
-				me.syncVS();
+				me.syncVs();
 				me.armTextCheck();
 			} else {
 				Output.apprArm.setBoolValue(0);
@@ -730,7 +730,7 @@ var ITAF = {
 				Output.apprArm.setBoolValue(0);
 				Output.vert.setValue(5);
 				Text.vert.setValue("FPA");
-				me.syncFPA();
+				me.syncFpa();
 				me.armTextCheck();
 			} else {
 				Output.apprArm.setBoolValue(0);
@@ -909,10 +909,10 @@ var ITAF = {
 		Input.alt.setValue(math.clamp(math.round(Internal.altPredicted.getValue(), 100), 0, 50000));
 		Internal.alt.setValue(math.clamp(math.round(Internal.altPredicted.getValue(), 100), 0, 50000));
 	},
-	syncVS: func() {
+	syncVs: func() {
 		Input.vs.setValue(math.clamp(math.round(Internal.vs.getValue(), 100), -6000, 6000));
 	},
-	syncFPA: func() {
+	syncFpa: func() {
 		Input.fpa.setValue(math.clamp(math.round(Internal.fpa.getValue(), 0.1), -9.9, 9.9));
 	},
 };
