@@ -11,6 +11,7 @@ V4.0.5:
 * Changed: Streamlined properties for knots and mach (update cockpits)
 
 [Nasal]
+* Added: Add support for non-flyBy waypoint types
 * Changed: Streamlined properties for knots and mach (update cockpits)
 
 [GUI]
