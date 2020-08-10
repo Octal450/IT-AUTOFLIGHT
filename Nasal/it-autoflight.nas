@@ -240,6 +240,9 @@ var ITAF = {
 		Internal.altCaptureActive = 0;
 		Text.thr.setValue("PITCH");
 		Text.arm.setValue(" ");
+		if (Settings.customFMA.getBoolValue()) {
+			updateFMA.arm();
+		}
 		me.updateLatText("T/O");
 		me.updateVertText("T/O CLB");
 		loopTimer.start();
@@ -331,10 +334,10 @@ var ITAF = {
 				me.activateLOC();
 				me.activateGS();
 			} else {
-				if (Position.gearAglFtTemp <= 50 and Position.gearAglFtTemp >= 5) {
+				if (Position.gearAglFtTemp <= 50 and Position.gearAglFtTemp >= 5 and Text.vert.getValue() != "FLARE") {
 					me.updateVertText("FLARE");
 				}
-				if (Gear.wow1Temp and Gear.wow2Temp) {
+				if (Gear.wow1Temp and Gear.wow2Temp and Text.vert.getValue() != "ROLLOUT") {
 					me.updateLatText("RLOU");
 					me.updateVertText("ROLLOUT");
 				}
@@ -366,7 +369,7 @@ var ITAF = {
 		
 		# Altitude Hold Min/Max Reset
 		if (Internal.altCaptureActive) {
-			if (abs(Internal.altDiff) <= 25) {
+			if (abs(Internal.altDiff) <= 25 and Text.vert.getValue() != "ALT HLD") {
 				me.resetClimbRateLim();
 				me.updateVertText("ALT HLD");
 			}
@@ -391,13 +394,13 @@ var ITAF = {
 			if (Internal.altTemp >= Position.indicatedAltitudeFtTemp) {
 				Output.thrMode.setValue(2);
 				Text.thr.setValue("PITCH");
-				if (Internal.flchActive) { # Set before mode change to prevent it from overwriting by mistake
+				if (Internal.flchActive and Text.vert.getValue() != "SPD CLB") { # Set before mode change to prevent it from overwriting by mistake
 					me.updateVertText("SPD CLB");
 				}
 			} else {
 				Output.thrMode.setValue(1);
 				Text.thr.setValue("PITCH");
-				if (Internal.flchActive) { # Set before mode change to prevent it from overwriting by mistake
+				if (Internal.flchActive and Text.vert.getValue() != "SPD DES") { # Set before mode change to prevent it from overwriting by mistake
 					me.updateVertText("SPD DES");
 				}
 			}
@@ -611,9 +614,9 @@ var ITAF = {
 	setLatMode: func(n) {
 		Output.vertTemp = Output.vert.getValue();
 		if (n == 0) { # HDG SEL
-			Output.lnavArm.setBoolValue(0);
-			Output.locArm.setBoolValue(0);
-			Output.apprArm.setBoolValue(0);
+			me.updateLnavArm(0);
+			me.updateLocArm(0);
+			me.updateApprArm(0);
 			Output.lat.setValue(0);
 			me.updateLatText("HDG");
 			if (Output.vertTemp == 2 or Output.vertTemp == 6) { # Also cancel G/S or FLARE if active
@@ -624,13 +627,13 @@ var ITAF = {
 		} else if (n == 1) { # LNAV
 			me.checkLNAV(0);
 		} else if (n == 2) { # VOR/LOC
-			Output.lnavArm.setBoolValue(0);
+			me.updateLnavArm(0);
 			me.armTextCheck();
 			me.checkLOC(0, 0);
 		} else if (n == 3) { # HDG HLD
-			Output.lnavArm.setBoolValue(0);
-			Output.locArm.setBoolValue(0);
-			Output.apprArm.setBoolValue(0);
+			me.updateLnavArm(0);
+			me.updateLocArm(0);
+			me.updateApprArm(0);
 			me.syncHdg();
 			Output.lat.setValue(0);
 			me.updateLatText("HDG");
@@ -642,16 +645,16 @@ var ITAF = {
 				me.armTextCheck();
 			}
 		} else if (n == 4) { # ALIGN
-			Output.lnavArm.setBoolValue(0);
-			Output.locArm.setBoolValue(0);
-			Output.apprArm.setBoolValue(0);
+			me.updateLnavArm(0);
+			me.updateLocArm(0);
+			me.updateApprArm(0);
 			Output.lat.setValue(4);
 			me.updateLatText("ALGN");
 			me.armTextCheck();
 		} else if (n == 5) { # T/O
-			Output.lnavArm.setBoolValue(0);
-			Output.locArm.setBoolValue(0);
-			Output.apprArm.setBoolValue(0);
+			me.updateLnavArm(0);
+			me.updateLocArm(0);
+			me.updateApprArm(0);
 			Output.lat.setValue(5);
 			me.updateLatText("T/O");
 			me.armTextCheck();
@@ -659,16 +662,16 @@ var ITAF = {
 	},
 	setLatArm: func(n) {
 		if (n == 0) {
-			Output.lnavArm.setBoolValue(0);
+			me.updateLnavArm(0);
 			me.armTextCheck();
 		} else if (n == 1) {
 			if (FPLN.num.getValue() > 0 and FPLN.active.getBoolValue()) {
-				Output.lnavArm.setBoolValue(1);
+				me.updateLnavArm(1);
 				me.armTextCheck();
 			}
 		} else if (n == 3) {
 			me.syncHdg();
-			Output.lnavArm.setBoolValue(0);
+			me.updateLnavArm(0);
 			me.armTextCheck();
 		} 
 	},
@@ -677,7 +680,7 @@ var ITAF = {
 		if (n == 0) { # ALT HLD
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			Output.apprArm.setBoolValue(0);
+			me.updateApprArm(0);
 			Output.vert.setValue(0);
 			me.resetClimbRateLim();
 			me.updateVertText("ALT HLD");
@@ -687,13 +690,13 @@ var ITAF = {
 			if (abs(Input.altDiff) >= 25) {
 				Internal.flchActive = 0;
 				Internal.altCaptureActive = 0;
-				Output.apprArm.setBoolValue(0);
+				me.updateApprArm(0);
 				Output.vert.setValue(1);
 				me.updateVertText("V/S");
 				me.syncVs();
 				me.armTextCheck();
 			} else {
-				Output.apprArm.setBoolValue(0);
+				me.updateApprArm(0);
 				me.armTextCheck();
 			}
 		} else if (n == 2) { # G/S
@@ -706,7 +709,7 @@ var ITAF = {
 			Internal.altCaptureActive = 1;
 			me.updateVertText("ALT CAP");
 		} else if (n == 4) { # FLCH
-			Output.apprArm.setBoolValue(0);
+			me.updateApprArm(0);
 			if (abs(Input.altDiff) >= 125) { # SPD CLB or SPD DES
 				if (Input.alt.getValue() >= Position.indicatedAltitudeFt.getValue()) { # Usually set Thrust Mode Selector, but we do it now due to timer lag
 					me.updateVertText("SPD CLB");
@@ -728,35 +731,35 @@ var ITAF = {
 			if (abs(Input.altDiff) >= 25) {
 				Internal.flchActive = 0;
 				Internal.altCaptureActive = 0;
-				Output.apprArm.setBoolValue(0);
+				me.updateApprArm(0);
 				Output.vert.setValue(5);
 				me.updateVertText("FPA");
 				me.syncFpa();
 				me.armTextCheck();
 			} else {
-				Output.apprArm.setBoolValue(0);
+				me.updateApprArm(0);
 				me.armTextCheck();
 			}
 		} else if (n == 6) { # FLARE/ROLLOUT
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			Output.apprArm.setBoolValue(0);
+			me.updateApprArm(0);
 			Output.vert.setValue(6);
 			me.updateVertText("G/S");
 			me.armTextCheck();
 		} else if (n == 7) { # T/O CLB or G/A CLB, text is set by TOGA selector
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			Output.apprArm.setBoolValue(0);
+			me.updateApprArm(0);
 			Output.vert.setValue(7);
 			me.armTextCheck();
 		}
 	},
 	activateLNAV: func() {
 		if (Output.lat.getValue() != 1) {
-			Output.lnavArm.setBoolValue(0);
-			Output.locArm.setBoolValue(0);
-			Output.apprArm.setBoolValue(0);
+			me.updateLnavArm(0);
+			me.updateLocArm(0);
+			me.updateApprArm(0);
 			Output.lat.setValue(1);
 			me.updateLatText("LNAV");
 			if (Output.vertTemp == 2 or Output.vertTemp == 6) { # Also cancel G/S or FLARE if active
@@ -768,8 +771,8 @@ var ITAF = {
 	},
 	activateLOC: func() {
 		if (Output.lat.getValue() != 2) {
-			Output.lnavArm.setBoolValue(0);
-			Output.locArm.setBoolValue(0);
+			me.updateLnavArm(0);
+			me.updateLocArm(0);
 			Output.lat.setValue(2);
 			me.updateLatText("LOC");
 			me.armTextCheck();
@@ -779,7 +782,7 @@ var ITAF = {
 		if (Output.vert.getValue() != 2) {
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			Output.apprArm.setBoolValue(0);
+			me.updateApprArm(0);
 			Output.vert.setValue(2);
 			me.updateVertText("G/S");
 			me.armTextCheck();
@@ -789,7 +792,7 @@ var ITAF = {
 		if (FPLN.num.getValue() > 0 and FPLN.active.getBoolValue() and Position.gearAglFt.getValue() >= Settings.latAglFt.getValue()) {
 			me.activateLNAV();
 		} else if (FPLN.active.getBoolValue() and Output.lat.getValue() != 1 and t != 1) {
-			Output.lnavArm.setBoolValue(1);
+			me.updateLnavArm(1);
 			me.armTextCheck();
 		}
 	},
@@ -807,8 +810,8 @@ var ITAF = {
 				me.activateLOC();
 			} else if (t != 1) { # Do not do this if loop calls it
 				if (Output.lat.getValue() != 2) {
-					Output.lnavArm.setBoolValue(0);
-					Output.locArm.setBoolValue(1);
+					me.updateLnavArm(0);
+					me.updateLocArm(1);
 					if (a != 1) { # Don't call this if arming with G/S
 						me.armTextCheck();
 					}
@@ -826,7 +829,7 @@ var ITAF = {
 				me.activateGS();
 			} else if (t != 1) { # Do not do this if loop calls it
 				if (Output.vert.getValue() != 2) {
-					Output.apprArm.setBoolValue(1);
+					me.updateApprArm(1);
 				}
 				me.armTextCheck();
 			}
@@ -916,17 +919,36 @@ var ITAF = {
 	syncFpa: func() {
 		Input.fpa.setValue(math.clamp(math.round(Internal.fpa.getValue(), 0.1), -9.9, 9.9));
 	},
+	 # Allows custom FMA behavior if desired
 	updateLatText: func(t) {
-		if (Settings.customFMA.getBoolValue() and t != Text.lat.getValue()) { # Allows custom FMA behavior if desired
+		Text.lat.setValue(t);
+		if (Settings.customFMA.getBoolValue()) {
 			updateFMA.lat();
 		}
-		Text.lat.setValue(t);
 	},
 	updateVertText: func(t) {
-		if (Settings.customFMA.getBoolValue() and t != Text.vert.getValue()) { # Allows custom FMA behavior if desired
+		Text.vert.setValue(t);
+		if (Settings.customFMA.getBoolValue()) {
 			updateFMA.vert();
 		}
-		Text.vert.setValue(t);
+	},
+	updateLnavArm: func(n) {
+		Output.lnavArm.setBoolValue(n);
+		if (Settings.customFMA.getBoolValue()) {
+			updateFMA.arm();
+		}
+	},
+	updateLocArm: func(n) {
+		Output.locArm.setBoolValue(n);
+		if (Settings.customFMA.getBoolValue()) {
+			updateFMA.arm();
+		}
+	},
+	updateApprArm: func(n) {
+		Output.apprArm.setBoolValue(n);
+		if (Settings.customFMA.getBoolValue()) {
+			updateFMA.arm();
+		}
 	},
 };
 
