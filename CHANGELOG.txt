@@ -8,11 +8,13 @@ V4.0.5:
 [Control Loop]
 * Fixed: Problems with the min/max clamps of the FPM controller
 * Fixed: Problems with the min/max clamps of the Pitch Deg controller
-* Changed: Streamlined properties for knots and mach (update cockpits)
+* Changed: Streamlined properties for knots and mach (Update cockpits)
 
 [Nasal]
 * Added: Add support for non-flyBy waypoint types
-* Changed: Streamlined properties for knots and mach (update cockpits)
+* Added: Ability to call custom function for making custom FMAs
+* Changed: Streamlined properties for knots and mach (Update cockpits)
+* Changed: After landing reset no longer resets knobs and switches for most things
 
 [GUI]
 * Added: Mach now has a *1000  filter for animating cockpits easier
