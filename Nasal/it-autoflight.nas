@@ -919,7 +919,7 @@ var ITAF = {
 	syncFpa: func() {
 		Input.fpa.setValue(math.clamp(math.round(Internal.fpa.getValue(), 0.1), -9.9, 9.9));
 	},
-	 # Allows custom FMA behavior if desired
+	# Allows custom FMA behavior if desired
 	updateLatText: func(t) {
 		Text.lat.setValue(t);
 		if (Settings.customFMA.getBoolValue()) {
