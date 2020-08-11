@@ -13,6 +13,7 @@ V4.0.5:
 [Nasal]
 * Added: Add support for non-flyBy waypoint types
 * Added: Ability to call custom function for making custom FMAs (New config required)
+* Fixed: Bank limit logic
 * Changed: Streamlined properties for knots and mach (Update cockpits)
 * Changed: After landing reset no longer resets knobs and switches for most things
 
