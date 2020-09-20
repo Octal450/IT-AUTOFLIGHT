@@ -153,7 +153,6 @@ var Output = {
 };
 
 var Text = {
-	arm: props.globals.initNode("/it-autoflight/mode/arm", " ", "STRING"),
 	lat: props.globals.initNode("/it-autoflight/mode/lat", "T/O", "STRING"),
 	thr: props.globals.initNode("/it-autoflight/mode/thr", "PITCH", "STRING"),
 	vert: props.globals.initNode("/it-autoflight/mode/vert", "T/O CLB", "STRING"),
