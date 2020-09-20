@@ -288,11 +288,17 @@ var ITAF = {
 			if (Input.hdg.getValue() == Internal.hdgHldValue and abs(Internal.hdgErrorDeg.getValue()) <= 2.5) {
 				if (Output.hdgInHldTemp != 1) {
 					Output.hdgInHld.setBoolValue(1);
+					if (Settings.customFMA.getBoolValue()) { # Update it for planes that use both
+						updateFMA.lat();
+					}
 				}
 			} else if (Input.hdg.getValue() != Internal.hdgHldValue) {
 				Internal.hdgHldValue = Input.hdg.getValue();
 				if (Output.hdgInHldTemp != 0 and abs(Internal.hdgErrorDeg.getValue()) > 2.5) {
 					Output.hdgInHld.setBoolValue(0);
+					if (Settings.customFMA.getBoolValue()) { # Update it for planes that use both
+						updateFMA.lat();
+					}
 				}
 			}
 		} else {
