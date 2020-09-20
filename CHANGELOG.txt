@@ -2,6 +2,13 @@ IT-AUTOFLIGHT Changelog
 Copyright (c) 2020 Josh Davidson (Octal450)
 I will note if new ITAF tuning or config is required. Simply check the "ITAF CONFIG.txt" file.
 
+
+---------------------------------------------------------------------------------------------------------------------
+
+V4.0.6 Beta 1:
+[Control Loop]
+* Fixed: Altitude Predictor overshoots when ALT HLD is pushed
+
 ---------------------------------------------------------------------------------------------------------------------
 
 V4.0.5:
