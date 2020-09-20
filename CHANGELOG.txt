@@ -10,6 +10,7 @@ V4.0.6 Beta 2:
 * Fixed: Altitude Predictor overshoots when ALT HLD is pushed
 
 [Nasal]
+* Fixed: ILS button did not disarm LNAV
 * Fixed: LNAV button did not disarm LOC or ILS
 * Fixed: Bad handling of armed annunciator in default GUI
 * Changed: Default init behavior is reset-all, no more needing to specify 0

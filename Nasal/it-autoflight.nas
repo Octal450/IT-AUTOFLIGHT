@@ -679,6 +679,7 @@ var ITAF = {
 				me.updateApprArm(0);
 			}
 		} else if (n == 2) { # G/S
+			me.updateLnavArm(0);
 			me.checkLOC(0);
 			me.checkAPPR(0);
 		} else if (n == 3) { # ALT CAP
