@@ -625,10 +625,10 @@
 				<sum>
 					<div>
 						<property>/it-autoflight/internal/vert-speed-fpm</property>
-						<product>
+						<product> <!-- Default 11 -->
 							<property>/it-autoflight/config/cmd/alt-gain</property>
 							<value>-2.2</value>
-						</product> <!-- Default 11 -->
+						</product>
 					</div>
 					<property>/instrumentation/altimeter/indicated-altitude-ft</property>
 				</sum>

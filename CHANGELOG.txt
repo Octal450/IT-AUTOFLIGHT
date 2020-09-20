@@ -5,9 +5,17 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
-V4.0.6 Beta 1:
+V4.0.6 Beta 2:
 [Control Loop]
 * Fixed: Altitude Predictor overshoots when ALT HLD is pushed
+
+[Nasal]
+* Fixed: LNAV button did not disarm LOC or ILS
+* Fixed: Bad handling of armed annunciator in default GUI
+* Changed: Default init behavior is reset-all, no more needing to specify 0
+
+[GUI]
+* Fixed: Armed annunciator
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -25,7 +33,7 @@ V4.0.5:
 * Changed: After landing reset no longer resets knobs and switches for most things
 
 [GUI]
-* Added: Mach now has a *1000  filter for animating cockpits easier
+* Added: Mach now has a *1000 filter for animating cockpits easier
 
 ---------------------------------------------------------------------------------------------------------------------
 
