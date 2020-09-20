@@ -12,8 +12,8 @@ var updateFMA = {
 		me.vertText = Text.vert.getValue();
 	},
 	arm: func() { # Called when armed mode changes
-		# Output.lnavArm.getBoolValue()
-		# Output.locArm.getBoolValue()
-		# Output.apprArm.getBoolValue()
+		#Output.lnavArm.getBoolValue();
+		#Output.locArm.getBoolValue();
+		#Output.apprArm.getBoolValue();
 	},
 };
