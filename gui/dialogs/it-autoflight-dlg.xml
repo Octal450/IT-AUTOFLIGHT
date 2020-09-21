@@ -284,7 +284,7 @@
 			<layout>hbox</layout>
 			
 			<button>
-				<legend>SPD</legend>
+				<legend>IAS</legend>
 				<pref-width>70</pref-width>
 				<binding>
 				<command>property-assign</command>
@@ -320,7 +320,7 @@
 			<text>
 				<row>0</row>
 				<col>0</col>
-				<label>SPD:  </label>
+				<label>IAS:   </label>
 			</text>
 			
 			<button>
