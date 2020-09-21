@@ -44,6 +44,62 @@
 	
 	<!-- Autopilot Helpers/Calculators -->
 	<filter>
+		<name>Knots Sync</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>/it-autoflight/input/kts-mach</property>
+					<value>1</value>
+				</equals>
+			</condition>
+		</enable>
+		<input>
+			<expression>
+				<floor>
+					<sum>
+						<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+						<value>0.5</value>
+					</sum>
+				</floor>
+			</expression>
+		</input>
+		<output>/it-autoflight/input/kts</output>
+	</filter>
+	
+	<filter>
+		<name>Mach Sync</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>/it-autoflight/input/kts-mach</property>
+					<value>0</value>
+				</equals>
+			</condition>
+		</enable>
+		<input>
+			<expression>
+				<div>
+					<floor>
+						<sum>
+							<product>
+								<property>/instrumentation/airspeed-indicator/indicated-mach</property>
+								<value>1000</value>
+							</product>
+							<value>0.5</value>
+						</sum>
+					</floor>
+					<value>1000</value>
+				</div>
+			</expression>
+		</input>
+		<output>/it-autoflight/input/mach</output>
+	</filter>
+	
+	<filter>
 		<name>Knots Input Filter</name>
 		<debug>false</debug>
 		<type>noise-spike</type>
@@ -162,62 +218,6 @@
 			<value>0.04</value>
 		</max-rate-of-change>
 		<max-rate-of-change>1</max-rate-of-change>
-	</filter>
-	
-	<filter>
-		<name>Knots Sync</name>
-		<type>gain</type>
-		<gain>1.0</gain>
-		<enable>
-			<condition>
-				<equals>
-					<property>/it-autoflight/input/kts-mach</property>
-					<value>1</value>
-				</equals>
-			</condition>
-		</enable>
-		<input>
-			<expression>
-				<floor>
-					<sum>
-						<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
-						<value>0.5</value>
-					</sum>
-				</floor>
-			</expression>
-		</input>
-		<output>/it-autoflight/input/kts</output>
-	</filter>
-	
-	<filter>
-		<name>Mach Sync</name>
-		<type>gain</type>
-		<gain>1.0</gain>
-		<enable>
-			<condition>
-				<equals>
-					<property>/it-autoflight/input/kts-mach</property>
-					<value>0</value>
-				</equals>
-			</condition>
-		</enable>
-		<input>
-			<expression>
-				<div>
-					<floor>
-						<sum>
-							<product>
-								<property>/instrumentation/airspeed-indicator/indicated-mach</property>
-								<value>1000</value>
-							</product>
-							<value>0.5</value>
-						</sum>
-					</floor>
-					<value>1000</value>
-				</div>
-			</expression>
-		</input>
-		<output>/it-autoflight/input/mach</output>
 	</filter>
 	
 	<filter>
