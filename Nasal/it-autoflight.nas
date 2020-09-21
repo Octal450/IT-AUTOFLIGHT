@@ -1,4 +1,4 @@
-# IT-AUTOFLIGHT System Controller V4.0.6 Beta 3
+# IT-AUTOFLIGHT System Controller V4.0.6 Beta 4
 # Copyright (c) 2020 Josh Davidson (Octal450)
 
 setprop("/it-autoflight/config/tuning-mode", 0); # Not used by controller
@@ -734,6 +734,7 @@ var ITAF = {
 			Internal.altCaptureActive = 0;
 			me.updateApprArm(0);
 			Output.vert.setValue(7);
+			Input.ktsMach.setBoolValue(0);
 		}
 	},
 	activateLnav: func() {
@@ -843,7 +844,6 @@ var ITAF = {
 			me.setLatMode(3);
 			me.setVertMode(7); # Must be before kicking AP off
 			me.updateVertText("G/A CLB");
-			Input.ktsMach.setBoolValue(0);
 			me.syncKtsGa();
 			if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) {
 				me.ap1Master(0);
@@ -949,10 +949,16 @@ setlistener("/it-autoflight/input/fd2", func {
 });
 
 setlistener("/it-autoflight/input/kts-mach", func {
-	if (Input.ktsMach.getBoolValue()) {
-		ITAF.syncMach();
+	if (Output.vert.getValue() == 7) { # Mach is not allowed in Mode 7, and don't sync
+		if (Input.ktsMach.getBoolValue()) {
+			Input.ktsMach.setBoolValue(0);
+		}
 	} else {
-		ITAF.syncKts();
+		if (Input.ktsMach.getBoolValue()) {
+			ITAF.syncMach();
+		} else {
+			ITAF.syncKts();
+		}
 	}
 }, 0, 0);
 
