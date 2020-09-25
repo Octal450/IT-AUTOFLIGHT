@@ -913,42 +913,42 @@ var ITAF = {
 	},
 };
 
-setlistener("/it-autoflight/input/ap1", func {
+setlistener("/it-autoflight/input/ap1", func() {
 	Input.ap1Temp = Input.ap1.getBoolValue();
 	if (Input.ap1Temp != Output.ap1.getBoolValue()) {
 		ITAF.ap1Master(Input.ap1Temp);
 	}
 });
 
-setlistener("/it-autoflight/input/ap2", func {
+setlistener("/it-autoflight/input/ap2", func() {
 	Input.ap2Temp = Input.ap2.getBoolValue();
 	if (Input.ap2Temp != Output.ap2.getBoolValue()) {
 		ITAF.ap2Master(Input.ap2Temp);
 	}
 });
 
-setlistener("/it-autoflight/input/athr", func {
+setlistener("/it-autoflight/input/athr", func() {
 	Input.athrTemp = Input.athr.getBoolValue();
 	if (Input.athrTemp != Output.athr.getBoolValue()) {
 		ITAF.athrMaster(Input.athrTemp);
 	}
 });
 
-setlistener("/it-autoflight/input/fd1", func {
+setlistener("/it-autoflight/input/fd1", func() {
 	Input.fd1Temp = Input.fd1.getBoolValue();
 	if (Input.fd1Temp != Output.fd1.getBoolValue()) {
 		ITAF.fd1Master(Input.fd1Temp);
 	}
 });
 
-setlistener("/it-autoflight/input/fd2", func {
+setlistener("/it-autoflight/input/fd2", func() {
 	Input.fd2Temp = Input.fd2.getBoolValue();
 	if (Input.fd2Temp != Output.fd2.getBoolValue()) {
 		ITAF.fd2Master(Input.fd2Temp);
 	}
 });
 
-setlistener("/it-autoflight/input/kts-mach", func {
+setlistener("/it-autoflight/input/kts-mach", func() {
 	if (Output.vert.getValue() == 7) { # Mach is not allowed in Mode 7, and don't sync
 		if (Input.ktsMach.getBoolValue()) {
 			Input.ktsMach.setBoolValue(0);
@@ -962,14 +962,14 @@ setlistener("/it-autoflight/input/kts-mach", func {
 	}
 }, 0, 0);
 
-setlistener("/it-autoflight/input/toga", func {
+setlistener("/it-autoflight/input/toga", func() {
 	if (Input.toga.getBoolValue()) {
 		ITAF.takeoffGoAround();
 		Input.toga.setBoolValue(0);
 	}
 });
 
-setlistener("/it-autoflight/input/lat", func {
+setlistener("/it-autoflight/input/lat", func() {
 	Input.latTemp = Input.lat.getValue();
 	if (!Gear.wow1.getBoolValue() and !Gear.wow2.getBoolValue()) {
 		ITAF.setLatMode(Input.latTemp);
@@ -978,13 +978,13 @@ setlistener("/it-autoflight/input/lat", func {
 	}
 });
 
-setlistener("/it-autoflight/input/vert", func {
+setlistener("/it-autoflight/input/vert", func() {
 	if (!Gear.wow1.getBoolValue() and !Gear.wow2.getBoolValue()) {
 		ITAF.setVertMode(Input.vert.getValue());
 	}
 });
 
-setlistener("/it-autoflight/input/trk", func {
+setlistener("/it-autoflight/input/trk", func() {
 	Input.trkTemp = Input.trk.getBoolValue();
 	if (Input.trkTemp) {
 		Input.hdgCalc = Input.hdg.getValue() + math.round(Internal.driftAngle.getValue());
@@ -1009,16 +1009,16 @@ setlistener("/it-autoflight/input/trk", func {
 	Misc.efis1Trk.setBoolValue(Input.trkTemp); # For Canvas Nav Display.
 }, 0, 0);
 
-setlistener("/sim/signals/fdm-initialized", func {
+setlistener("/sim/signals/fdm-initialized", func() {
 	ITAF.init();
 });
 
 # For Canvas Nav Display.
-setlistener("/it-autoflight/input/hdg", func {
+setlistener("/it-autoflight/input/hdg", func() {
 	setprop("/autopilot/settings/heading-bug-deg", getprop("/it-autoflight/input/hdg"));
 });
 
-setlistener("/it-autoflight/internal/alt", func {
+setlistener("/it-autoflight/internal/alt", func() {
 	setprop("/autopilot/settings/target-altitude-ft", getprop("/it-autoflight/internal/alt"));
 });
 
