@@ -96,6 +96,7 @@ var Input = {
 	fpaAbs: props.globals.initNode("/it-autoflight/input/fpa-abs", 0, "DOUBLE"), # Set by property rule
 	hdg: props.globals.initNode("/it-autoflight/input/hdg", 0, "INT"),
 	hdgCalc: 0,
+	hdgHldCalc: 0,
 	kts: props.globals.initNode("/it-autoflight/input/kts", 250, "INT"),
 	ktsMach: props.globals.initNode("/it-autoflight/input/kts-mach", 0, "BOOL"),
 	lat: props.globals.initNode("/it-autoflight/input/lat", 5, "INT"),
@@ -122,6 +123,7 @@ var Internal = {
 	bankLimitMax: [30, 5, 10, 15, 20, 25, 30],
 	captVs: 0,
 	driftAngle: props.globals.initNode("/it-autoflight/internal/drift-angle-deg", 0, "DOUBLE"),
+	driftAngleTemp: 0,
 	flchActive: 0,
 	fpa: props.globals.initNode("/it-autoflight/internal/fpa", 0, "DOUBLE"),
 	hdgErrorDeg: props.globals.initNode("/it-autoflight/internal/heading-error-deg", 0, "DOUBLE"),
@@ -644,7 +646,7 @@ var ITAF = {
 			me.updateApprArm(0);
 			Internal.hdgHldValue = Input.hdg.getValue(); # Unused if HDG HLD is seperated
 			if (Settings.hdgHldSeperate.getBoolValue()) {
-				Internal.hdgHldTarget.setValue(math.round(Internal.hdgPredicted.getValue())); # Unused if HDG HLD is not seperated
+				Internal.hdgHldTarget.setValue(math.round(Internal.hdgPredicted.getValue())); # Switches to track automatically
 			} else {
 				me.syncHdg();
 			}
@@ -1003,25 +1005,30 @@ setlistener("/it-autoflight/input/vert", func() {
 
 setlistener("/it-autoflight/input/trk", func() {
 	Input.trkTemp = Input.trk.getBoolValue();
+	Internal.driftAngleTemp = math.round(Internal.driftAngle.getValue());
+	
 	if (Input.trkTemp) {
-		Input.hdgCalc = Input.hdg.getValue() + math.round(Internal.driftAngle.getValue());
-		if (Input.hdgCalc > 360) { # It's rounded, so this is ok. Otherwise do >= 360.5
-			Input.hdgCalc = Input.hdgCalc - 360;
-		} else if (Input.hdgCalc < 1) { # It's rounded, so this is ok. Otherwise do < 0.5
-			Input.hdgCalc = Input.hdgCalc + 360;
-		}
-		Input.hdg.setValue(Input.hdgCalc);
-		Custom.hdgSel.setValue(Input.hdgCalc);
+		Input.hdgCalc = Input.hdg.getValue() + Internal.driftAngleTemp;
+		Input.hdgHldCalc = Internal.hdgHldTarget.getValue() + Internal.driftAngleTemp;
 	} else {
-		Input.hdgCalc = Input.hdg.getValue() - math.round(Internal.driftAngle.getValue());
-		if (Input.hdgCalc > 360) { # It's rounded, so this is ok. Otherwise do >= 360.5
-			Input.hdgCalc = Input.hdgCalc - 360;
-		} else if (Input.hdgCalc < 1) { # It's rounded, so this is ok. Otherwise do < 0.5
-			Input.hdgCalc = Input.hdgCalc + 360;
-		}
-		Input.hdg.setValue(Input.hdgCalc);
-		Custom.hdgSel.setValue(Input.hdgCalc);
+		Input.hdgCalc = Input.hdg.getValue() - Internal.driftAngleTemp;
+		Input.hdgHldCalc = Internal.hdgHldTarget.getValue() - Internal.driftAngleTemp;
 	}
+	
+	if (Input.hdgCalc > 360) { # It's rounded, so this is ok. Otherwise do >= 360.5
+		Input.hdgCalc = Input.hdgCalc - 360;
+	} else if (Input.hdgCalc < 1) { # It's rounded, so this is ok. Otherwise do < 0.5
+		Input.hdgCalc = Input.hdgCalc + 360;
+	}
+	if (Input.hdgHldCalc > 360) { # It's rounded, so this is ok. Otherwise do >= 360.5
+		Input.hdgHldCalc = Input.hdgHldCalc - 360;
+	} else if (Input.hdgHldCalc < 1) { # It's rounded, so this is ok. Otherwise do < 0.5
+		Input.hdgHldCalc = Input.hdgHldCalc + 360;
+	}
+	
+	Input.hdg.setValue(Input.hdgCalc);
+	Internal.hdgHldTarget.setValue(Input.hdgHldCalc);
+	
 	Misc.efis0Trk.setBoolValue(Input.trkTemp); # For Canvas Nav Display.
 	Misc.efis1Trk.setBoolValue(Input.trkTemp); # For Canvas Nav Display.
 }, 0, 0);

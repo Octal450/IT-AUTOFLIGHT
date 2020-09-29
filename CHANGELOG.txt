@@ -14,11 +14,12 @@ V4.0.6 Beta 6:
 * Fixed: IAS and Mach smoothing logic active when no system was active
 
 [Nasal]
-* Added: Ability to seperate HDG HLD and HDG SEL
+* Added: Ability to seperate HDG HLD and HDG SEL (New config required)
 * Fixed: Possibility of switching to Mach breaks T/O and G/A CLB
 * Fixed: ILS button did not disarm LNAV
 * Fixed: LNAV button did not disarm LOC or ILS
 * Fixed: Bad handling of armed annunciator in default GUI
+* Fixed: Engaging/Disengaging Track caused a nasal error
 * Changed: Default init behavior is reset-all, no more needing to specify 0
 * Changed: HDG SEL/HLD Logic now calls Lateral Custom FMA Update
 
