@@ -173,7 +173,7 @@ var Settings = {
 	autolandWithoutApTemp: 0,
 	customFMA: props.globals.getNode("/it-autoflight/settings/custom-fma", 1),
 	disableFinal: props.globals.getNode("/it-autoflight/settings/disable-final", 1),
-	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-seperate", 1),
+	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-separate", 1),
 	latAglFt: props.globals.getNode("/it-autoflight/settings/lat-agl-ft", 1),
 	landingFlap: props.globals.getNode("/it-autoflight/settings/land-flap", 1),
 	reducAglFt: props.globals.getNode("/it-autoflight/settings/reduc-agl-ft", 1),
