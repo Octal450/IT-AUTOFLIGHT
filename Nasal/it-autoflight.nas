@@ -623,7 +623,9 @@ var ITAF = {
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
 			me.updateApprArm(0);
-			Output.hdgInHld.setBoolValue(0);
+			if (Settings.hdgHldSeperate.getBoolValue()) {
+				Output.hdgInHld.setBoolValue(0);
+			}
 			Output.lat.setValue(0);
 			me.updateLatText("HDG");
 			if (Output.vertTemp == 2 or Output.vertTemp == 6) { # Also cancel G/S or FLARE if active
