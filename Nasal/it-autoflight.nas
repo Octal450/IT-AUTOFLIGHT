@@ -173,7 +173,7 @@ var Settings = {
 	autolandWithoutApTemp: 0,
 	customFMA: props.globals.getNode("/it-autoflight/settings/custom-fma", 1),
 	disableFinal: props.globals.getNode("/it-autoflight/settings/disable-final", 1),
-	hdgHldSeperate: props.globals.getNode("/it-autoflight/settings/hdg-hld-seperate", 1),
+	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-seperate", 1),
 	latAglFt: props.globals.getNode("/it-autoflight/settings/lat-agl-ft", 1),
 	landingFlap: props.globals.getNode("/it-autoflight/settings/land-flap", 1),
 	reducAglFt: props.globals.getNode("/it-autoflight/settings/reduc-agl-ft", 1),
@@ -292,7 +292,7 @@ var ITAF = {
 		Position.indicatedAltitudeFtTemp = Position.indicatedAltitudeFt.getValue();
 		
 		# HDG HLD logic
-		if (!Settings.hdgHldSeperate.getBoolValue()) {
+		if (!Settings.hdgHldSeparate.getBoolValue()) {
 			Output.hdgInHldTemp = Output.hdgInHld.getBoolValue();
 			
 			if (Output.latTemp == 0) {
@@ -625,7 +625,7 @@ var ITAF = {
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
 			me.updateApprArm(0);
-			if (Settings.hdgHldSeperate.getBoolValue()) {
+			if (Settings.hdgHldSeparate.getBoolValue()) {
 				Output.hdgInHld.setBoolValue(0);
 			}
 			Output.lat.setValue(0);
@@ -645,7 +645,7 @@ var ITAF = {
 			me.updateLocArm(0);
 			me.updateApprArm(0);
 			Internal.hdgHldValue = Input.hdg.getValue(); # Unused if HDG HLD is seperated
-			if (Settings.hdgHldSeperate.getBoolValue()) {
+			if (Settings.hdgHldSeparate.getBoolValue()) {
 				Internal.hdgHldTarget.setValue(math.round(Internal.hdgPredicted.getValue())); # Switches to track automatically
 			} else {
 				me.syncHdg();

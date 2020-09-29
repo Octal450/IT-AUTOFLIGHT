@@ -334,7 +334,7 @@
 						<value>1</value>
 					</equals>
 					<equals>
-						<property>/it-autoflight/settings/hdg-hld-seperate</property>
+						<property>/it-autoflight/settings/hdg-hld-separate</property>
 						<value>1</value>
 					</equals>
 				</and>
