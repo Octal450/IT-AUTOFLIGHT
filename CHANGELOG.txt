@@ -5,13 +5,16 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
-V4.0.6 Beta 4:
+V4.0.6 Beta 6:
 [Control Loop]
+* Added: Ability to seperate HDG HLD and HDG SEL
 * Fixed: Bug in T/O and G/A modes
 * Fixed: Altitude Predictor overshoots when ALT HLD is pushed
 * Fixed: Incorrect order of IAS and Mach syncing and filtering in drivers
+* Fixed: IAS and Mach smoothing logic active when no system was active
 
 [Nasal]
+* Added: Ability to seperate HDG HLD and HDG SEL
 * Fixed: Possibility of switching to Mach breaks T/O and G/A CLB
 * Fixed: ILS button did not disarm LNAV
 * Fixed: LNAV button did not disarm LOC or ILS

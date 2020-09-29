@@ -40,6 +40,7 @@ See wiki for details on parameters.
 			<autothrottle-min>0.02</autothrottle-min> <!-- Thrust Low Limit Normalized -->
 			<custom-fma>0</custom-fma> <!-- Call functions when modes change for a custom FMA to be implemented --> 
 			<disable-final>0</disable-final> <!-- Disable the Final Controllers, for custom FCS integration -->
+			<hdg-hld-seperate>0</hdg-hld-seperate> <!-- Seperates the HDG HLD mode from the HDG SEL mode -->
 			<land-enable>1</land-enable> <!-- Enable/Disable Autoland -->
 			<land-flap>0.7</land-flap> <!-- Minimum Flap used for Landing -->
 			<lat-agl-ft>50</lat-agl-ft> <!-- AGL when LNAV becomes active if armed -->

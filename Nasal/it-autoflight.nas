@@ -1,4 +1,4 @@
-# IT-AUTOFLIGHT System Controller V4.0.6 Beta 4
+# IT-AUTOFLIGHT System Controller V4.0.6 Beta 5
 # Copyright (c) 2020 Josh Davidson (Octal450)
 
 setprop("/it-autoflight/config/tuning-mode", 0); # Not used by controller
@@ -77,6 +77,11 @@ var Velocities = {
 };
 
 # IT-AUTOFLIGHT
+var Fd = {
+	pitchBar: props.globals.initNode("/it-autoflight/fd/pitch-bar", 0, "DOUBLE"),
+	rollBar: props.globals.initNode("/it-autoflight/fd/roll-bar", 0, "DOUBLE"),
+};
+
 var Input = {
 	alt: props.globals.initNode("/it-autoflight/input/alt", 10000, "INT"),
 	ap1: props.globals.initNode("/it-autoflight/input/ap1", 0, "BOOL"),
@@ -120,6 +125,7 @@ var Internal = {
 	flchActive: 0,
 	fpa: props.globals.initNode("/it-autoflight/internal/fpa", 0, "DOUBLE"),
 	hdgErrorDeg: props.globals.initNode("/it-autoflight/internal/heading-error-deg", 0, "DOUBLE"),
+	hdgHldTarget: props.globals.initNode("/it-autoflight/internal/hdg-hld-target", 360, "INT"),
 	hdgHldValue: 360,
 	hdgPredicted: props.globals.initNode("/it-autoflight/internal/heading-predicted", 0, "DOUBLE"),
 	lnavAdvanceNm: props.globals.initNode("/it-autoflight/internal/lnav-advance-nm", 0, "DOUBLE"),
@@ -165,6 +171,7 @@ var Settings = {
 	autolandWithoutApTemp: 0,
 	customFMA: props.globals.getNode("/it-autoflight/settings/custom-fma", 1),
 	disableFinal: props.globals.getNode("/it-autoflight/settings/disable-final", 1),
+	hdgHldSeperate: props.globals.getNode("/it-autoflight/settings/hdg-hld-seperate", 1),
 	latAglFt: props.globals.getNode("/it-autoflight/settings/lat-agl-ft", 1),
 	landingFlap: props.globals.getNode("/it-autoflight/settings/land-flap", 1),
 	reducAglFt: props.globals.getNode("/it-autoflight/settings/reduc-agl-ft", 1),
@@ -281,29 +288,32 @@ var ITAF = {
 		Position.gearAglFtTemp = Position.gearAglFt.getValue();
 		Internal.vsTemp = Internal.vs.getValue();
 		Position.indicatedAltitudeFtTemp = Position.indicatedAltitudeFt.getValue();
-		Output.hdgInHldTemp = Output.hdgInHld.getBoolValue();
 		
 		# HDG HLD logic
-		if (Output.latTemp == 0) {
-			if (Input.hdg.getValue() == Internal.hdgHldValue and abs(Internal.hdgErrorDeg.getValue()) <= 2.5) {
-				if (Output.hdgInHldTemp != 1) {
-					Output.hdgInHld.setBoolValue(1);
-					if (Settings.customFMA.getBoolValue()) { # Update it for planes that use both
-						updateFMA.lat();
+		if (!Settings.hdgHldSeperate.getBoolValue()) {
+			Output.hdgInHldTemp = Output.hdgInHld.getBoolValue();
+			
+			if (Output.latTemp == 0) {
+				if (Input.hdg.getValue() == Internal.hdgHldValue and abs(Internal.hdgErrorDeg.getValue()) <= 2.5) {
+					if (Output.hdgInHldTemp != 1) {
+						Output.hdgInHld.setBoolValue(1);
+						if (Settings.customFMA.getBoolValue()) { # Update it for planes that use both
+							updateFMA.lat();
+						}
+					}
+				} else if (Input.hdg.getValue() != Internal.hdgHldValue) {
+					Internal.hdgHldValue = Input.hdg.getValue();
+					if (Output.hdgInHldTemp != 0 and abs(Internal.hdgErrorDeg.getValue()) > 2.5) {
+						Output.hdgInHld.setBoolValue(0);
+						if (Settings.customFMA.getBoolValue()) { # Update it for planes that use both
+							updateFMA.lat();
+						}
 					}
 				}
-			} else if (Input.hdg.getValue() != Internal.hdgHldValue) {
-				Internal.hdgHldValue = Input.hdg.getValue();
-				if (Output.hdgInHldTemp != 0 and abs(Internal.hdgErrorDeg.getValue()) > 2.5) {
+			} else {
+				if (Output.hdgInHldTemp != 0) {
 					Output.hdgInHld.setBoolValue(0);
-					if (Settings.customFMA.getBoolValue()) { # Update it for planes that use both
-						updateFMA.lat();
-					}
 				}
-			}
-		} else {
-			if (Output.hdgInHldTemp != 0) {
-				Output.hdgInHld.setBoolValue(0);
 			}
 		}
 		
@@ -613,6 +623,7 @@ var ITAF = {
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
 			me.updateApprArm(0);
+			Output.hdgInHld.setBoolValue(0);
 			Output.lat.setValue(0);
 			me.updateLatText("HDG");
 			if (Output.vertTemp == 2 or Output.vertTemp == 6) { # Also cancel G/S or FLARE if active
@@ -629,11 +640,15 @@ var ITAF = {
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
 			me.updateApprArm(0);
-			me.syncHdg();
+			Internal.hdgHldValue = Input.hdg.getValue(); # Unused if HDG HLD is seperated
+			if (Settings.hdgHldSeperate.getBoolValue()) {
+				Internal.hdgHldTarget.setValue(math.round(Internal.hdgPredicted.getValue())); # Unused if HDG HLD is not seperated
+			} else {
+				me.syncHdg();
+			}
+			Output.hdgInHld.setBoolValue(1);
 			Output.lat.setValue(0);
 			me.updateLatText("HDG");
-			Internal.hdgHldValue = Input.hdg.getValue();
-			Output.hdgInHld.setBoolValue(1);
 			if (Output.vertTemp == 2 or Output.vertTemp == 6) { # Also cancel G/S or FLARE if active
 				me.setVertMode(1);
 			}
