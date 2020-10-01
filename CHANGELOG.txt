@@ -12,6 +12,7 @@ V4.0.6 Beta 6:
 * Fixed: Altitude Predictor overshoots when ALT HLD is pushed
 * Fixed: Incorrect order of IAS and Mach syncing and filtering in drivers
 * Fixed: IAS and Mach smoothing logic active when no system was active
+* Fixed: A/THR far too slow to advance power in T/O and G/A modes
 
 [Nasal]
 * Added: Ability to seperate HDG HLD and HDG SEL (New config required)
