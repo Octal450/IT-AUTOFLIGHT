@@ -2,7 +2,7 @@
 # Make sure you enable custom-fma in the config
 # Copyright (c) 2020 Josh Davidson (Octal450)
 
-var updateFMA = {
+var updateFma = {
 	latText: "T/O",
 	vertText: "T/O CLB",
 	lat: func() { # Called when lateral mode changes

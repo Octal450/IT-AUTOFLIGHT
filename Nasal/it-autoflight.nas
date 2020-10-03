@@ -171,7 +171,7 @@ var Settings = {
 	autoBankMaxDeg: props.globals.getNode("/it-autoflight/settings/auto-bank-max-deg", 1),
 	autolandWithoutAp: props.globals.getNode("/it-autoflight/settings/autoland-without-ap", 1),
 	autolandWithoutApTemp: 0,
-	customFMA: props.globals.getNode("/it-autoflight/settings/custom-fma", 1),
+	customFma: props.globals.getNode("/it-autoflight/settings/custom-fma", 1),
 	disableFinal: props.globals.getNode("/it-autoflight/settings/disable-final", 1),
 	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-separate", 1),
 	latAglFt: props.globals.getNode("/it-autoflight/settings/lat-agl-ft", 1),
@@ -250,8 +250,8 @@ var ITAF = {
 		Internal.alt.setValue(10000);
 		Internal.altCaptureActive = 0;
 		Text.thr.setValue("PITCH");
-		if (Settings.customFMA.getBoolValue()) {
-			updateFMA.arm();
+		if (Settings.customFma.getBoolValue()) {
+			updateFma.arm();
 		}
 		me.updateLatText("T/O");
 		me.updateVertText("T/O CLB");
@@ -299,16 +299,16 @@ var ITAF = {
 				if (Input.hdg.getValue() == Internal.hdgHldValue and abs(Internal.hdgErrorDeg.getValue()) <= 2.5) {
 					if (Output.hdgInHldTemp != 1) {
 						Output.hdgInHld.setBoolValue(1);
-						if (Settings.customFMA.getBoolValue()) { # Update it for planes that use both
-							updateFMA.lat();
+						if (Settings.customFma.getBoolValue()) { # Update it for planes that use both
+							updateFma.lat();
 						}
 					}
 				} else if (Input.hdg.getValue() != Internal.hdgHldValue) {
 					Internal.hdgHldValue = Input.hdg.getValue();
 					if (Output.hdgInHldTemp != 0 and abs(Internal.hdgErrorDeg.getValue()) > 2.5) {
 						Output.hdgInHld.setBoolValue(0);
-						if (Settings.customFMA.getBoolValue()) { # Update it for planes that use both
-							updateFMA.lat();
+						if (Settings.customFma.getBoolValue()) { # Update it for planes that use both
+							updateFma.lat();
 						}
 					}
 				}
@@ -910,32 +910,32 @@ var ITAF = {
 	# Allows custom FMA behavior if desired
 	updateLatText: func(t) {
 		Text.lat.setValue(t);
-		if (Settings.customFMA.getBoolValue()) {
-			updateFMA.lat();
+		if (Settings.customFma.getBoolValue()) {
+			updateFma.lat();
 		}
 	},
 	updateVertText: func(t) {
 		Text.vert.setValue(t);
-		if (Settings.customFMA.getBoolValue()) {
-			updateFMA.vert();
+		if (Settings.customFma.getBoolValue()) {
+			updateFma.vert();
 		}
 	},
 	updateLnavArm: func(n) {
 		Output.lnavArm.setBoolValue(n);
-		if (Settings.customFMA.getBoolValue()) {
-			updateFMA.arm();
+		if (Settings.customFma.getBoolValue()) {
+			updateFma.arm();
 		}
 	},
 	updateLocArm: func(n) {
 		Output.locArm.setBoolValue(n);
-		if (Settings.customFMA.getBoolValue()) {
-			updateFMA.arm();
+		if (Settings.customFma.getBoolValue()) {
+			updateFma.arm();
 		}
 	},
 	updateApprArm: func(n) {
 		Output.apprArm.setBoolValue(n);
-		if (Settings.customFMA.getBoolValue()) {
-			updateFMA.arm();
+		if (Settings.customFma.getBoolValue()) {
+			updateFma.arm();
 		}
 	},
 };
