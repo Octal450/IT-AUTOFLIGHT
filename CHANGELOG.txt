@@ -21,6 +21,7 @@ V4.0.6 Beta 6:
 * Fixed: LNAV button did not disarm LOC or ILS
 * Fixed: Bad handling of armed annunciator in default GUI
 * Fixed: Engaging/Disengaging Track caused a nasal error
+* Fixed: Lag in Thrust Mode selection
 * Changed: Default init behavior is reset-all, no more needing to specify 0
 * Changed: HDG SEL/HLD Logic now calls Lateral Custom FMA Update
 
