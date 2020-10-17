@@ -1,4 +1,4 @@
-# IT-AUTOFLIGHT System Controller V4.0.6 Beta 5
+# IT-AUTOFLIGHT System Controller V4.0.6
 # Copyright (c) 2020 Josh Davidson (Octal450)
 
 setprop("/it-autoflight/config/tuning-mode", 0); # Not used by controller
