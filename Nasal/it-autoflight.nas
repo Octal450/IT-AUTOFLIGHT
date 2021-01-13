@@ -688,6 +688,7 @@ var ITAF = {
 				Internal.altCaptureActive = 0;
 				Output.vert.setValue(4);
 				Internal.flchActive = 1;
+				Internal.alt.setValue(Input.alt.getValue());
 				me.updateThrustMode();
 			} else { # ALT CAP
 				Internal.flchActive = 0;
@@ -745,13 +746,13 @@ var ITAF = {
 			if (Internal.alt.getValue() >= Position.indicatedAltitudeFt.getValue()) {
 				Output.thrMode.setValue(2);
 				Text.thr.setValue("PITCH");
-				if (Internal.flchActive and Text.vert.getValue() != "SPD CLB") { # Set before mode change to prevent it from overwriting by mistake
+				if (Internal.flchActive and Text.vert.getValue() != "SPD CLB") {
 					me.updateVertText("SPD CLB");
 				}
 			} else {
 				Output.thrMode.setValue(1);
 				Text.thr.setValue("PITCH");
-				if (Internal.flchActive and Text.vert.getValue() != "SPD DES") { # Set before mode change to prevent it from overwriting by mistake
+				if (Internal.flchActive and Text.vert.getValue() != "SPD DES") {
 					me.updateVertText("SPD DES");
 				}
 			}
