@@ -2,6 +2,12 @@ IT-AUTOFLIGHT Changelog
 Copyright (c) 2021 Josh Davidson (Octal450)
 I will note if new ITAF tuning or config is required. Simply check the "ITAF CONFIG.txt" file.
 
+---------------------------------------------------------------------------------------------------------------------
+
+V4.0.7 Beta 1:
+[Control Loop]
+* Fixed: Really slow response in some situations
+* Fixed: Strange bug with Glideslope
 
 ---------------------------------------------------------------------------------------------------------------------
 
