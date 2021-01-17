@@ -4,8 +4,9 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
-V4.0.7 Beta 1:
+V4.0.7 Beta 2:
 [Control Loop]
+* Added: New rate based speed on pitch controller
 * Fixed: Really slow response in some situations
 * Fixed: Strange bug with Glideslope
 
