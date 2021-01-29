@@ -10,6 +10,7 @@ V4.0.7 Beta 3:
 * Added: Armed modes disarm if they become unavailable
 * Fixed: Really slow response in some situations
 * Fixed: Strange bug with Glideslope
+* Changed: Flight Director Pitch now outputs in degrees (in Canvas, you can just translate it the same as pitch scale)
 
 ---------------------------------------------------------------------------------------------------------------------
 
