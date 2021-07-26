@@ -4,9 +4,10 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
-V4.0.7 Beta 4:
+V4.0.7 Beta 5:
 [Control Loop]
 * Added: New rate based FLCH (speed on pitch) controller
+* Added: Ability to use a third NAV radio
 * Fixed: Flare law shallowing up too early and floating
 * Fixed: Really slow response in some situations
 * Fixed: Strange bug with Glideslope
@@ -14,6 +15,9 @@ V4.0.7 Beta 4:
 
 [Logic]
 * Added: Armed modes disarm if they become unavailable
+* Added: Ability to use a third NAV radio
+* Fixed: Bad handling of radio selection
+* Fixed: LOC capturing too early on shallow intercept and increasing intercept angle
 * Fixed: Flare engagement
 
 ---------------------------------------------------------------------------------------------------------------------

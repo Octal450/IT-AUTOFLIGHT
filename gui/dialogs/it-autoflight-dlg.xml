@@ -687,9 +687,11 @@
 	</group>
 	
 	<group>
-		<layout>hbox</layout>
+		<layout>table</layout>
 		
 		<checkbox>
+			<row>0</row>
+			<col>0</col>
 			<label>Track</label>
 			<property>/it-autoflight/input/trk</property>
 			<binding>
@@ -697,28 +699,83 @@
 			</binding>
 			<live>true</live>
 		</checkbox>
-		<checkbox>
-			<label>True</label>
-			<property>/it-autoflight/input/true-course</property>
-			<binding>
-				<command>dialog-apply</command>
-			</binding>
-			<live>true</live>
-		</checkbox>
-		<checkbox>
-			<label>Use NAV2 Radio</label>
-			<property>/it-autoflight/input/use-nav2-radio</property>
-			<enable>
-				<not-equals>
-					<property>/it-autoflight/output/vert</property>
+		
+		<text>
+			<row>0</row>
+			<col>1</col>
+			<visible>
+				<equals>
+					<property>/it-autoflight/input/radio-sel</property>
+					<value>0</value>
+				</equals>
+			</visible>
+			<border>1</border>
+			<label>NAV1</label>
+			<valign>center</valign>
+		</text>
+		<text>
+			<row>0</row>
+			<col>1</col>
+			<visible>
+				<equals>
+					<property>/it-autoflight/input/radio-sel</property>
+					<value>1</value>
+				</equals>
+			</visible>
+			<border>1</border>
+			<label>NAV2</label>
+			<valign>center</valign>
+		</text>
+		<text>
+			<row>0</row>
+			<col>1</col>
+			<visible>
+				<equals>
+					<property>/it-autoflight/input/radio-sel</property>
 					<value>2</value>
-				</not-equals>
-			</enable>
+				</equals>
+			</visible>
+			<border>1</border>
+			<label>NAV3</label>
+			<valign>center</valign>
+		</text>
+		
+		<button>
+			<row>0</row>
+			<col>2</col>
+			<pref-width>40</pref-width>
+			<pref-height>25</pref-height>
+			<legend>NAV1</legend>
 			<binding>
-				<command>dialog-apply</command>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/radio-sel</property>
+				<value>0</value>
 			</binding>
-			<live>true</live>
-		</checkbox>
+		</button>
+		<button>
+			<row>0</row>
+			<col>3</col>
+			<pref-width>40</pref-width>
+			<pref-height>25</pref-height>
+			<legend>NAV2</legend>
+			<binding>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/radio-sel</property>
+				<value>1</value>
+			</binding>
+		</button>
+		<button>
+			<row>0</row>
+			<col>4</col>
+			<pref-width>40</pref-width>
+			<pref-height>25</pref-height>
+			<legend>NAV3</legend>
+			<binding>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/radio-sel</property>
+				<value>2</value>
+			</binding>
+		</button>
 	</group>
 	
 	<group>
