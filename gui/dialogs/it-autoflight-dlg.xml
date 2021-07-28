@@ -146,10 +146,30 @@
 			<row>0</row>
 			<col>0</col>
 			<visible>
-				<equals>
-					<property>/it-autoflight/mode/thr</property>
-					<value>PITCH</value>
-				</equals>
+				<and>
+					<or>
+						<equals>
+							<property>/it-autoflight/output/fd1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/fd2</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/ap1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/ap2</property>
+							<value>1</value>
+						</equals>
+					</or>
+					<equals>
+						<property>/it-autoflight/mode/thr</property>
+						<value>PITCH</value>
+					</equals>
+				</and>
 			</visible>
 			<border>1</border>
 			<label> PITCH</label>
@@ -159,10 +179,26 @@
 			<row>0</row>
 			<col>0</col>
 			<visible>
-				<not-equals>
-					<property>/it-autoflight/mode/thr</property>
-					<value>PITCH</value>
-				</not-equals>
+				<and>
+					<or>
+						<equals>
+							<property>/it-autoflight/output/fd1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/fd2</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/athr</property>
+							<value>1</value>
+						</equals>
+					</or>
+					<not-equals>
+						<property>/it-autoflight/mode/thr</property>
+						<value>PITCH</value>
+					</not-equals>
+				</and>
 			</visible>
 			<border>1</border>
 			<label>999999</label>
@@ -181,6 +217,24 @@
 			<col>2</col>
 			<visible>
 				<and>
+					<or>
+						<equals>
+							<property>/it-autoflight/output/fd1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/fd2</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/ap1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/ap2</property>
+							<value>1</value>
+						</equals>
+					</or>
 					<equals>
 						<property>/it-autoflight/output/lnav-armed</property>
 						<value>0</value>
@@ -200,6 +254,24 @@
 			<col>2</col>
 			<visible>
 				<and>
+					<or>
+						<equals>
+							<property>/it-autoflight/output/fd1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/fd2</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/ap1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/ap2</property>
+							<value>1</value>
+						</equals>
+					</or>
 					<equals>
 						<property>/it-autoflight/output/lnav-armed</property>
 						<value>0</value>
@@ -223,6 +295,24 @@
 			<col>2</col>
 			<visible>
 				<and>
+					<or>
+						<equals>
+							<property>/it-autoflight/output/fd1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/fd2</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/ap1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/ap2</property>
+							<value>1</value>
+						</equals>
+					</or>
 					<equals>
 						<property>/it-autoflight/output/lnav-armed</property>
 						<value>1</value>
@@ -250,6 +340,26 @@
 		<text>
 			<row>0</row>
 			<col>4</col>
+			<visible>
+				<or>
+					<equals>
+						<property>/it-autoflight/output/fd1</property>
+						<value>1</value>
+					</equals>
+					<equals>
+						<property>/it-autoflight/output/fd2</property>
+						<value>1</value>
+					</equals>
+					<equals>
+						<property>/it-autoflight/output/ap1</property>
+						<value>1</value>
+					</equals>
+					<equals>
+						<property>/it-autoflight/output/ap2</property>
+						<value>1</value>
+					</equals>
+				</or>
+			</visible>
 			<border>1</border>
 			<label>99999</label>
 			<valign>center</valign>
@@ -265,6 +375,54 @@
 		<text>
 			<row>0</row>
 			<col>6</col>
+			<visible>
+				<or>
+					<and>
+						<or>
+							<equals>
+								<property>/it-autoflight/output/fd1</property>
+								<value>1</value>
+							</equals>
+							<equals>
+								<property>/it-autoflight/output/fd2</property>
+								<value>1</value>
+							</equals>
+							<equals>
+								<property>/it-autoflight/output/ap1</property>
+								<value>1</value>
+							</equals>
+							<equals>
+								<property>/it-autoflight/output/ap2</property>
+								<value>1</value>
+							</equals>
+						</or>
+						<not-equals>
+							<property>/it-autoflight/mode/thr</property>
+							<value>PITCH</value>
+						</not-equals>
+					</and>
+					<and>
+						<or>
+							<equals>
+								<property>/it-autoflight/output/fd1</property>
+								<value>1</value>
+							</equals>
+							<equals>
+								<property>/it-autoflight/output/fd2</property>
+								<value>1</value>
+							</equals>
+							<equals>
+								<property>/it-autoflight/output/athr</property>
+								<value>1</value>
+							</equals>
+						</or>
+						<equals>
+							<property>/it-autoflight/mode/thr</property>
+							<value>PITCH</value>
+						</equals>
+					</and>
+				</or>
+			</visible>
 			<border>1</border>
 			<label>99999999</label>
 			<valign>center</valign>
