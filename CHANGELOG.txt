@@ -4,7 +4,7 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
-V4.0.7 Beta 6:
+V4.0.7 Beta 7:
 [Control Loop]
 * Added: New rate based FLCH (speed on pitch) controller
 * Added: Ability to use a third NAV radio
@@ -15,6 +15,8 @@ V4.0.7 Beta 6:
 * Changed: Flight Director Pitch now outputs in degrees (in Canvas, you can just translate it the same as pitch scale)
 
 [Logic]
+* Added: Ability to define when APs and A/THR are available
+* Added: APs and A/THR trips off if respective system is unavailable
 * Added: Ability to set blank mode
 * Added: Ability to start with flight directors on by default
 * Added: Armed modes disarm if they become unavailable
@@ -23,9 +25,6 @@ V4.0.7 Beta 6:
 * Fixed: Bad handling of radio selection
 * Fixed: LOC capturing too early on shallow intercept and increasing intercept angle
 * Fixed: Flare engagement
-
-[GUI]
-* Added: Hide annunciations when all modes off
 
 ---------------------------------------------------------------------------------------------------------------------
 

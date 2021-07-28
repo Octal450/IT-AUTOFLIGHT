@@ -146,30 +146,10 @@
 			<row>0</row>
 			<col>0</col>
 			<visible>
-				<and>
-					<or>
-						<equals>
-							<property>/it-autoflight/output/fd1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/fd2</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/ap1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/ap2</property>
-							<value>1</value>
-						</equals>
-					</or>
-					<equals>
-						<property>/it-autoflight/mode/thr</property>
-						<value>PITCH</value>
-					</equals>
-				</and>
+				<equals>
+					<property>/it-autoflight/mode/thr</property>
+					<value>PITCH</value>
+				</equals>
 			</visible>
 			<border>1</border>
 			<label> PITCH</label>
@@ -179,26 +159,10 @@
 			<row>0</row>
 			<col>0</col>
 			<visible>
-				<and>
-					<or>
-						<equals>
-							<property>/it-autoflight/output/fd1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/fd2</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/athr</property>
-							<value>1</value>
-						</equals>
-					</or>
-					<not-equals>
-						<property>/it-autoflight/mode/thr</property>
-						<value>PITCH</value>
-					</not-equals>
-				</and>
+				<not-equals>
+					<property>/it-autoflight/mode/thr</property>
+					<value>PITCH</value>
+				</not-equals>
 			</visible>
 			<border>1</border>
 			<label>999999</label>
@@ -217,24 +181,6 @@
 			<col>2</col>
 			<visible>
 				<and>
-					<or>
-						<equals>
-							<property>/it-autoflight/output/fd1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/fd2</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/ap1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/ap2</property>
-							<value>1</value>
-						</equals>
-					</or>
 					<equals>
 						<property>/it-autoflight/output/lnav-armed</property>
 						<value>0</value>
@@ -254,24 +200,6 @@
 			<col>2</col>
 			<visible>
 				<and>
-					<or>
-						<equals>
-							<property>/it-autoflight/output/fd1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/fd2</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/ap1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/ap2</property>
-							<value>1</value>
-						</equals>
-					</or>
 					<equals>
 						<property>/it-autoflight/output/lnav-armed</property>
 						<value>0</value>
@@ -295,24 +223,6 @@
 			<col>2</col>
 			<visible>
 				<and>
-					<or>
-						<equals>
-							<property>/it-autoflight/output/fd1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/fd2</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/ap1</property>
-							<value>1</value>
-						</equals>
-						<equals>
-							<property>/it-autoflight/output/ap2</property>
-							<value>1</value>
-						</equals>
-					</or>
 					<equals>
 						<property>/it-autoflight/output/lnav-armed</property>
 						<value>1</value>
@@ -340,26 +250,6 @@
 		<text>
 			<row>0</row>
 			<col>4</col>
-			<visible>
-				<or>
-					<equals>
-						<property>/it-autoflight/output/fd1</property>
-						<value>1</value>
-					</equals>
-					<equals>
-						<property>/it-autoflight/output/fd2</property>
-						<value>1</value>
-					</equals>
-					<equals>
-						<property>/it-autoflight/output/ap1</property>
-						<value>1</value>
-					</equals>
-					<equals>
-						<property>/it-autoflight/output/ap2</property>
-						<value>1</value>
-					</equals>
-				</or>
-			</visible>
 			<border>1</border>
 			<label>99999</label>
 			<valign>center</valign>
@@ -375,54 +265,6 @@
 		<text>
 			<row>0</row>
 			<col>6</col>
-			<visible>
-				<or>
-					<and>
-						<or>
-							<equals>
-								<property>/it-autoflight/output/fd1</property>
-								<value>1</value>
-							</equals>
-							<equals>
-								<property>/it-autoflight/output/fd2</property>
-								<value>1</value>
-							</equals>
-							<equals>
-								<property>/it-autoflight/output/ap1</property>
-								<value>1</value>
-							</equals>
-							<equals>
-								<property>/it-autoflight/output/ap2</property>
-								<value>1</value>
-							</equals>
-						</or>
-						<not-equals>
-							<property>/it-autoflight/mode/thr</property>
-							<value>PITCH</value>
-						</not-equals>
-					</and>
-					<and>
-						<or>
-							<equals>
-								<property>/it-autoflight/output/fd1</property>
-								<value>1</value>
-							</equals>
-							<equals>
-								<property>/it-autoflight/output/fd2</property>
-								<value>1</value>
-							</equals>
-							<equals>
-								<property>/it-autoflight/output/athr</property>
-								<value>1</value>
-							</equals>
-						</or>
-						<equals>
-							<property>/it-autoflight/mode/thr</property>
-							<value>PITCH</value>
-						</equals>
-					</and>
-				</or>
-			</visible>
 			<border>1</border>
 			<label>99999999</label>
 			<valign>center</valign>
@@ -850,7 +692,7 @@
 		<checkbox>
 			<row>0</row>
 			<col>0</col>
-			<label>Track</label>
+			<label>TRK</label>
 			<property>/it-autoflight/input/trk</property>
 			<binding>
 				<command>dialog-apply</command>
@@ -861,49 +703,40 @@
 		<text>
 			<row>0</row>
 			<col>1</col>
-			<visible>
-				<equals>
-					<property>/it-autoflight/input/radio-sel</property>
-					<value>0</value>
-				</equals>
-			</visible>
-			<border>1</border>
-			<label>NAV1</label>
-			<valign>center</valign>
-		</text>
-		<text>
-			<row>0</row>
-			<col>1</col>
-			<visible>
-				<equals>
-					<property>/it-autoflight/input/radio-sel</property>
-					<value>1</value>
-				</equals>
-			</visible>
-			<border>1</border>
-			<label>NAV2</label>
-			<valign>center</valign>
-		</text>
-		<text>
-			<row>0</row>
-			<col>1</col>
-			<visible>
-				<equals>
-					<property>/it-autoflight/input/radio-sel</property>
-					<value>2</value>
-				</equals>
-			</visible>
-			<border>1</border>
-			<label>NAV3</label>
+			<label>NAV Sel:</label>
 			<valign>center</valign>
 		</text>
 		
 		<button>
 			<row>0</row>
 			<col>2</col>
-			<pref-width>40</pref-width>
+			<visible>
+				<equals>
+					<property>/it-autoflight/input/radio-sel</property>
+					<value>0</value>
+				</equals>
+			</visible>
+			<pref-width>33</pref-width>
 			<pref-height>25</pref-height>
-			<legend>NAV1</legend>
+			<legend>[ 1 ]</legend>
+			<binding>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/radio-sel</property>
+				<value>0</value>
+			</binding>
+		</button>
+		<button>
+			<row>0</row>
+			<col>2</col>
+			<visible>
+				<not-equals>
+					<property>/it-autoflight/input/radio-sel</property>
+					<value>0</value>
+				</not-equals>
+			</visible>
+			<pref-width>33</pref-width>
+			<pref-height>25</pref-height>
+			<legend>1</legend>
 			<binding>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/radio-sel</property>
@@ -913,9 +746,33 @@
 		<button>
 			<row>0</row>
 			<col>3</col>
-			<pref-width>40</pref-width>
+			<visible>
+				<equals>
+					<property>/it-autoflight/input/radio-sel</property>
+					<value>1</value>
+				</equals>
+			</visible>
+			<pref-width>33</pref-width>
 			<pref-height>25</pref-height>
-			<legend>NAV2</legend>
+			<legend>[ 2 ]</legend>
+			<binding>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/radio-sel</property>
+				<value>1</value>
+			</binding>
+		</button>
+		<button>
+			<row>0</row>
+			<col>3</col>
+			<visible>
+				<not-equals>
+					<property>/it-autoflight/input/radio-sel</property>
+					<value>1</value>
+				</not-equals>
+			</visible>
+			<pref-width>33</pref-width>
+			<pref-height>25</pref-height>
+			<legend>2</legend>
 			<binding>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/radio-sel</property>
@@ -925,9 +782,33 @@
 		<button>
 			<row>0</row>
 			<col>4</col>
-			<pref-width>40</pref-width>
+			<visible>
+				<equals>
+					<property>/it-autoflight/input/radio-sel</property>
+					<value>2</value>
+				</equals>
+			</visible>
+			<pref-width>33</pref-width>
 			<pref-height>25</pref-height>
-			<legend>NAV3</legend>
+			<legend>[ 3 ]</legend>
+			<binding>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/radio-sel</property>
+				<value>2</value>
+			</binding>
+		</button>
+		<button>
+			<row>0</row>
+			<col>4</col>
+			<visible>
+				<not-equals>
+					<property>/it-autoflight/input/radio-sel</property>
+					<value>2</value>
+				</not-equals>
+			</visible>
+			<pref-width>33</pref-width>
+			<pref-height>25</pref-height>
+			<legend>3</legend>
 			<binding>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/radio-sel</property>
