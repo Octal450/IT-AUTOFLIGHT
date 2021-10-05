@@ -1129,6 +1129,10 @@ setlistener("/it-autoflight/input/trk", func() {
 	Input.hdg.setValue(Input.hdgCalc);
 	Internal.hdgHldTarget.setValue(Input.hdgHldCalc);
 	
+	if (Settings.customFma.getBoolValue()) {
+		updateFma.lat();
+	}
+	
 	Misc.efis0Trk.setBoolValue(Input.trkTemp); # For Canvas Nav Display.
 	Misc.efis1Trk.setBoolValue(Input.trkTemp); # For Canvas Nav Display.
 }, 0, 0);
