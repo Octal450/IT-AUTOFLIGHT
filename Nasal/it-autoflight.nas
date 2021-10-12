@@ -676,6 +676,10 @@ var ITAF = {
 			me.updateApprArm(0);
 			Output.lat.setValue(9);
 			me.updateLatText("");
+			if (!Settings.disableFinal.getBoolValue()) {
+				Controls.aileron.setValue(0);
+				Controls.rudder.setValue(0);
+			}
 		}
 	},
 	setLatArm: func(n) {
@@ -787,6 +791,9 @@ var ITAF = {
 			Output.vert.setValue(9);
 			me.updateVertText("");
 			me.updateThrustMode();
+			if (!Settings.disableFinal.getBoolValue()) {
+				Controls.elevator.setValue(0);
+			}
 		}
 	},
 	updateThrustMode: func() {
