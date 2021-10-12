@@ -670,6 +670,12 @@ var ITAF = {
 			me.updateApprArm(0);
 			Output.lat.setValue(5);
 			me.updateLatText("T/O");
+		} else if (n == 6) { # LVL
+			me.updateLnavArm(0);
+			me.updateLocArm(0);
+			me.updateApprArm(0);
+			Output.lat.setValue(6);
+			me.updateLatText("LVL");
 		} else if (n == 9) { # Blank
 			me.updateLnavArm(0);
 			me.updateLocArm(0);

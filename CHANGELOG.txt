@@ -8,6 +8,7 @@ V4.0.7:
 [Control Loop]
 * Added: New rate based FLCH (speed on pitch) controller
 * Added: Ability to use a third NAV radio
+* Added: Wings Level mode
 * Fixed: If all APs and FDs are off, and the autopilot is engaged in V/S mode, the pitch might jerk
 * Fixed: Flare law shallowing up too early and floating
 * Fixed: Really slow response in some situations
@@ -22,6 +23,7 @@ V4.0.7:
 * Added: Armed modes disarm if they become unavailable
 * Added: Ability to use a third NAV radio
 * Added: Built in VS/FPA switching logic
+* Added: Wings Level mode
 * Fixed: Bad handling of radio selection
 * Fixed: LOC capturing too early on shallow intercept and increasing intercept angle
 * Fixed: Flare engagement
