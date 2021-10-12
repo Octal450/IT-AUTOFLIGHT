@@ -26,6 +26,9 @@ V4.0.7:
 * Fixed: LOC capturing too early on shallow intercept and increasing intercept angle
 * Fixed: Flare engagement
 
+[GUI]
+* Added: NAV source toggles for all 3 radios
+
 ---------------------------------------------------------------------------------------------------------------------
 
 V4.0.6:
