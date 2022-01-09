@@ -1,5 +1,5 @@
 IT-AUTOFLIGHT Changelog
-Copyright (c) 2021 Josh Davidson (Octal450)
+Copyright (c) 2022 Josh Davidson (Octal450)
 I will note if new ITAF tuning or config is required. Simply check the "ITAF CONFIG.txt" file.
 
 ---------------------------------------------------------------------------------------------------------------------
