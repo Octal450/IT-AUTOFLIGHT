@@ -7,7 +7,6 @@
 	
 	<filter>
 		<name>A/THR Knots Input Gain</name>
-		<debug>false</debug>
 		<type>gain</type>
 		<gain>1.0</gain>
 		<input>/it-autoflight/input/kts</input>
@@ -32,7 +31,6 @@
 	
 	<filter>
 		<name>A/THR Knots Input Filter</name>
-		<debug>false</debug>
 		<type>noise-spike</type>
 		<initialize-to>output</initialize-to>
 		<input>/it-autoflight/internal/athr-kts-cmd</input>
@@ -69,7 +67,6 @@
 	
 	<filter>
 		<name>A/THR Mach Input Gain</name>
-		<debug>false</debug>
 		<type>gain</type>
 		<gain>1.0</gain>
 		<input>/it-autoflight/input/mach</input>
@@ -94,7 +91,6 @@
 	
 	<filter>
 		<name>A/THR Mach Input Filter</name>
-		<debug>false</debug>
 		<type>noise-spike</type>
 		<feedback-if-disabled>true</feedback-if-disabled>
 		<initialize-to>output</initialize-to>
@@ -132,7 +128,6 @@
 	
 	<pid-controller>
 		<name>IT-CONTROLLER: Knots</name>
-		<debug>false</debug>
 		<enable>
 			<condition>
 				<and>
@@ -165,7 +160,6 @@
 	
 	<pid-controller>
 		<name>IT-CONTROLLER: Mach</name>
-		<debug>false</debug>
 		<enable>
 			<condition>
 				<and>
@@ -204,7 +198,6 @@
 	
 	<filter>
 		<name>IT-CONTROLLER: Idle Limit</name>
-		<debug>false</debug>
 		<type>gain</type>
 		<gain>1.0</gain>
 		<enable>
@@ -236,7 +229,6 @@
 	
 	<filter>
 		<name>IT-CONTROLLER: Thrust Limit</name>
-		<debug>false</debug>
 		<type>gain</type>
 		<gain>1.0</gain>
 		<enable>
@@ -259,7 +251,6 @@
 	
 	<filter>
 		<name>System Command: Throttle</name>
-		<debug>false</debug>
 		<type>noise-spike</type>
 		<feedback-if-disabled>true</feedback-if-disabled>
 		<initialize-to>output</initialize-to>
