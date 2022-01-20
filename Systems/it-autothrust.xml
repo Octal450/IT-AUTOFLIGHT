@@ -148,7 +148,7 @@
 		</enable>
 		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
 		<reference>/it-autoflight/internal/athr-kts</reference>
-		<output>/controls/engines/throttle-cmd-pid</output>
+		<output>/it-autoflight/internal/throttle-cmd-pid</output>
 		<config>
 			<Kp>0.06</Kp>
 			<Ti>9.0</Ti>
@@ -186,7 +186,7 @@
 			<property>/it-autoflight/internal/athr-mach</property>
 			<scale>1000</scale>
 		</reference>
-		<output>/controls/engines/throttle-cmd-pid</output>
+		<output>/it-autoflight/internal/throttle-cmd-pid</output>
 		<config>
 			<Kp>0.06</Kp>
 			<Ti>9.0</Ti>
@@ -224,7 +224,7 @@
 			<value>0</value>
 		</input>
 		<input>/it-autoflight/settings/autothrottle-min</input>
-		<output>/controls/engines/throttle-cmd-pid</output>
+		<output>/it-autoflight/internal/throttle-cmd-pid</output>
 	</filter>
 	
 	<filter>
@@ -246,7 +246,7 @@
 			</condition>
 		</enable>
 		<input>/it-autoflight/settings/autothrottle-max</input>
-		<output>/controls/engines/throttle-cmd-pid</output>
+		<output>/it-autoflight/internal/throttle-cmd-pid</output>
 	</filter>
 	
 	<filter>
@@ -262,7 +262,7 @@
 				</equals>
 			</condition>
 		</enable>
-		<input>/controls/engines/throttle-cmd-pid</input>
+		<input>/it-autoflight/internal/throttle-cmd-pid</input>
 		<output>
 			<property>/controls/engines/engine[0]/throttle</property>
 			<property>/controls/engines/engine[1]/throttle</property>
