@@ -150,7 +150,7 @@
 		<reference>/it-autoflight/internal/athr-kts</reference>
 		<output>/it-autoflight/internal/throttle-cmd-pid</output>
 		<config>
-			<Kp>0.06</Kp>
+			<Kp>0.055</Kp>
 			<Ti>9.0</Ti>
 			<Td>0.00001</Td>   
 			<u_min>/it-autoflight/settings/autothrottle-min</u_min>  
@@ -188,7 +188,7 @@
 		</reference>
 		<output>/it-autoflight/internal/throttle-cmd-pid</output>
 		<config>
-			<Kp>0.06</Kp>
+			<Kp>0.055</Kp>
 			<Ti>9.0</Ti>
 			<Td>0.00001</Td>  
 			<u_min>/it-autoflight/settings/autothrottle-min</u_min>  
