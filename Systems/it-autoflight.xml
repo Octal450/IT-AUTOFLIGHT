@@ -921,6 +921,11 @@
 		</enable>
 		<input>/it-autoflight/input/roll</input>
 		<output>/it-autoflight/internal/target-roll-deg</output>
+		<min>
+			<property>/it-autoflight/internal/bank-limit</property>
+			<scale>-1.0</scale>
+		</min>
+		<max>/it-autoflight/internal/bank-limit</max>
 	</filter>
 	
 	<filter>
