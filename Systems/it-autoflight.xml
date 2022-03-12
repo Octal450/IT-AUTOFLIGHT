@@ -915,7 +915,7 @@
 	</filter>
 	
 	<filter>
-		<name>IT-CONTROLLER: Align/Rollout/Takeoff/Wings Level</name>
+		<name>IT-CONTROLLER: Align/Rollout/Takeoff</name>
 		<type>gain</type>
 		<gain>1.0</gain>
 		<enable>
@@ -929,14 +929,26 @@
 						<property>/it-autoflight/output/lat</property>
 						<value>5</value>
 					</equals>
-					<equals>
-						<property>/it-autoflight/output/lat</property>
-						<value>6</value>
-					</equals>
 				</or>
 			</condition>
 		</enable>
 		<input>0</input>
+		<output>/it-autoflight/internal/target-roll-deg</output>
+	</filter>
+	
+	<filter>
+		<name>IT-CONTROLLER: Roll</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>/it-autoflight/output/lat</property>
+					<value>6</value>
+				</equals>
+			</condition>
+		</enable>
+		<input>/it-autoflight/input/roll</input>
 		<output>/it-autoflight/internal/target-roll-deg</output>
 	</filter>
 	

@@ -47,6 +47,10 @@ var Misc = {
 	flapNorm: props.globals.getNode("/surface-positions/flap-pos-norm", 1),
 };
 
+var Orientation = {
+	rollDeg: props.globals.getNode("/orientation/roll-deg"),
+};
+
 var Position = {
 	gearAglFtTemp: 0,
 	gearAglFt: props.globals.getNode("/position/gear-agl-ft", 1),
@@ -105,6 +109,7 @@ var Input = {
 	mach: props.globals.initNode("/it-autoflight/input/mach", 0.5, "DOUBLE"),
 	radioSel: props.globals.initNode("/it-autoflight/input/radio-sel", 0, "INT"),
 	radioSelTemp: 0,
+	roll: props.globals.initNode("/it-autoflight/input/roll", 0, "INT"),
 	toga: props.globals.initNode("/it-autoflight/input/toga", 0, "BOOL"),
 	trk: props.globals.initNode("/it-autoflight/input/trk", 0, "BOOL"),
 	trueCourse: props.globals.initNode("/it-autoflight/input/true-course", 0, "BOOL"),
@@ -124,6 +129,7 @@ var Internal = {
 	bankLimit: props.globals.initNode("/it-autoflight/internal/bank-limit", 30, "INT"),
 	bankLimitAuto: 30,
 	bankLimitMax: [30, 5, 10, 15, 20, 25, 30],
+	bankLimitTemp: 30,
 	captVs: 0,
 	driftAngle: props.globals.initNode("/it-autoflight/internal/drift-angle-deg", 0, "DOUBLE"),
 	driftAngleTemp: 0,
@@ -670,12 +676,13 @@ var ITAF = {
 			me.updateApprArm(0);
 			Output.lat.setValue(5);
 			me.updateLatText("T/O");
-		} else if (n == 6) { # LVL
+		} else if (n == 6) { # ROLL
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
 			me.updateApprArm(0);
 			Output.lat.setValue(6);
-			me.updateLatText("LVL");
+			me.updateLatText("ROLL");
+			me.syncRoll();
 		} else if (n == 9) { # Blank
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
@@ -790,7 +797,7 @@ var ITAF = {
 			Output.vert.setValue(7);
 			Input.ktsMach.setBoolValue(0);
 			me.updateThrustMode();
-		} else if (n == 9) {
+		} else if (n == 9) { # Blank
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
 			me.updateApprArm(0);
@@ -989,6 +996,10 @@ var ITAF = {
 	},
 	syncHdg: func() {
 		Input.hdg.setValue(math.round(Internal.hdgPredicted.getValue())); # Switches to track automatically
+	},
+	syncRoll: func() {
+		Internal.bankLimitTemp = Internal.bankLimit.getValue();
+		Input.roll.setValue(math.clamp(math.round(Orientation.rollDeg.getValue(), 1), Internal.bankLimitTemp * -1, Internal.bankLimitTemp));
 	},
 	syncAlt: func() {
 		Input.alt.setValue(math.clamp(math.round(Internal.altPredicted.getValue(), 100), 0, 50000));
