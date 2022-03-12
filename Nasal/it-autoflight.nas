@@ -193,6 +193,7 @@ var Settings = {
 	retardAltitude: props.globals.getNode("/it-autoflight/settings/retard-ft", 1),
 	retardEnable: props.globals.getNode("/it-autoflight/settings/retard-enable", 1),
 	togaSpd: props.globals.getNode("/it-autoflight/settings/toga-spd", 1),
+	useControlsFlight: props.globals.getNode("/it-autoflight/settings/use-controls-flight", 1),
 };
 
 var Sound = {
@@ -564,7 +565,7 @@ var ITAF = {
 	},
 	apOffFunction: func() {
 		if (!Output.ap1.getBoolValue() and !Output.ap2.getBoolValue()) { # Only do if both APs are off
-			if (!Settings.disableFinal.getBoolValue()) {
+			if (!Settings.disableFinal.getBoolValue() and !Settings.useControlsFlight.getBoolValue()) {
 				Controls.aileron.setValue(0);
 				Controls.elevator.setValue(0);
 				Controls.rudder.setValue(0);
