@@ -5,40 +5,7 @@
 
 <PropertyList>
 	
-	<!-- Predictors -->
-	<predict-simple>
-		<name>Knots 5 Second Predictor</name>
-		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
-		<output>/it-autoflight/internal/kts-predicted-5</output>
-		<seconds>5</seconds>
-		<filter-gain>0</filter-gain>
-	</predict-simple>
-	
-	<predict-simple>
-		<name>Mach 5 Second Predictor</name>
-		<input>/instrumentation/airspeed-indicator/indicated-mach</input>
-		<output>/it-autoflight/internal/mach-predicted-5</output>
-		<seconds>5</seconds>
-		<filter-gain>0</filter-gain>
-	</predict-simple>
-	
-	<predict-simple>
-		<name>Knots 15 Second Predictor</name>
-		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
-		<output>/it-autoflight/internal/kts-predicted-15</output>
-		<seconds>15</seconds>
-		<filter-gain>0</filter-gain>
-	</predict-simple>
-	
-	<predict-simple>
-		<name>Mach 15 Second Predictor</name>
-		<input>/instrumentation/airspeed-indicator/indicated-mach</input>
-		<output>/it-autoflight/internal/mach-predicted-15</output>
-		<seconds>15</seconds>
-		<filter-gain>0</filter-gain>
-	</predict-simple>
-	
-	<!-- Autopilot Helpers/Calculators -->
+	<!-- Logic -->
 	<logic>
 		<input>
 			<or>
@@ -79,6 +46,40 @@
 		<output>/it-autoflight/output/ap-on</output>
 	</logic>
 	
+	<!-- Predictors -->
+	<predict-simple>
+		<name>Knots 5 Second Predictor</name>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<output>/it-autoflight/internal/kts-predicted-5</output>
+		<seconds>5</seconds>
+		<filter-gain>0</filter-gain>
+	</predict-simple>
+	
+	<predict-simple>
+		<name>Mach 5 Second Predictor</name>
+		<input>/instrumentation/airspeed-indicator/indicated-mach</input>
+		<output>/it-autoflight/internal/mach-predicted-5</output>
+		<seconds>5</seconds>
+		<filter-gain>0</filter-gain>
+	</predict-simple>
+	
+	<predict-simple>
+		<name>Knots 15 Second Predictor</name>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<output>/it-autoflight/internal/kts-predicted-15</output>
+		<seconds>15</seconds>
+		<filter-gain>0</filter-gain>
+	</predict-simple>
+	
+	<predict-simple>
+		<name>Mach 15 Second Predictor</name>
+		<input>/instrumentation/airspeed-indicator/indicated-mach</input>
+		<output>/it-autoflight/internal/mach-predicted-15</output>
+		<seconds>15</seconds>
+		<filter-gain>0</filter-gain>
+	</predict-simple>
+	
+	<!-- Autopilot Helpers/Calculators -->
 	<filter>
 		<name>Knots Sync</name>
 		<type>gain</type>
@@ -836,6 +837,7 @@
 		<enable>
 			<condition>
 				<and>
+					<property>/it-autoflight/output/apfd-on</property>
 					<or>
 						<equals>
 							<property>/it-autoflight/output/lat</property>
@@ -846,7 +848,6 @@
 							<value>1</value>
 						</equals>
 					</or>
-					<property>/it-autoflight/output/apfd-on</property>
 				</and>
 			</condition>
 		</enable>
@@ -867,11 +868,11 @@
 		<enable>
 			<condition>
 				<and>
+					<property>/it-autoflight/output/apfd-on</property>
 					<equals>
 						<property>/it-autoflight/output/lat</property>
 						<value>2</value>
 					</equals>
-					<property>/it-autoflight/output/apfd-on</property>
 				</and>
 			</condition>
 		</enable>
@@ -997,11 +998,45 @@
 		<max>5</max>
 	</filter>
 	
+	<filter>
+		<name>System Command: Aileron Air Inactive Sync</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<not>
+					<and>
+						<property>/it-autoflight/output/ap-on</property>
+						<equals>
+							<property>/gear/gear[1]/wow</property>
+							<value>0</value>
+						</equals>
+						<equals>
+							<property>/gear/gear[2]/wow</property>
+							<value>0</value>
+						</equals>
+						<not-equals>
+							<property>/it-autoflight/output/lat</property>
+							<value>9</value>
+						</not-equals>
+						<not-equals>
+							<property>/it-autoflight/settings/disable-final</property>
+							<value>1</value>
+						</not-equals>
+					</and>
+				</not>
+			</condition>
+		</enable>
+		<input>/controls/flight/aileron</input>
+		<output>/it-autoflight/internal/aileron-cmd</output>
+	</filter>
+	
 	<pid-controller>
 		<name>System Command: Aileron Air</name>
 		<enable>
 			<condition>
 				<and>
+					<property>/it-autoflight/output/ap-on</property>
 					<equals>
 						<property>/gear/gear[1]/wow</property>
 						<value>0</value>
@@ -1010,7 +1045,6 @@
 						<property>/gear/gear[2]/wow</property>
 						<value>0</value>
 					</equals>
-					<property>/it-autoflight/output/ap-on</property>
 					<not-equals>
 						<property>/it-autoflight/output/lat</property>
 						<value>9</value>
@@ -1049,9 +1083,33 @@
 	</filter>
 	
 	<filter>
-		<name>System Command: Aileron Filter</name>
+		<name>System Command: Aileron Internal Inactive Sync</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<and>
+					<or>
+						<not><property>/it-autoflight/output/ap-on</property></not>
+						<equals>
+							<property>/it-autoflight/output/lat</property>
+							<value>9</value>
+						</equals>
+					</or>
+					<not-equals>
+						<property>/it-autoflight/settings/disable-final</property>
+						<value>1</value>
+					</not-equals>
+				</and>
+			</condition>
+		</enable>
+		<input>/controls/flight/aileron</input>
+		<output>/it-autoflight/internal/aileron</output>
+	</filter>
+	
+	<filter>
+		<name>System Command: Aileron Internal Filter</name>
 		<type>noise-spike</type>
-		<feedback-if-disabled>true</feedback-if-disabled>
 		<initialize-to>output</initialize-to>
 		<enable>
 			<condition>
@@ -1064,6 +1122,49 @@
 					<not-equals>
 						<property>/it-autoflight/settings/disable-final</property>
 						<value>1</value>
+					</not-equals>
+				</and>
+			</condition>
+		</enable>
+		<input>
+			<condition>
+				<and>
+					<equals>
+						<property>/gear/gear[1]/wow</property>
+						<value>0</value>
+					</equals>
+					<equals>
+						<property>/gear/gear[2]/wow</property>
+						<value>0</value>
+					</equals>
+				</and>
+			</condition>
+			<property>/it-autoflight/internal/aileron-cmd</property>
+		</input>
+		<input>/it-autoflight/internal/aileron-rollout</input>
+		<output>/it-autoflight/internal/aileron</output>
+		<max-rate-of-change>1.2</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Aileron Generic Filter</name>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<and>
+					<property>/it-autoflight/output/ap-on</property>
+					<not-equals>
+						<property>/it-autoflight/output/lat</property>
+						<value>9</value>
+					</not-equals>
+					<not-equals>
+						<property>/it-autoflight/settings/disable-final</property>
+						<value>1</value>
+					</not-equals>
+					<not-equals>
+						<property>/it-autoflight/settings/use-controls-flight</property>
+						<value>0</value>
 					</not-equals>
 				</and>
 			</condition>
@@ -1110,6 +1211,7 @@
 	<logic>
 		<input>
 			<and>
+				<property>/it-autoflight/output/apfd-on</property>
 				<or>
 					<equals>
 						<property>/it-autoflight/output/vert</property>
@@ -1120,7 +1222,6 @@
 						<value>7</value>
 					</equals>
 				</or>
-				<property>/it-autoflight/output/apfd-on</property>
 			</and>
 		</input>
 		<output>/it-autoflight/internal/flch-active</output>
@@ -1247,11 +1348,11 @@
 	<logic>
 		<input>
 			<and>
+				<property>/it-autoflight/output/apfd-on</property>
 				<equals>
 					<property>/it-autoflight/output/vert</property>
 					<value>5</value>
 				</equals>
-				<property>/it-autoflight/output/apfd-on</property>
 			</and>
 		</input>
 		<output>/it-autoflight/internal/fpa-active</output>
@@ -1444,6 +1545,7 @@
 		<enable>
 			<condition>
 				<and>
+					<property>/it-autoflight/output/ap-on</property>
 					<equals>
 						<property>/gear/gear[1]/wow</property>
 						<value>0</value>
@@ -1452,7 +1554,6 @@
 						<property>/gear/gear[2]/wow</property>
 						<value>0</value>
 					</equals>
-					<property>/it-autoflight/output/ap-on</property>
 					<not-equals>
 						<property>/it-autoflight/output/vert</property>
 						<value>9</value>
@@ -1565,6 +1666,7 @@
 			<condition>
 				<not>
 					<and>
+						<property>/it-autoflight/output/ap-on</property>
 						<equals>
 							<property>/gear/gear[1]/wow</property>
 							<value>0</value>
@@ -1573,7 +1675,6 @@
 							<property>/gear/gear[2]/wow</property>
 							<value>0</value>
 						</equals>
-						<property>/it-autoflight/output/ap-on</property>
 						<not-equals>
 							<property>/it-autoflight/output/vert</property>
 							<value>9</value>
@@ -1607,16 +1708,45 @@
 		<max>1.5</max>
 	</filter>
 	
+	<filter>
+		<name>System Command: Elevator Air Inactive Sync</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<not>
+					<and>
+						<property>/it-autoflight/output/ap-on</property>
+						<equals>
+							<property>/gear/gear[0]/wow</property>
+							<value>0</value>
+						</equals>
+						<not-equals>
+							<property>/it-autoflight/output/vert</property>
+							<value>9</value>
+						</not-equals>
+						<not-equals>
+							<property>/it-autoflight/settings/disable-final</property>
+							<value>1</value>
+						</not-equals>
+					</and>
+				</not>
+			</condition>
+		</enable>
+		<input>/controls/flight/elevator</input>
+		<output>/it-autoflight/internal/elevator-cmd</output>
+	</filter>
+	
 	<pid-controller>
 		<name>System Command: Elevator</name>
 		<enable>
 			<condition>
 				<and>
+					<property>/it-autoflight/output/ap-on</property>
 					<equals>
 						<property>/gear/gear[0]/wow</property>
 						<value>0</value>
 					</equals>
-					<property>/it-autoflight/output/ap-on</property>
 					<not-equals>
 						<property>/it-autoflight/output/vert</property>
 						<value>9</value>
@@ -1656,9 +1786,33 @@
 	</pid-controller>
 	
 	<filter>
-		<name>System Command: Elevator Filter</name>
+		<name>System Command: Elevator Internal Inactive Sync</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<and>
+					<or>
+						<not><property>/it-autoflight/output/ap-on</property></not>
+						<equals>
+							<property>/it-autoflight/output/vert</property>
+							<value>9</value>
+						</equals>
+					</or>
+					<not-equals>
+						<property>/it-autoflight/settings/disable-final</property>
+						<value>1</value>
+					</not-equals>
+				</and>
+			</condition>
+		</enable>
+		<input>/controls/flight/elevator</input>
+		<output>/it-autoflight/internal/elevator</output>
+	</filter>
+	
+	<filter>
+		<name>System Command: Elevator Internal Filter</name>
 		<type>noise-spike</type>
-		<feedback-if-disabled>true</feedback-if-disabled>
 		<initialize-to>output</initialize-to>
 		<enable>
 			<condition>
@@ -1690,6 +1844,48 @@
 				<property>/it-autoflight/config/rollout/pitch-nose</property>
 			</scale>
 		</input>
+		<output>/it-autoflight/internal/elevator</output>
+		<max-rate-of-change>1.2</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Elevator Generic Filter</name>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<and>
+					<property>/it-autoflight/output/ap-on</property>
+					<not-equals>
+						<property>/it-autoflight/output/vert</property>
+						<value>9</value>
+					</not-equals>
+					<not-equals>
+						<property>/it-autoflight/settings/disable-final</property>
+						<value>1</value>
+					</not-equals>
+					<not-equals>
+						<property>/it-autoflight/settings/use-controls-flight</property>
+						<value>0</value>
+					</not-equals>
+				</and>
+			</condition>
+		</enable>
+		<input>
+			<condition>
+				<equals>
+					<property>/gear/gear[0]/wow</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<property>/it-autoflight/internal/elevator-cmd</property>
+		</input>
+		<input> <!-- Prevent feedback from breaking it -->
+			<value>1</value>
+			<scale>
+				<property>/it-autoflight/config/rollout/pitch-nose</property>
+			</scale>
+		</input>
 		<output>/controls/flight/elevator</output>
 		<max-rate-of-change>1.2</max-rate-of-change>
 	</filter>
@@ -1697,11 +1893,11 @@
 	<filter>
 		<name>System Command: Elevator Trim</name>
 		<type>noise-spike</type>
-		<feedback-if-disabled>true</feedback-if-disabled>
 		<initialize-to>output</initialize-to>
 		<enable>
 			<condition>
 				<and>
+					<property>/it-autoflight/output/ap-on</property>
 					<equals>
 						<property>/gear/gear[1]/wow</property>
 						<value>0</value>
@@ -1710,7 +1906,6 @@
 						<property>/gear/gear[2]/wow</property>
 						<value>0</value>
 					</equals>
-					<property>/it-autoflight/output/ap-on</property>
 					<or>
 						<greater-than>
 							<property>/it-autoflight/internal/elevator-cmd</property>
@@ -1819,7 +2014,31 @@
 	</pi-simple-controller>
 	
 	<filter>
-		<name>System Command: Rudder</name>
+		<name>System Command: Rudder Internal</name>
+		<type>noise-spike</type>
+		<input>
+			<condition>
+				<and>
+					<property>/it-autoflight/output/ap-on</property>
+					<not-equals>
+						<property>/it-autoflight/settings/disable-final</property>
+						<value>1</value>
+					</not-equals>
+					<equals>
+						<property>/it-autoflight/output/lat</property>
+						<value>4</value>
+					</equals>
+				</and>
+			</condition>
+			<property>/it-autoflight/internal/rudder-cmd</property>
+		</input>
+		<input>0</input>
+		<output>/fdm/jsbsim/fcc/afs/yaw-cmd</output>
+		<max-rate-of-change>1.2</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Rudder Generic</name>
 		<type>noise-spike</type>
 		<enable>
 			<condition>
@@ -1832,6 +2051,10 @@
 					<not-equals>
 						<property>/it-autoflight/settings/disable-final</property>
 						<value>1</value>
+					</not-equals>
+					<not-equals>
+						<property>/it-autoflight/settings/use-controls-flight</property>
+						<value>0</value>
 					</not-equals>
 				</and>
 			</condition>
