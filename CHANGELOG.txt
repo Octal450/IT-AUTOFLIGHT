@@ -8,6 +8,10 @@ V4.0.8 Beta 1:
 [Control Loop]
 * Changed: Tweaked rate scheme slightly
 
+[Logic]
+* Renamed reduc-agl-ft to accel-ft
+* Renamed togaspd to toga-spd
+
 ---------------------------------------------------------------------------------------------------------------------
 
 V4.0.7:

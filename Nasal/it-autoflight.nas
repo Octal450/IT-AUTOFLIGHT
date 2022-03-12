@@ -180,6 +180,7 @@ var Text = {
 };
 
 var Settings = {
+	accelFt: props.globals.getNode("/it-autoflight/settings/accel-ft", 1),
 	autoBankMaxDeg: props.globals.getNode("/it-autoflight/settings/auto-bank-max-deg", 1),
 	autolandWithoutAp: props.globals.getNode("/it-autoflight/settings/autoland-without-ap", 1),
 	autolandWithoutApTemp: 0,
@@ -189,10 +190,9 @@ var Settings = {
 	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-separate", 1),
 	latAglFt: props.globals.getNode("/it-autoflight/settings/lat-agl-ft", 1),
 	landingFlap: props.globals.getNode("/it-autoflight/settings/land-flap", 1),
-	reducAglFt: props.globals.getNode("/it-autoflight/settings/reduc-agl-ft", 1),
 	retardAltitude: props.globals.getNode("/it-autoflight/settings/retard-ft", 1),
 	retardEnable: props.globals.getNode("/it-autoflight/settings/retard-enable", 1),
-	togaSpd: props.globals.getNode("/it-autoflight/settings/togaspd", 1),
+	togaSpd: props.globals.getNode("/it-autoflight/settings/toga-spd", 1),
 };
 
 var Sound = {
@@ -391,7 +391,7 @@ var ITAF = {
 		
 		# FLCH Engagement
 		if (Text.vertTemp == "T/O CLB") {
-			me.checkFlch(Settings.reducAglFt.getValue());
+			me.checkFlch(Settings.accelFt.getValue());
 		}
 		
 		# Altitude Capture/Sync Logic

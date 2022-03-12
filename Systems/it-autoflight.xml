@@ -174,7 +174,7 @@
 			<expression>
 				<product>
 					<difference>
-						<property>/it-autoflight/settings/togaspd</property>
+						<property>/it-autoflight/settings/toga-spd</property>
 						<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
 					</difference>
 					<value>0.08</value>
