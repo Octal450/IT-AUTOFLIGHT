@@ -157,6 +157,7 @@ var Output = {
 	apprArm: props.globals.initNode("/it-autoflight/output/appr-armed", 0, "BOOL"),
 	athr: props.globals.initNode("/it-autoflight/output/athr", 0, "BOOL"),
 	athrTemp: 0,
+	cws: props.globals.initNode("/it-autoflight/output/cws", 0, "BOOL"),
 	fd1: props.globals.initNode("/it-autoflight/output/fd1", 0, "BOOL"),
 	fd1Temp: 0,
 	fd2: props.globals.initNode("/it-autoflight/output/fd2", 0, "BOOL"),
