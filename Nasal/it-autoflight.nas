@@ -189,8 +189,8 @@ var Settings = {
 	disableFinal: props.globals.getNode("/it-autoflight/settings/disable-final", 1),
 	fdStartsOn: props.globals.getNode("/it-autoflight/settings/fd-starts-on", 1),
 	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-separate", 1),
-	latAglFt: props.globals.getNode("/it-autoflight/settings/lat-agl-ft", 1),
 	landingFlap: props.globals.getNode("/it-autoflight/settings/land-flap", 1),
+	lnavFt: props.globals.getNode("/it-autoflight/settings/lnav-ft", 1),
 	retardAltitude: props.globals.getNode("/it-autoflight/settings/retard-ft", 1),
 	retardEnable: props.globals.getNode("/it-autoflight/settings/retard-enable", 1),
 	togaSpd: props.globals.getNode("/it-autoflight/settings/toga-spd", 1),
@@ -881,7 +881,7 @@ var ITAF = {
 	},
 	checkLnav: func(t) {
 		FPLN.activeTemp = FPLN.active.getBoolValue();
-		if (FPLN.num.getValue() > 0 and FPLN.activeTemp and Position.gearAglFt.getValue() >= Settings.latAglFt.getValue()) {
+		if (FPLN.num.getValue() > 0 and FPLN.activeTemp and Position.gearAglFt.getValue() >= Settings.lnavFt.getValue()) {
 			me.activateLnav();
 		} else if (FPLN.activeTemp and Output.lat.getValue() != 1 and t != 1) {
 			me.updateLnavArm(1);

@@ -12,6 +12,7 @@ V4.0.8 Beta 1:
 [Logic]
 * Renamed reduc-agl-ft to accel-ft
 * Renamed togaspd to toga-spd
+* Renamed lat-agl-ft to lnav-ft
 
 ---------------------------------------------------------------------------------------------------------------------
 
