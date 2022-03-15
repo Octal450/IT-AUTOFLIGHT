@@ -4,15 +4,17 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
-V4.0.8 Beta 1:
+V4.0.8 Beta 2:
 [Control Loop]
 * Added: Internal control drivers for overridable yoke (New config required)
+* Added: Ability to not drive throttle directly with autothrottle
 * Changed: Tweaked rate scheme slightly
 
 [Logic]
-* Renamed reduc-agl-ft to accel-ft
-* Renamed togaspd to toga-spd
-* Renamed lat-agl-ft to lnav-ft
+* Added: Ability to not drive throttle directly with autothrottle
+* Changed: Renamed reduc-agl-ft to accel-ft
+* Changed: Renamed togaspd to toga-spd
+* Changed: Renamed lat-agl-ft to lnav-ft
 
 ---------------------------------------------------------------------------------------------------------------------
 

@@ -145,6 +145,7 @@ var Internal = {
 	navCourseTrackErrorDeg: [props.globals.initNode("/it-autoflight/internal/nav1-course-track-error-deg", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/nav2-course-track-error-deg", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/nav3-course-track-error-deg", 0, "DOUBLE")],
 	navHeadingErrorDeg: [props.globals.initNode("/it-autoflight/internal/nav1-heading-error-deg", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/nav2-heading-error-deg", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/nav3-heading-error-deg", 0, "DOUBLE")],
 	navHeadingErrorDegTemp: [0, 0, 0],
+	throttle: [props.globals.initNode("/it-autoflight/internal/throttle-1", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle-2", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle-3", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle-4", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle-5", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle-6", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle-7", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle-8", 0, "DOUBLE")],
 	vs: props.globals.initNode("/it-autoflight/internal/vert-speed-fpm", 0, "DOUBLE"),
 	vsTemp: 0,
 };
@@ -194,6 +195,7 @@ var Settings = {
 	retardAltitude: props.globals.getNode("/it-autoflight/settings/retard-ft", 1),
 	retardEnable: props.globals.getNode("/it-autoflight/settings/retard-enable", 1),
 	togaSpd: props.globals.getNode("/it-autoflight/settings/toga-spd", 1),
+	useControlsEngines: props.globals.getNode("/it-autoflight/settings/use-controls-engines", 1),
 	useControlsFlight: props.globals.getNode("/it-autoflight/settings/use-controls-flight", 1),
 };
 
@@ -586,6 +588,16 @@ var ITAF = {
 				Output.athr.setBoolValue(1);
 			}
 		} else {
+			if (!Settings.useControlsEngines.getBoolValue()) {
+				setprop("/controls/engines/engine[0]/throttle", Internal.throttle[0].getValue());
+				setprop("/controls/engines/engine[1]/throttle", Internal.throttle[1].getValue());
+				setprop("/controls/engines/engine[2]/throttle", Internal.throttle[2].getValue());
+				setprop("/controls/engines/engine[3]/throttle", Internal.throttle[3].getValue());
+				setprop("/controls/engines/engine[4]/throttle", Internal.throttle[4].getValue());
+				setprop("/controls/engines/engine[5]/throttle", Internal.throttle[5].getValue());
+				setprop("/controls/engines/engine[6]/throttle", Internal.throttle[6].getValue());
+				setprop("/controls/engines/engine[7]/throttle", Internal.throttle[7].getValue());
+			}
 			Output.athr.setBoolValue(0);
 		}
 		Output.athrTemp = Output.athr.getBoolValue();
