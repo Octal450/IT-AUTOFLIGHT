@@ -9,12 +9,12 @@ V4.0.8 Beta 3:
 * Added: Internal control drivers for overridable yoke (New config required)
 * Added: Ability to not drive throttle directly with autothrottle
 * Added: CWS interrupt ability
-* Added: More flexible bank limit system with overrides
+* Added: More flexible bank limit system with overrides (New config required)
 * Changed: Tweaked rate scheme slightly
 
 [Logic]
 * Added: Ability to not drive throttle directly with autothrottle
-* Added: More flexible bank limit system with overrides
+* Added: More flexible bank limit system with overrides (New config required)
 * Changed: Renamed reduc-agl-ft to accel-ft
 * Changed: Renamed togaspd to toga-spd
 * Changed: Renamed lat-agl-ft to lnav-ft
