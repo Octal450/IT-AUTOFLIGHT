@@ -8,6 +8,7 @@ V4.0.8 Beta 2:
 [Control Loop]
 * Added: Internal control drivers for overridable yoke (New config required)
 * Added: Ability to not drive throttle directly with autothrottle
+* Added: CWS interrupt ability
 * Changed: Tweaked rate scheme slightly
 
 [Logic]
