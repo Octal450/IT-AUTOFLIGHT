@@ -10,6 +10,7 @@ V4.0.8 Beta 3:
 * Added: Ability to not drive throttle directly with autothrottle
 * Added: CWS interrupt ability
 * Added: More flexible bank limit system with overrides (New config required)
+* Added: Ability to adjust FLCH acceleration/deceleration rate (New config required)
 * Changed: Tweaked rate scheme slightly
 
 [Logic]

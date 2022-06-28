@@ -19,8 +19,9 @@ See wiki for details on parameters.
 				<td>0.001</td>
 			</pitch>
 			<cmd>
+				<alt>-5</alt>
+				<flch-accel>1.5</flch-accel>
 				<roll>1.6</roll>
-				<alt-gain>-5</alt-gain>
 			</cmd>
 			<autoland> 
 				<pitch-kp>0.0051</pitch-kp>

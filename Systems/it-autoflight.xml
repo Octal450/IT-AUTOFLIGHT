@@ -247,8 +247,11 @@
 			</expression>
 		</input>
 		<output>/it-autoflight/internal/flch-kts-error-cmd</output>
-		<min>-1.5</min>
-		<max>1.5</max>
+		<min>
+			<property>/it-autoflight/config/cmd/flch-accel</property>
+			<scale>-1</scale>
+		</min>
+		<max>/it-autoflight/config/cmd/flch-accel</max>
 	</filter>
 	
 	<filter>
@@ -400,7 +403,7 @@
 			<property>/it-autoflight/internal/hdg-target</property>
 			<offset>
 				<property>/it-autoflight/internal/heading-deg</property>
-				<scale>-1.0</scale>
+				<scale>-1</scale>
 			</offset>
 		</input>
 		<input>
@@ -419,7 +422,7 @@
 			<property>/it-autoflight/internal/hdg-target</property>
 			<offset>
 				<property>/it-autoflight/internal/track-deg</property>
-				<scale>-1.0</scale>
+				<scale>-1</scale>
 			</offset>
 		</input>
 		<input>
@@ -531,7 +534,7 @@
 			<property>/instrumentation/nav[0]/radials/target-auto-hdg-deg</property>
 			<offset>
 				<property>/orientation/heading-deg</property>
-				<scale>-1.0</scale>
+				<scale>-1</scale>
 			</offset>
 		</input>
 		<output>/it-autoflight/internal/nav1-heading-error-deg</output>
@@ -549,7 +552,7 @@
 			<property>/instrumentation/nav[1]/radials/target-auto-hdg-deg</property>
 			<offset>
 				<property>/orientation/heading-deg</property>
-				<scale>-1.0</scale>
+				<scale>-1</scale>
 			</offset>
 		</input>
 		<output>/it-autoflight/internal/nav2-heading-error-deg</output>
@@ -567,7 +570,7 @@
 			<property>/instrumentation/nav[2]/radials/target-auto-hdg-deg</property>
 			<offset>
 				<property>/orientation/heading-deg</property>
-				<scale>-1.0</scale>
+				<scale>-1</scale>
 			</offset>
 		</input>
 		<output>/it-autoflight/internal/nav3-heading-error-deg</output>
@@ -611,7 +614,7 @@
 			<property>/instrumentation/nav[0]/radials/selected-deg</property>
 			<offset>
 				<property>/orientation/track-magnetic-deg</property>
-				<scale>-1.0</scale>
+				<scale>-1</scale>
 			</offset>
 		</input>
 		<output>/it-autoflight/internal/nav1-course-track-error-deg</output>
@@ -629,7 +632,7 @@
 			<property>/instrumentation/nav[1]/radials/selected-deg</property>
 			<offset>
 				<property>/orientation/track-magnetic-deg</property>
-				<scale>-1.0</scale>
+				<scale>-1</scale>
 			</offset>
 		</input>
 		<output>/it-autoflight/internal/nav2-course-track-error-deg</output>
@@ -647,7 +650,7 @@
 			<property>/instrumentation/nav[2]/radials/selected-deg</property>
 			<offset>
 				<property>/orientation/track-magnetic-deg</property>
-				<scale>-1.0</scale>
+				<scale>-1</scale>
 			</offset>
 		</input>
 		<output>/it-autoflight/internal/nav3-course-track-error-deg</output>
@@ -789,7 +792,7 @@
 					<div>
 						<property>/it-autoflight/internal/vert-speed-fpm</property>
 						<product> <!-- Default 11 -->
-							<property>/it-autoflight/config/cmd/alt-gain</property>
+							<property>/it-autoflight/config/cmd/alt</property>
 							<value>-2.2</value>
 						</product>
 					</div>
@@ -842,7 +845,7 @@
 		<output>/it-autoflight/internal/target-roll-deg</output>
 		<min>
 			<property>/it-autoflight/internal/bank-limit</property>
-			<scale>-1.0</scale>
+			<scale>-1</scale>
 		</min>
 		<max>/it-autoflight/internal/bank-limit</max>
 	</filter>
@@ -867,7 +870,7 @@
 		<output>/it-autoflight/internal/target-roll-deg</output>
 		<min>
 			<property>/it-autoflight/internal/bank-limit</property>
-			<scale>-1.0</scale>
+			<scale>-1</scale>
 		</min>
 		<max>/it-autoflight/internal/bank-limit</max>
 	</filter>
@@ -910,7 +913,7 @@
 		<output>/it-autoflight/internal/target-roll-deg</output>
 		<min>
 			<property>/it-autoflight/internal/bank-limit</property>
-			<scale>-1.0</scale>
+			<scale>-1</scale>
 		</min>
 		<max>/it-autoflight/internal/bank-limit</max>
 	</filter>
@@ -934,7 +937,7 @@
 		<output>/it-autoflight/internal/target-roll-deg</output>
 		<min>
 			<property>/it-autoflight/internal/bank-limit</property>
-			<scale>-1.0</scale>
+			<scale>-1</scale>
 		</min>
 		<max>/it-autoflight/internal/bank-limit</max>
 	</filter>
@@ -1179,7 +1182,7 @@
 	<filter>
 		<name>IT-CONTROLLER: Altitude Capture/Hold</name>
 		<type>gain</type>
-		<gain>/it-autoflight/config/cmd/alt-gain</gain>
+		<gain>/it-autoflight/config/cmd/alt</gain>
 		<input>
 			<expression>
 				<sum>
