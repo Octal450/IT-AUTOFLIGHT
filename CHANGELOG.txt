@@ -4,13 +4,14 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 
 ---------------------------------------------------------------------------------------------------------------------
 
-V4.0.8 Beta 3:
+V4.0.8 Beta 4:
 [Control Loop]
 * Added: Internal control drivers for overridable yoke (New config required)
 * Added: Ability to not drive throttle directly with autothrottle
 * Added: CWS interrupt ability
 * Added: More flexible bank limit system with overrides (New config required)
 * Added: Ability to adjust FLCH acceleration/deceleration rate (New config required)
+* Added: Improved flight director pitch calculation
 * Changed: Tweaked rate scheme slightly
 
 [Logic]
