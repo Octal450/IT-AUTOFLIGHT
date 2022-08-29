@@ -44,6 +44,7 @@ See wiki for details on parameters.
 			<custom-fma type="bool">0</custom-fma> <!-- Call functions when modes change for a custom FMA to be implemented --> 
 			<disable-final type="bool">0</disable-final> <!-- Disable the Final Controllers, for custom FCS integration -->
 			<fd-starts-on type="bool">0</fd-starts-on> <!-- Enable/Disable Flight Director being on by default -->
+			<fd-takeoff-offset type="double">0</fd-takeoff-offset> <!-- Adjust the Flight Director Pitch Bar on ground -->
 			<hdg-hld-separate type="bool">0</hdg-hld-separate> <!-- Separates the HDG HLD mode from the HDG SEL mode -->
 			<land-enable type="bool">1</land-enable> <!-- Enable/Disable Autoland -->
 			<land-flap type="double">0.7</land-flap> <!-- Minimum Flap used for Landing -->
