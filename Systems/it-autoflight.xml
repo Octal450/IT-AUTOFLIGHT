@@ -424,11 +424,42 @@
 					<value>1</value>
 				</less-than>
 			</condition>
-			<property>/orientation/heading-magnetic-deg</property>
+			<property>/orientation/heading-deg</property>
 		</input>
-		<input>/orientation/track-magnetic-deg</input>
-		<reference>/orientation/heading-magnetic-deg</reference>
+		<input>/orientation/track-deg</input>
+		<reference>/orientation/heading-deg</reference>
 		<output>/it-autoflight/internal/drift-angle-deg</output>
+		<period>
+			<min>-180</min>
+			<max>180</max>
+		</period>
+	</filter>
+	
+	<filter>
+		<name>Mag True Diff</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>
+			<condition>
+				<equals>
+					<property>/it-autoflight/input/trk</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<property>/orientation/track-deg</property>
+		</input>
+		<input>/orientation/heading-deg</input>
+		<reference>
+			<condition>
+				<equals>
+					<property>/it-autoflight/input/trk</property>
+					<value>1</value>
+				</equals>
+			</condition>
+			<property>/orientation/track-magnetic-deg</property>
+		</reference>
+		<reference>/orientation/heading-magnetic-deg</reference>
+		<output>/it-autoflight/internal/mag-true-diff-deg</output>
 		<period>
 			<min>-180</min>
 			<max>180</max>

@@ -139,6 +139,8 @@ var Internal = {
 	hdgHldValue: 360,
 	hdgPredicted: props.globals.initNode("/it-autoflight/internal/heading-predicted", 0, "DOUBLE"),
 	lnavAdvanceNm: props.globals.initNode("/it-autoflight/internal/lnav-advance-nm", 0, "DOUBLE"),
+	magTrueDiffDeg: props.globals.initNode("/it-autoflight/internal/mag-true-diff-deg", 0, "DOUBLE"),
+	magTrueDiffDegTemp: 0,
 	minVs: props.globals.initNode("/it-autoflight/internal/min-vs", -500, "INT"),
 	maxVs: props.globals.initNode("/it-autoflight/internal/max-vs", 500, "INT"),
 	navCourseTrackErrorDeg: [props.globals.initNode("/it-autoflight/internal/nav1-course-track-error-deg", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/nav2-course-track-error-deg", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/nav3-course-track-error-deg", 0, "DOUBLE")],
@@ -1171,6 +1173,37 @@ setlistener("/it-autoflight/input/trk", func() {
 	Misc.efis0Trk.setBoolValue(Input.trkTemp); # For Canvas Nav Display.
 	Misc.efis1Trk.setBoolValue(Input.trkTemp); # For Canvas Nav Display.
 }, 0, 0);
+
+setlistener("/it-autoflight/input/true-course", func() {
+	Internal.magTrueDiffDegTemp = math.round(Internal.magTrueDiffDeg.getValue());
+	
+	if (Input.trueCourse.getBoolValue()) {
+		Input.hdgCalc = Input.hdg.getValue() + Internal.magTrueDiffDegTemp;
+		Input.hdgHldCalc = Internal.hdgHldTarget.getValue() + Internal.magTrueDiffDegTemp;
+	} else {
+		Input.hdgCalc = Input.hdg.getValue() - Internal.magTrueDiffDegTemp;
+		Input.hdgHldCalc = Internal.hdgHldTarget.getValue() - Internal.magTrueDiffDegTemp;
+	}
+	
+	if (Input.hdgCalc > 360) { # It's rounded, so this is ok. Otherwise do >= 360.5
+		Input.hdgCalc = Input.hdgCalc - 360;
+	} else if (Input.hdgCalc < 1) { # It's rounded, so this is ok. Otherwise do < 0.5
+		Input.hdgCalc = Input.hdgCalc + 360;
+	}
+	if (Input.hdgHldCalc > 360) { # It's rounded, so this is ok. Otherwise do >= 360.5
+		Input.hdgHldCalc = Input.hdgHldCalc - 360;
+	} else if (Input.hdgHldCalc < 1) { # It's rounded, so this is ok. Otherwise do < 0.5
+		Input.hdgHldCalc = Input.hdgHldCalc + 360;
+	}
+	
+	Input.hdg.setValue(Input.hdgCalc);
+	Internal.hdgHldTarget.setValue(Input.hdgHldCalc);
+	
+	if (Settings.customFma.getBoolValue()) {
+		updateFma.lat();
+	}
+}, 0, 0);
+
 
 setlistener("/sim/signals/fdm-initialized", func() {
 	ITAF.init();
