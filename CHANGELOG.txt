@@ -14,11 +14,14 @@ V4.0.8 Beta 4:
 * Added: Ability to adjust FLCH acceleration/deceleration rate (New config required)
 * Added: Improved flight director pitch calculation
 * Added: Ability to adjust flight director pitch bar when on the ground in takeoff mode
+* Added: T/O roll mode now includes ability to capture current heading
 * Changed: Tweaked rate scheme slightly
 
 [Logic]
 * Added: Ability to not drive throttle directly with autothrottle
 * Added: More flexible bank limit system with overrides (New config required)
+* Added: T/O roll mode now includes ability to capture current heading
+* Fixed: Bad behavior when switching on and off true course
 * Changed: Renamed reduc-agl-ft to accel-ft
 * Changed: Renamed togaspd to toga-spd
 * Changed: Renamed lat-agl-ft to lnav-ft
