@@ -1,6 +1,6 @@
 # IT-AUTOFLIGHT Custom FMA File
 # Make sure you enable custom-fma in the config
-# Copyright (c) 2022 Josh Davidson (Octal450)
+# Copyright (c) 2023 Josh Davidson (Octal450)
 
 var updateFma = {
 	latText: "T/O",
