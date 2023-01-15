@@ -2228,7 +2228,7 @@
 			<property>/it-autoflight/internal/rudder-cmd</property>
 		</input>
 		<input>0</input>
-		<output>/fdm/jsbsim/fcc/afs/yaw-cmd</output>
+		<output>/it-autoflight/internal/rudder</output>
 		<max-rate-of-change>1.2</max-rate-of-change>
 	</filter>
 	
