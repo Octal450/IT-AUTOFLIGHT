@@ -3,6 +3,15 @@ Copyright (c) 2023 Josh Davidson (Octal450)
 I will note if new ITAF tuning or config is required. Simply check the "ITAF CONFIG.txt" file.
 
 ---------------------------------------------------------------------------------------------------------------------
+V4.0.9:
+[Logic]
+* Fixed: Ensure route manager errors do not block ITAF loop
+
+[GUI]
+* Fixed: FPA not syncing when inactive
+* Fixed: Floating point error with FPA and Mach
+
+---------------------------------------------------------------------------------------------------------------------
 
 V4.0.8:
 [Control Loop]
