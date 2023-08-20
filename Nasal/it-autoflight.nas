@@ -90,6 +90,8 @@ var Input = {
 	ap1Avail: props.globals.initNode("/it-autoflight/input/ap1-avail", 1, "BOOL"),
 	ap2: props.globals.initNode("/it-autoflight/input/ap2", 0, "BOOL"),
 	ap2Avail: props.globals.initNode("/it-autoflight/input/ap2-avail", 1, "BOOL"),
+	ap3: props.globals.initNode("/it-autoflight/input/ap3", 0, "BOOL"),
+	ap3Avail: props.globals.initNode("/it-autoflight/input/ap3-avail", 1, "BOOL"),
 	athr: props.globals.initNode("/it-autoflight/input/athr", 0, "BOOL"),
 	athrAvail: props.globals.initNode("/it-autoflight/input/athr-avail", 1, "BOOL"),
 	altDiff: 0,
@@ -163,6 +165,8 @@ var Output = {
 	ap1Temp: 0,
 	ap2: props.globals.initNode("/it-autoflight/output/ap2", 0, "BOOL"),
 	ap2Temp: 0,
+	ap3: props.globals.initNode("/it-autoflight/output/ap3", 0, "BOOL"),
+	ap3Temp: 0,
 	apprArm: props.globals.initNode("/it-autoflight/output/appr-armed", 0, "BOOL"),
 	athr: props.globals.initNode("/it-autoflight/output/athr", 0, "BOOL"),
 	athrTemp: 0,
@@ -252,6 +256,7 @@ var ITAF = {
 		Internal.takeoffLvl.setBoolValue(1);
 		Input.ap1.setBoolValue(0);
 		Input.ap2.setBoolValue(0);
+		Input.ap3.setBoolValue(0);
 		Input.athr.setBoolValue(0);
 		if (t != 1) {
 			Input.fd1.setBoolValue(Settings.fdStartsOn.getBoolValue());
@@ -264,6 +269,7 @@ var ITAF = {
 		Input.toga.setBoolValue(0);
 		Output.ap1.setBoolValue(0);
 		Output.ap2.setBoolValue(0);
+		Output.ap3.setBoolValue(0);
 		Output.athr.setBoolValue(0);
 		if (t != 1) {
 			Output.fd1.setBoolValue(Settings.fdStartsOn.getBoolValue());
@@ -292,6 +298,7 @@ var ITAF = {
 	loop: func() {
 		Output.ap1Temp = Output.ap1.getBoolValue();
 		Output.ap2Temp = Output.ap2.getBoolValue();
+		Output.ap3Temp = Output.ap3.getBoolValue();
 		Output.latTemp = Output.lat.getValue();
 		Output.vertTemp = Output.vert.getValue();
 		
@@ -301,6 +308,9 @@ var ITAF = {
 		}
 		if (!Input.ap2Avail.getBoolValue() and Output.ap2Temp) {
 			me.ap2Master(0);
+		}
+		if (!Input.ap3Avail.getBoolValue() and Output.ap3emp) {
+			me.ap3Master(0);
 		}
 		if (!Input.athrAvail.getBoolValue() and Output.athr.getBoolValue()) {
 			me.athrMaster(0);
@@ -313,12 +323,13 @@ var ITAF = {
 		
 		Output.ap1Temp = Output.ap1.getBoolValue();
 		Output.ap2Temp = Output.ap2.getBoolValue();
+		Output.ap3Temp = Output.ap3.getBoolValue();
 		Output.athrTemp = Output.athr.getBoolValue();
 		Settings.autolandWithoutApTemp = Settings.autolandWithoutAp.getBoolValue();
 		
 		# Kill Autoland if the system should not autoland without AP, and AP is off
 		if (Settings.autolandWithoutApTemp) { # Only evaluate the rest if this setting is on
-			if (!Output.ap1Temp and !Output.ap2Temp) {
+			if (!Output.ap1Temp and !Output.ap2Temp and !Output.ap3Temp) {
 				if (Output.latTemp == 4) {
 					me.activateLoc();
 				}
@@ -388,19 +399,19 @@ var ITAF = {
 		# Autoland Logic
 		if (Output.latTemp == 2) {
 			if (Position.gearAglFtTemp <= 150) {
-				if (Output.ap1Temp or Output.ap2Temp or Settings.autolandWithoutApTemp) {
+				if (Output.ap1Temp or Output.ap2Temp or Output.ap3Temp or Settings.autolandWithoutApTemp) {
 					me.setLatMode(4);
 				}
 			}
 		}
 		if (Output.vertTemp == 2) {
 			if (Position.gearAglFtTemp <= 50 and Position.gearAglFtTemp >= 5) {
-				if (Output.ap1Temp or Output.ap2Temp or Settings.autolandWithoutApTemp) {
+				if (Output.ap1Temp or Output.ap2Temp or Output.ap3Temp or Settings.autolandWithoutApTemp) {
 					me.setVertMode(6);
 				}
 			}
 		} else if (Output.vertTemp == 6) {
-			if (!Output.ap1Temp and !Output.ap2Temp and !Settings.autolandWithoutApTemp) {
+			if (!Output.ap1Temp and !Output.ap2Temp and !Output.ap3Temp and !Settings.autolandWithoutApTemp) {
 				me.activateLoc();
 				me.activateGs();
 			} else {
@@ -458,7 +469,7 @@ var ITAF = {
 		
 		# Reset system once flight complete
 		if (!Settings.groundModeSelect.getBoolValue()) {
-			if (!Output.ap1.getBoolValue() and !Output.ap2.getBoolValue() and Gear.wow0.getBoolValue() and Velocities.groundspeedKt.getValue() < 60 and Output.vert.getValue() != 7) { # Not in T/O or G/A
+			if (!Output.ap1.getBoolValue() and !Output.ap2.getBoolValue() and !Output.ap3.getBoolValue() and Gear.wow0.getBoolValue() and Velocities.groundspeedKt.getValue() < 60 and Output.vert.getValue() != 7) { # Not in T/O or G/A
 				me.init(1);
 			}
 		}
@@ -572,8 +583,25 @@ var ITAF = {
 			Input.ap2.setBoolValue(Output.ap2Temp);
 		}
 	},
+	ap3Master: func(s) {
+		if (s == 1) {
+			if (Input.ap3Avail.getBoolValue() and Output.vert.getValue() != 6 and !Gear.wow1.getBoolValue() and !Gear.wow2.getBoolValue()) {
+				Controls.rudder.setValue(0);
+				Output.ap3.setBoolValue(1);
+				Sound.enableApOff = 1;
+				Sound.apOff.setBoolValue(0);
+			}
+		} else {
+			Output.ap3.setBoolValue(0);
+			me.apOffFunction();
+		}
+		Output.ap3Temp = Output.ap3.getBoolValue();
+		if (Input.ap3.getBoolValue() != Output.ap3Temp) {
+			Input.ap3.setBoolValue(Output.ap3Temp);
+		}
+	},
 	apOffFunction: func() {
-		if (!Output.ap1.getBoolValue() and !Output.ap2.getBoolValue()) { # Only do if both APs are off
+		if (!Output.ap1.getBoolValue() and !Output.ap2.getBoolValue() and !Output.ap3.getBoolValue()) { # Only do if all APs are off
 			if (!Settings.disableFinal.getBoolValue() and Settings.useControlsFlight.getBoolValue()) {
 				Controls.aileron.setValue(0);
 				Controls.elevator.setValue(0);
@@ -614,11 +642,13 @@ var ITAF = {
 	killApSilent: func() {
 		Output.ap1.setBoolValue(0);
 		Output.ap2.setBoolValue(0);
+		Output.ap3.setBoolValue(0);
 		Sound.apOff.setBoolValue(0);
 		Sound.enableApOff = 0;
 		# Now that APs are off, we can safely update the input to 0 without the AP Master running
 		Input.ap1.setBoolValue(0);
 		Input.ap2.setBoolValue(0);
+		Input.ap3.setBoolValue(0);
 	},
 	killAthrSilent: func() {
 		Output.athr.setBoolValue(0);
@@ -976,6 +1006,7 @@ var ITAF = {
 			if (l == 4 or v == 6) {
 				me.ap1Master(0);
 				me.ap2Master(0);
+				me.ap3Master(0);
 				me.setLatMode(3);
 				me.setVertMode(1);
 			} else {
@@ -1025,6 +1056,7 @@ var ITAF = {
 			if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) {
 				me.ap1Master(0);
 				me.ap2Master(0);
+				me.ap3Master(0);
 			}
 		} else if (Gear.wow1Temp or Gear.wow2Temp) {
 			me.athrMaster(1);
@@ -1105,6 +1137,13 @@ setlistener("/it-autoflight/input/ap2", func() {
 	Input.ap2Temp = Input.ap2.getBoolValue();
 	if (Input.ap2Temp != Output.ap2.getBoolValue()) {
 		ITAF.ap2Master(Input.ap2Temp);
+	}
+});
+
+setlistener("/it-autoflight/input/ap3", func() {
+	Input.ap3Temp = Input.ap3.getBoolValue();
+	if (Input.ap3Temp != Output.ap3.getBoolValue()) {
+		ITAF.ap3Master(Input.ap3Temp);
 	}
 });
 

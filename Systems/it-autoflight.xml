@@ -19,6 +19,10 @@
 						<value>1</value>
 					</equals>
 					<equals>
+						<property>/it-autoflight/output/ap3</property>
+						<value>1</value>
+					</equals>
+					<equals>
 						<property>/it-autoflight/output/fd1</property>
 						<value>1</value>
 					</equals>
@@ -46,6 +50,10 @@
 					</equals>
 					<equals>
 						<property>/it-autoflight/output/ap2</property>
+						<value>1</value>
+					</equals>
+					<equals>
+						<property>/it-autoflight/output/ap3</property>
 						<value>1</value>
 					</equals>
 				</or>

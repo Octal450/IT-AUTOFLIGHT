@@ -5,6 +5,8 @@ I will note if new ITAF tuning or config is required. Simply check the "ITAF CON
 ---------------------------------------------------------------------------------------------------------------------
 V4.0.9:
 [Logic]
+* Added: Ability to allow modes to be selected on the ground
+* Added: Third autopilot option
 * Fixed: Ensure route manager errors do not block ITAF loop
 
 [GUI]
