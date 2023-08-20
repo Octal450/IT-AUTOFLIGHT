@@ -1,4 +1,4 @@
-# IT-AUTOFLIGHT System Controller V4.0.8
+# IT-AUTOFLIGHT System Controller V4.0.9
 # Copyright (c) 2023 Josh Davidson (Octal450)
 
 setprop("/it-autoflight/config/tuning-mode", 0); # Not used by controller
@@ -198,6 +198,7 @@ var Settings = {
 	customFma: props.globals.getNode("/it-autoflight/settings/custom-fma", 1),
 	disableFinal: props.globals.getNode("/it-autoflight/settings/disable-final", 1),
 	fdStartsOn: props.globals.getNode("/it-autoflight/settings/fd-starts-on", 1),
+	groundModeSelect: props.globals.getNode("/it-autoflight/settings/ground-mode-select", 1),
 	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-separate", 1),
 	landingFlap: props.globals.getNode("/it-autoflight/settings/land-flap", 1),
 	lnavFt: props.globals.getNode("/it-autoflight/settings/lnav-ft", 1),
@@ -456,8 +457,10 @@ var ITAF = {
 		}
 		
 		# Reset system once flight complete
-		if (!Output.ap1.getBoolValue() and !Output.ap2.getBoolValue() and Gear.wow0.getBoolValue() and Velocities.groundspeedKt.getValue() < 60 and Output.vert.getValue() != 7) { # Not in T/O or G/A
-			me.init(1);
+		if (!Settings.groundModeSelect.getBoolValue()) {
+			if (!Output.ap1.getBoolValue() and !Output.ap2.getBoolValue() and Gear.wow0.getBoolValue() and Velocities.groundspeedKt.getValue() < 60 and Output.vert.getValue() != 7) { # Not in T/O or G/A
+				me.init(1);
+			}
 		}
 		
 		# Calculate Roll and Pitch Rate Kp
@@ -1149,7 +1152,7 @@ setlistener("/it-autoflight/input/toga", func() {
 
 setlistener("/it-autoflight/input/lat", func() {
 	Input.latTemp = Input.lat.getValue();
-	if (!Gear.wow1.getBoolValue() and !Gear.wow2.getBoolValue()) {
+	if ((!Gear.wow1.getBoolValue() and !Gear.wow2.getBoolValue()) or Settings.groundModeSelect.getBoolValue()) {
 		ITAF.setLatMode(Input.latTemp);
 	} else {
 		ITAF.setLatArm(Input.latTemp);
@@ -1157,7 +1160,7 @@ setlistener("/it-autoflight/input/lat", func() {
 });
 
 setlistener("/it-autoflight/input/vert", func() {
-	if (!Gear.wow1.getBoolValue() and !Gear.wow2.getBoolValue()) {
+	if ((!Gear.wow1.getBoolValue() and !Gear.wow2.getBoolValue()) or Settings.groundModeSelect.getBoolValue()) {
 		ITAF.setVertMode(Input.vert.getValue());
 	}
 });
