@@ -50,6 +50,7 @@ var Misc = {
 };
 
 var Orientation = {
+	pitchDeg: props.globals.getNode("/orientation/pitch-deg"),
 	rollDeg: props.globals.getNode("/orientation/roll-deg"),
 };
 
@@ -108,6 +109,7 @@ var Input = {
 	lat: props.globals.initNode("/it-autoflight/input/lat", 5, "INT"),
 	latTemp: 5,
 	mach: props.globals.initNode("/it-autoflight/input/mach", 0.5, "DOUBLE"),
+	pitch: props.globals.initNode("/it-autoflight/input/pitch", 0, "INT"),
 	radioSel: props.globals.initNode("/it-autoflight/input/radio-sel", 0, "INT"),
 	radioSelTemp: 0,
 	roll: props.globals.initNode("/it-autoflight/input/roll", 0, "INT"),
@@ -731,9 +733,9 @@ var ITAF = {
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
 			me.updateApprArm(0);
+			me.syncRoll();
 			Output.lat.setValue(6);
 			me.updateLatText("ROLL");
-			me.syncRoll();
 		} else if (n == 9) { # Blank
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
@@ -848,6 +850,18 @@ var ITAF = {
 			Output.vert.setValue(7);
 			Input.ktsMach.setBoolValue(0);
 			me.updateThrustMode();
+		} else if (n == 8) { # PITCH
+			if (abs(Input.altDiff) >= 25) {
+				Internal.flchActive = 0;
+				Internal.altCaptureActive = 0;
+				me.updateApprArm(0);
+				Output.vert.setValue(8);
+				me.updateVertText("PITCH");
+				me.syncPitch();
+				me.updateThrustMode();
+			} else {
+				me.updateApprArm(0);
+			}
 		} else if (n == 9) { # Blank
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
@@ -1081,7 +1095,7 @@ var ITAF = {
 	},
 	syncRoll: func() {
 		Internal.bankLimitTemp = Internal.bankLimit.getValue();
-		Input.roll.setValue(math.clamp(math.round(Orientation.rollDeg.getValue(), 1), Internal.bankLimitTemp * -1, Internal.bankLimitTemp));
+		Input.roll.setValue(math.clamp(math.round(Orientation.rollDeg.getValue()), Internal.bankLimitTemp * -1, Internal.bankLimitTemp));
 	},
 	syncAlt: func() {
 		Input.alt.setValue(math.clamp(math.round(Internal.altPredicted.getValue(), 100), 0, 50000));
@@ -1092,6 +1106,9 @@ var ITAF = {
 	},
 	syncFpa: func() {
 		Input.fpa.setValue(math.clamp(math.round(Internal.fpa.getValue(), 0.1), -9.9, 9.9));
+	},
+	syncPitch: func() {
+		Input.pitch.setValue(math.clamp(math.round(Orientation.pitchDeg.getValue()), -15, 30));
 	},
 	# Allows custom FMA behavior if desired
 	updateLatText: func(t) {

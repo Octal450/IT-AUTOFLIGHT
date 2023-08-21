@@ -1695,6 +1695,15 @@
 		</input>
 		<input>
 			<condition>
+				<equals>
+					<property>/it-autoflight/output/vert</property>
+					<value>2</value>
+				</equals>
+			</condition>
+			<property>/it-autoflight/internal/nav-rate-of-climb-fpm</property>
+		</input>
+		<input>
+			<condition>
 				<or>
 					<equals>
 						<property>/it-autoflight/output/vert</property>
@@ -1712,15 +1721,6 @@
 			<condition>
 				<equals>
 					<property>/it-autoflight/output/vert</property>
-					<value>6</value>
-				</equals>
-			</condition>
-			<property>/it-autoflight/internal/target-fpm-land</property>
-		</input>
-		<input>
-			<condition>
-				<equals>
-					<property>/it-autoflight/output/vert</property>
 					<value>5</value>
 				</equals>
 			</condition>
@@ -1730,17 +1730,23 @@
 			<condition>
 				<equals>
 					<property>/it-autoflight/output/vert</property>
-					<value>2</value>
+					<value>6</value>
 				</equals>
 			</condition>
-			<property>/it-autoflight/internal/nav-rate-of-climb-fpm</property>
+			<property>/it-autoflight/internal/target-fpm-land</property>
 		</input>
 		<input>
 			<condition>
-				<equals>
-					<property>/it-autoflight/output/vert</property>
-					<value>9</value>
-				</equals>
+				<or>
+					<equals>
+						<property>/it-autoflight/output/vert</property>
+						<value>8</value>
+					</equals>
+					<equals>
+						<property>/it-autoflight/output/vert</property>
+						<value>9</value>
+					</equals>
+				</or>
 			</condition>
 			<property>/it-autoflight/internal/vert-speed-fpm</property>
 		</input>
@@ -1759,6 +1765,10 @@
 					<property>/gear/gear[2]/wow</property>
 					<value>0</value>
 				</equals>
+				<not-equals>
+					<property>/it-autoflight/output/vert</property>
+					<value>8</value>
+				</not-equals>
 				<not-equals>
 					<property>/it-autoflight/output/vert</property>
 					<value>9</value>
@@ -1911,6 +1921,10 @@
 						</equals>
 						<not-equals>
 							<property>/it-autoflight/output/vert</property>
+							<value>8</value>
+						</not-equals>
+						<not-equals>
+							<property>/it-autoflight/output/vert</property>
 							<value>9</value>
 						</not-equals>
 					</and>
@@ -1921,6 +1935,38 @@
 		<output>/it-autoflight/internal/target-pitch-deg</output>
 		<min>-15</min>
 		<max>30</max>
+	</filter>
+	
+	<filter>
+		<name>IT-CONTROLLER: Pitch</name>
+		<type>noise-spike</type>
+		<input>
+			<condition>
+				<and>
+					<property>/it-autoflight/output/apfd-on</property>
+					<equals>
+						<property>/it-autoflight/output/vert</property>
+						<value>8</value>
+					</equals>
+				</and>
+			</condition>
+			<property>/it-autoflight/input/pitch</property>
+		</input>
+		<input>/orientation/pitch-deg</input>
+		<output>/it-autoflight/internal/target-pitch-hold</output>
+		<max-rate-of-change>
+			<condition>
+				<and>
+					<property>/it-autoflight/output/apfd-on</property>
+					<equals>
+						<property>/it-autoflight/output/vert</property>
+						<value>8</value>
+					</equals>
+				</and>
+			</condition>
+			<value>1.5</value>
+		</max-rate-of-change>
+		<max-rate-of-change>50</max-rate-of-change>
 	</filter>
 	
 	<filter>
@@ -1936,6 +1982,15 @@
 			</condition>
 		</enable>
 		<input>/orientation/pitch-deg</input>
+		<reference>
+			<condition>
+				<equals>
+					<property>/it-autoflight/output/vert</property>
+					<value>8</value>
+				</equals>
+			</condition>
+			<property>/it-autoflight/internal/target-pitch-hold</property>
+		</reference>
 		<reference>/it-autoflight/internal/target-pitch-deg</reference>
 		<output>/it-autoflight/internal/pitch-rate</output>
 		<min>-1.5</min>
@@ -2388,6 +2443,20 @@
 	<filter>
 		<name>FD Pitch</name>
 		<type>noise-spike</type>
+		<input>
+			<condition>
+				<equals>
+					<property>/it-autoflight/output/vert</property>
+					<value>8</value>
+				</equals>
+			</condition>
+			<expression>
+				<difference>
+					<property>/it-autoflight/input/pitch</property>
+					<property>/orientation/pitch-deg</property>
+				</difference>
+			</expression>
+		</input>
 		<input>
 			<expression>
 				<sum>
