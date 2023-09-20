@@ -330,7 +330,7 @@ var ITAF = {
 		Settings.autolandWithoutApTemp = Settings.autolandWithoutAp.getBoolValue();
 		
 		# Kill Autoland if the system should not autoland without AP, and AP is off
-		if (Settings.autolandWithoutApTemp) { # Only evaluate the rest if this setting is on
+		if (!Settings.autolandWithoutApTemp) { # Only evaluate the rest if this setting is on
 			if (!Output.ap1Temp and !Output.ap2Temp and !Output.ap3Temp) {
 				if (Output.latTemp == 4) {
 					me.activateLoc();
