@@ -39,8 +39,8 @@ See wiki for details on parameters.
 			<auto-bank-limit-calc type="bool">1</auto-bank-limit-calc> <!-- Disable to add a custom auto bank limit schedule -->
 			<auto-system-reset type="bool">1</auto-system-reset> <!-- Automatically reset the system after landing -->
 			<autoland-without-ap type="bool">1</autoland-without-ap> <!-- Engage autoland guidance even if the AP is off -->
-			<autothrottle-max type="double">0.95</autothrottle-max> <!-- Thrust Max Limit normalized -->
-			<autothrottle-min type="double">0.02</autothrottle-min> <!-- Thrust Low Limit normalized -->
+			<autothrottle-max type="double">0.95</autothrottle-max> <!-- Thrust max limit normalized -->
+			<autothrottle-min type="double">0.02</autothrottle-min> <!-- Thrust low limit normalized -->
 			<bank-max-deg type="double">25</bank-max-deg> <!-- Maximum bank limit -->
 			<custom-fma type="bool">0</custom-fma> <!-- Call functions when modes change for a custom FMA to be implemented --> 
 			<disable-final type="bool">0</disable-final> <!-- Disable the Final Controllers for custom FCS integration -->
