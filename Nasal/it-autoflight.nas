@@ -190,7 +190,8 @@ var Output = {
 
 var Text = {
 	lat: props.globals.initNode("/it-autoflight/mode/lat", "T/O", "STRING"),
-	thr: props.globals.initNode("/it-autoflight/mode/thr", "PITCH", "STRING"),
+	spd: props.globals.initNode("/it-autoflight/mode/spd", "PITCH", "STRING"),
+	thr: props.globals.initNode("/it-autoflight/mode/thr", "THR LIM", "STRING"),
 	vert: props.globals.initNode("/it-autoflight/mode/vert", "T/O CLB", "STRING"),
 	vertTemp: "T/O CLB",
 };
@@ -288,8 +289,10 @@ var ITAF = {
 		Internal.maxVs.setValue(500);
 		Internal.alt.setValue(10000);
 		Internal.altCaptureActive = 0;
-		Text.thr.setValue("PITCH");
+		Text.spd.setValue("PITCH");
+		Text.thr.setValue("THR LIM");
 		if (Settings.customFma.getBoolValue()) {
+			updateFma.thr();
 			updateFma.arm();
 		}
 		me.updateLatText("T/O");
@@ -878,6 +881,7 @@ var ITAF = {
 		Output.vertTemp = Output.vert.getValue();
 		if (Output.athr.getBoolValue() and Output.vertTemp != 7 and Settings.retardEnable.getBoolValue() and Position.gearAglFt.getValue() <= Settings.retardAltitude.getValue() and Misc.flapNorm.getValue() >= Settings.landingFlap.getValue() - 0.001) {
 			Output.thrMode.setValue(1);
+			Text.spd.setValue("RETARD");
 			Text.thr.setValue("RETARD");
 			if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) { # Disconnect A/THR on either main gear touch
 				me.athrMaster(0);
@@ -893,23 +897,35 @@ var ITAF = {
 		} else if (Output.vertTemp == 4) {
 			if (Internal.alt.getValue() >= Position.indicatedAltitudeFt.getValue()) {
 				Output.thrMode.setValue(2);
-				Text.thr.setValue("PITCH");
+				Text.spd.setValue("PITCH");
+				Text.thr.setValue("THR LIM");
 				if (Internal.flchActive and Text.vert.getValue() != "SPD CLB") {
 					me.updateVertText("SPD CLB");
 				}
 			} else {
 				Output.thrMode.setValue(1);
-				Text.thr.setValue("PITCH");
+				Text.spd.setValue("PITCH");
+				Text.thr.setValue("IDLE");
 				if (Internal.flchActive and Text.vert.getValue() != "SPD DES") {
 					me.updateVertText("SPD DES");
 				}
 			}
 		} else if (Output.vertTemp == 7) {
 			Output.thrMode.setValue(2);
-			Text.thr.setValue("PITCH");
+			Text.spd.setValue("PITCH");
+			Text.thr.setValue("THR LIM");
 		} else {
 			Output.thrMode.setValue(0);
-			Text.thr.setValue("THRUST");
+			Text.spd.setValue("THRUST");
+			if (Input.ktsMach.getBoolValue()) {
+				Text.thr.setValue("MACH");
+			} else {
+				Text.thr.setValue("SPEED");
+			}
+		}
+		
+		if (Settings.customFma.getBoolValue()) {
+			updateFma.thr();
 		}
 	},
 	bankLimit: func() {
@@ -1191,6 +1207,7 @@ setlistener("/it-autoflight/input/kts-mach", func() {
 			Input.ktsMach.setBoolValue(0);
 		}
 	} else {
+		ITAF.updateThrustMode();
 		if (Input.ktsMach.getBoolValue()) {
 			ITAF.syncMach();
 		} else {
