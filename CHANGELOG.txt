@@ -9,6 +9,7 @@ V4.0.9:
 * Added: Basic pitch hold mode
 * Added: Improved pitch flight director computation
 * Added: Better adjustment for takeoff flight director pitch bar (New config required)
+* Changed: Improved pitch control law for high altitude
 
 [Logic]
 * Added: Ability to allow modes to be selected on the ground (New config required)
