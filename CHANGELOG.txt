@@ -15,6 +15,7 @@ V4.0.9:
 * Added: Third autopilot option
 * Added: Basic pitch hold mode
 * Added: Throttle mode annunciation property mode/thr
+* Added: Ability to adjust maxmimum target knots and mach (New config required)
 * Fixed: Ensure route manager errors do not block ITAF loop
 * Changed: Speed mode text property has changed from mode/thr to mode/spd
 
