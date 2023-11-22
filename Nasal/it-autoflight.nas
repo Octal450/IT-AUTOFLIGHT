@@ -364,7 +364,7 @@ var ITAF = {
 		Internal.vsTemp = Internal.vs.getValue();
 		Position.indicatedAltitudeFtTemp = Position.indicatedAltitudeFt.getValue();
 		
-		# Takeoff mode logic
+		# Takeoff Mode Logic
 		if (Output.latTemp == 5 and (Internal.takeoffLvl.getBoolValue() or Gear.wow1Temp or Gear.wow2Temp)) {
 			me.takeoffLogic();
 		}
