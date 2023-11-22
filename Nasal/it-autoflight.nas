@@ -1048,10 +1048,9 @@ var ITAF = {
 				me.ap1Master(0);
 				me.ap2Master(0);
 				me.ap3Master(0);
-				me.setLatMode(3);
-				me.setVertMode(1);
+				me.setLatMode(3); # Also cancels G/S and land modes if active
 			} else {
-				me.setLatMode(3); # Also cancels G/S if active
+				me.setLatMode(3); # Also cancels G/S and land modes if active
 			}
 		}
 	},
