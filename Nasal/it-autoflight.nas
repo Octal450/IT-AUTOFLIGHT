@@ -53,6 +53,7 @@ var Orientation = {
 	pitchDeg: props.globals.getNode("/orientation/pitch-deg"),
 	pitchDegTemp: 0,
 	rollDeg: props.globals.getNode("/orientation/roll-deg"),
+	rollDegTemp: 0,
 };
 
 var Position = {
@@ -117,6 +118,7 @@ var Input = {
 	radioSel: props.globals.initNode("/it-autoflight/input/radio-sel", 0, "INT"),
 	radioSelTemp: 0,
 	roll: props.globals.initNode("/it-autoflight/input/roll", 0, "INT"),
+	rollAbs: props.globals.initNode("/it-autoflight/input/roll-abs", 0, "INT"), # Set by property rule
 	toga: props.globals.initNode("/it-autoflight/input/toga", 0, "BOOL"),
 	trk: props.globals.initNode("/it-autoflight/input/trk", 0, "BOOL"),
 	trueCourse: props.globals.initNode("/it-autoflight/input/true-course", 0, "BOOL"),
@@ -278,6 +280,8 @@ var ITAF = {
 		Input.fpaAbs.setValue(0);
 		Input.pitch.setValue(0);
 		Input.pitchAbs.setValue(0);
+		Input.roll.setValue(0);
+		Input.rollAbs.setValue(0);
 		Input.lat.setValue(5);
 		Input.vert.setValue(7);
 		Input.toga.setBoolValue(0);
@@ -1123,7 +1127,9 @@ var ITAF = {
 	},
 	syncRoll: func() {
 		Internal.bankLimitTemp = Internal.bankLimit.getValue();
-		Input.roll.setValue(math.clamp(math.round(Orientation.rollDeg.getValue()), Internal.bankLimitTemp * -1, Internal.bankLimitTemp));
+		Orientation.rollDegTemp = Orientation.rollDeg.getValue();
+		Input.roll.setValue(math.clamp(math.round(Orientation.rollDegTemp), Internal.bankLimitTemp * -1, Internal.bankLimitTemp));
+		Input.rollAbs.setValue(abs(math.clamp(math.round(Orientation.rollDegTemp), Internal.bankLimitTemp * -1, Internal.bankLimitTemp)));
 	},
 	syncAlt: func() {
 		Input.alt.setValue(math.clamp(math.round(Internal.altPredicted.getValue(), 100), 0, 50000));
