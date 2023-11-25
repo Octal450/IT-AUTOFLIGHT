@@ -1092,6 +1092,8 @@
 		</enable>
 		<input>/it-autoflight/input/roll</input>
 		<output>/it-autoflight/internal/target-roll-deg</output>
+		<min>-60</min>
+		<max>60</max>
 	</filter>
 	
 	<filter>
