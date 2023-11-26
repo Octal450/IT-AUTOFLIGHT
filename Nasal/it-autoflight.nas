@@ -1105,7 +1105,7 @@ var ITAF = {
 				me.ap2Master(0);
 				me.ap3Master(0);
 			}
-		} else if (Gear.wow1Temp or Gear.wow2Temp) {
+		} else if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) {
 			me.athrMaster(1);
 			if (Output.lat.getValue() != 5) { # Don't accidently disarm LNAV
 				me.setLatMode(5);
