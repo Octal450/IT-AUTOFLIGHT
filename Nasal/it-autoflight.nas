@@ -370,7 +370,7 @@ var ITAF = {
 		
 		# Takeoff Mode Logic
 		if (Output.latTemp == 5 and (Internal.takeoffLvl.getBoolValue() or Gear.wow1Temp or Gear.wow2Temp)) {
-			me.takeoffLogic();
+			me.takeoffLogic(0);
 		}
 		
 		# HDG HLD logic
@@ -744,7 +744,7 @@ var ITAF = {
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
 			me.updateApprArm(0);
-			me.takeoffLogic();
+			me.takeoffLogic(1);
 			Output.lat.setValue(5);
 			me.updateLatText("T/O");
 		} else if (n == 6) { # ROLL
@@ -1058,7 +1058,7 @@ var ITAF = {
 			}
 		}
 	},
-	takeoffLogic: func() {
+	takeoffLogic: func(t) {
 		takeoffHdgCapTemp = Settings.takeoffHdgCap.getValue();
 		if (takeoffHdgCapTemp == 0) {
 			Internal.takeoffLvl.setBoolValue(1);
@@ -1068,6 +1068,9 @@ var ITAF = {
 					Internal.takeoffHdg.setValue(math.round(Internal.hdgTrk.getValue())); # Switches to track automatically
 					Internal.takeoffLvl.setBoolValue(1);
 				} else {
+					if (t == 1) { # Sync anyway
+						Internal.takeoffHdg.setValue(math.round(Internal.hdgTrk.getValue())); # Switches to track automatically
+					}
 					Internal.takeoffLvl.setBoolValue(0);
 				}
 			} else {
