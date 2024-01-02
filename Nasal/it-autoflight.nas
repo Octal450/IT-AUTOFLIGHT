@@ -1,5 +1,5 @@
 # IT-AUTOFLIGHT System Controller V4.0.9
-# Copyright (c) 2023 Josh Davidson (Octal450)
+# Copyright (c) 2024 Josh Davidson (Octal450)
 
 setprop("/it-autoflight/config/tuning-mode", 0); # Not used by controller
 
