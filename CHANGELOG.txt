@@ -18,6 +18,7 @@ V4.0.9:
 * Added: Basic pitch hold mode
 * Added: Throttle mode annunciation property mode/thr
 * Added: Ability to adjust maxmimum target knots and mach (New config required)
+* Added: Ability to define angle of attack where AP trips off (New config required)
 * Fixed: Ensure route manager errors do not block ITAF loop
 * Changed: Speed mode text property has changed from mode/thr to mode/spd
 

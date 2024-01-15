@@ -50,6 +50,7 @@ var Misc = {
 };
 
 var Orientation = {
+	alphaDeg: props.globals.getNode("/orientation/alpha-deg"),
 	pitchDeg: props.globals.getNode("/orientation/pitch-deg"),
 	pitchDegTemp: 0,
 	rollDeg: props.globals.getNode("/orientation/roll-deg"),
@@ -219,6 +220,7 @@ var Settings = {
 	maxMach: props.globals.getNode("/it-autoflight/settings/max-mach", 1),
 	retardAltitude: props.globals.getNode("/it-autoflight/settings/retard-ft", 1),
 	retardEnable: props.globals.getNode("/it-autoflight/settings/retard-enable", 1),
+	stallAoaDeg: props.globals.getNode("/it-autoflight/settings/stall-aoa-deg", 1),
 	takeoffHdgCap: props.globals.getNode("/it-autoflight/settings/takeoff-hdg-cap", 1),
 	takeoffHdgCapTemp: 0,
 	togaSpd: props.globals.getNode("/it-autoflight/settings/toga-spd", 1),
@@ -323,6 +325,12 @@ var ITAF = {
 		Output.vertTemp = Output.vert.getValue();
 		
 		# Trip system off
+		if (Output.ap1Temp or Output.ap2Temp) { 
+			if (Orientation.alphaDeg.getValue() >= Settings.stallAoaDeg.getValue()) {
+				me.ap1Master(0);
+				me.ap2Master(0);
+			}
+		}
 		if (!Input.ap1Avail.getBoolValue() and Output.ap1Temp) {
 			me.ap1Master(0);
 		}
