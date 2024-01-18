@@ -9,6 +9,7 @@ V4.0.9:
 * Added: Basic pitch hold mode
 * Added: Improved pitch flight director computation
 * Added: Better adjustment for takeoff flight director pitch bar (New config required)
+* Added: Configurable auto elevator trim bounds (New config required)
 * Fixed: Minor issue with roll hold mode
 * Changed: Improved pitch control law for high altitude
 
