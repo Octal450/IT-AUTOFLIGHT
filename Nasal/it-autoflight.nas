@@ -314,8 +314,8 @@ var ITAF = {
 		Text.spd.setValue("PITCH");
 		Text.thr.setValue("THR LIM");
 		if (Settings.customFma.getBoolValue()) {
-			updateFma.thr();
-			updateFma.arm();
+			UpdateFma.thr();
+			UpdateFma.arm();
 		}
 		me.updateLatText("T/O");
 		me.updateVertText("T/O CLB");
@@ -402,7 +402,7 @@ var ITAF = {
 					if (Output.hdgInHldTemp != 1) {
 						Output.hdgInHld.setBoolValue(1);
 						if (Settings.customFma.getBoolValue()) { # Update it for planes that use both
-							updateFma.lat();
+							UpdateFma.lat();
 						}
 					}
 				} else if (Input.hdg.getValue() != Internal.hdgHldValue) {
@@ -410,7 +410,7 @@ var ITAF = {
 					if (Output.hdgInHldTemp != 0 and abs(Internal.hdgErrorDeg.getValue()) > 2.5) {
 						Output.hdgInHld.setBoolValue(0);
 						if (Settings.customFma.getBoolValue()) { # Update it for planes that use both
-							updateFma.lat();
+							UpdateFma.lat();
 						}
 					}
 				}
@@ -964,7 +964,7 @@ var ITAF = {
 		}
 		
 		if (Settings.customFma.getBoolValue()) {
-			updateFma.thr();
+			UpdateFma.thr();
 		}
 	},
 	bankLimit: func() {
@@ -1181,31 +1181,31 @@ var ITAF = {
 	updateLatText: func(t) {
 		Text.lat.setValue(t);
 		if (Settings.customFma.getBoolValue()) {
-			updateFma.lat();
+			UpdateFma.lat();
 		}
 	},
 	updateVertText: func(t) {
 		Text.vert.setValue(t);
 		if (Settings.customFma.getBoolValue()) {
-			updateFma.vert();
+			UpdateFma.vert();
 		}
 	},
 	updateLnavArm: func(n) {
 		Output.lnavArm.setBoolValue(n);
 		if (Settings.customFma.getBoolValue()) {
-			updateFma.arm();
+			UpdateFma.arm();
 		}
 	},
 	updateLocArm: func(n) {
 		Output.locArm.setBoolValue(n);
 		if (Settings.customFma.getBoolValue()) {
-			updateFma.arm();
+			UpdateFma.arm();
 		}
 	},
 	updateApprArm: func(n) {
 		Output.apprArm.setBoolValue(n);
 		if (Settings.customFma.getBoolValue()) {
-			updateFma.arm();
+			UpdateFma.arm();
 		}
 	},
 };
@@ -1338,7 +1338,7 @@ setlistener("/it-autoflight/input/trk", func() {
 	Internal.takeoffHdg.setValue(Internal.takeoffHdgCalc);
 	
 	if (Settings.customFma.getBoolValue()) {
-		updateFma.lat();
+		UpdateFma.lat();
 	}
 	
 	Misc.efis0Trk.setBoolValue(Input.trkTemp); # For Canvas Nav Display.
@@ -1382,7 +1382,7 @@ setlistener("/it-autoflight/input/true-course", func() {
 	Internal.takeoffHdg.setValue(Internal.takeoffHdgCalc);
 	
 	if (Settings.customFma.getBoolValue()) {
-		updateFma.lat();
+		UpdateFma.lat();
 	}
 	
 	Misc.efis0True.setBoolValue(Input.trueCourseTemp); # For Canvas Nav Display.

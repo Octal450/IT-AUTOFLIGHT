@@ -2,7 +2,7 @@
 # Make sure you enable custom-fma in the config
 # Copyright (c) 2024 Josh Davidson (Octal450)
 
-var updateFma = {
+var UpdateFma = {
 	latText: "T/O",
 	spdText: "PITCH",
 	thrText: "THR LIM",
