@@ -180,7 +180,6 @@ var Output = {
 	ap2Temp: 0,
 	ap3: props.globals.initNode("/it-autoflight/output/ap3", 0, "BOOL"),
 	ap3Temp: 0,
-	gsArm: props.globals.initNode("/it-autoflight/output/gs-armed", 0, "BOOL"),
 	athr: props.globals.initNode("/it-autoflight/output/athr", 0, "BOOL"),
 	athrTemp: 0,
 	cws: props.globals.initNode("/it-autoflight/output/cws", 0, "BOOL"),
@@ -188,6 +187,7 @@ var Output = {
 	fd1Temp: 0,
 	fd2: props.globals.initNode("/it-autoflight/output/fd2", 0, "BOOL"),
 	fd2Temp: 0,
+	gsArm: props.globals.initNode("/it-autoflight/output/gs-armed", 0, "BOOL"),
 	hdgInHld: props.globals.initNode("/it-autoflight/output/hdg-in-hld", 0, "BOOL"),
 	hdgInHldTemp: 0,
 	lat: props.globals.initNode("/it-autoflight/output/lat", 5, "INT"),
@@ -303,7 +303,7 @@ var ITAF = {
 		Output.hdgInHld.setBoolValue(0);
 		me.updateLnavArm(0);
 		me.updateLocArm(0);
-		Output.gsArm.setBoolValue(0);
+		me.updateGsArm(0);
 		Output.thrMode.setValue(2);
 		Output.lat.setValue(5);
 		Output.vert.setValue(7);
