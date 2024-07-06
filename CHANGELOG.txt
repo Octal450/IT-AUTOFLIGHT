@@ -23,6 +23,7 @@ V4.0.9:
 * Added: Handle FGFS's default autopilot disconnect binding
 * Fixed: Ensure route manager errors do not block ITAF loop
 * Changed: Speed mode text property has changed from mode/thr to mode/spd
+* Changed: G/S arm changed from apprArm gsArm and gs-arm.
 
 [GUI]
 * Fixed: FPA not syncing when inactive
