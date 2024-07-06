@@ -301,9 +301,9 @@ var ITAF = {
 			Output.fd2.setBoolValue(Settings.fdStartsOn.getBoolValue());
 		}
 		Output.hdgInHld.setBoolValue(0);
-		me.updateLnavArm(0);
-		me.updateLocArm(0);
-		me.updateGsArm(0);
+		Output.lnavArm.setBoolValue(0);
+		Output.locArm.setBoolValue(0);
+		Output.gsArm.setBoolValue(0);
 		Output.thrMode.setValue(2);
 		Output.lat.setValue(5);
 		Output.vert.setValue(7);
