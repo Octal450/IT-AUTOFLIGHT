@@ -180,7 +180,7 @@ var Output = {
 	ap2Temp: 0,
 	ap3: props.globals.initNode("/it-autoflight/output/ap3", 0, "BOOL"),
 	ap3Temp: 0,
-	gsArm: props.globals.initNode("/it-autoflight/output/appr-armed", 0, "BOOL"),
+	gsArm: props.globals.initNode("/it-autoflight/output/gs-armed", 0, "BOOL"),
 	athr: props.globals.initNode("/it-autoflight/output/athr", 0, "BOOL"),
 	athrTemp: 0,
 	cws: props.globals.initNode("/it-autoflight/output/cws", 0, "BOOL"),
@@ -726,7 +726,7 @@ var ITAF = {
 		if (n == 0) { # HDG SEL
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			if (Settings.hdgHldSeparate.getBoolValue()) {
 				Output.hdgInHld.setBoolValue(0);
 			}
@@ -737,7 +737,7 @@ var ITAF = {
 			}
 		} else if (n == 1) { # LNAV
 			me.updateLocArm(0);
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			me.checkLnav(0);
 		} else if (n == 2) { # VOR/LOC
 			me.updateLnavArm(0);
@@ -745,7 +745,7 @@ var ITAF = {
 		} else if (n == 3) { # HDG HLD
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Internal.hdgHldValue = Input.hdg.getValue(); # Unused if HDG HLD is seperated
 			if (Settings.hdgHldSeparate.getBoolValue()) {
 				Internal.hdgHldTarget.setValue(math.round(Internal.hdgPredicted.getValue())); # Switches to track automatically
@@ -761,27 +761,27 @@ var ITAF = {
 		} else if (n == 4) { # ALIGN
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Output.lat.setValue(4);
 			me.updateLatText("ALGN");
 		} else if (n == 5) { # T/O
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			me.takeoffLogic(1);
 			Output.lat.setValue(5);
 			me.updateLatText("T/O");
 		} else if (n == 6) { # ROLL
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			me.syncRoll();
 			Output.lat.setValue(6);
 			me.updateLatText("ROLL");
 		} else if (n == 9) { # Blank
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Output.lat.setValue(9);
 			me.updateLatText("");
 			if (!Settings.disableFinal.getBoolValue()) {
@@ -807,7 +807,7 @@ var ITAF = {
 		if (n == 0) { # ALT HLD
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Output.vert.setValue(0);
 			me.resetClimbRateLim();
 			me.updateVertText("ALT HLD");
@@ -818,25 +818,25 @@ var ITAF = {
 				if (abs(Input.altDiff) >= 25) {
 					Internal.flchActive = 0;
 					Internal.altCaptureActive = 0;
-					me.updategsArm(0);
+					me.updateGsArm(0);
 					Output.vert.setValue(5);
 					me.updateVertText("FPA");
 					me.syncFpa();
 					me.updateThrustMode();
 				} else {
-					me.updategsArm(0);
+					me.updateGsArm(0);
 				}
 			} else {
 				if (abs(Input.altDiff) >= 25) {
 					Internal.flchActive = 0;
 					Internal.altCaptureActive = 0;
-					me.updategsArm(0);
+					me.updateGsArm(0);
 					Output.vert.setValue(1);
 					me.updateVertText("V/S");
 					me.syncVs();
 					me.updateThrustMode();
 				} else {
-					me.updategsArm(0);
+					me.updateGsArm(0);
 				}
 			}
 		} else if (n == 2) { # G/S
@@ -851,7 +851,7 @@ var ITAF = {
 			me.updateVertText("ALT CAP");
 			me.updateThrustMode();
 		} else if (n == 4) { # FLCH
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			if (abs(Input.altDiff) >= 125) { # SPD CLB or SPD DES
 				Internal.altCaptureActive = 0;
 				Output.vert.setValue(4);
@@ -870,25 +870,25 @@ var ITAF = {
 			if (abs(Input.altDiff) >= 25) {
 				Internal.flchActive = 0;
 				Internal.altCaptureActive = 0;
-				me.updategsArm(0);
+				me.updateGsArm(0);
 				Output.vert.setValue(5);
 				me.updateVertText("FPA");
 				me.syncFpa();
 				me.updateThrustMode();
 			} else {
-				me.updategsArm(0);
+				me.updateGsArm(0);
 			}
 		} else if (n == 6) { # FLARE/ROLLOUT
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Output.vert.setValue(6);
 			me.updateVertText("FLARE");
 			me.updateThrustMode();
 		} else if (n == 7) { # T/O CLB or G/A CLB, text is set by TOGA selector
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Output.vert.setValue(7);
 			Input.ktsMach.setBoolValue(0);
 			me.updateThrustMode();
@@ -896,18 +896,18 @@ var ITAF = {
 			if (abs(Input.altDiff) >= 25) {
 				Internal.flchActive = 0;
 				Internal.altCaptureActive = 0;
-				me.updategsArm(0);
+				me.updateGsArm(0);
 				Output.vert.setValue(8);
 				me.updateVertText("PITCH");
 				me.syncPitch();
 				me.updateThrustMode();
 			} else {
-				me.updategsArm(0);
+				me.updateGsArm(0);
 			}
 		} else if (n == 9) { # Blank
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Output.vert.setValue(9);
 			me.updateVertText("");
 			me.updateThrustMode();
@@ -982,7 +982,7 @@ var ITAF = {
 		if (Output.lat.getValue() != 1) {
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Output.lat.setValue(1);
 			me.updateLatText("LNAV");
 			if (Output.vertTemp == 2 or Output.vertTemp == 6) { # Also cancel G/S or FLARE if active
@@ -1002,7 +1002,7 @@ var ITAF = {
 		if (Output.vert.getValue() != 2) {
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
-			me.updategsArm(0);
+			me.updateGsArm(0);
 			Output.vert.setValue(2);
 			me.updateVertText("G/S");
 			me.updateThrustMode();
@@ -1062,12 +1062,12 @@ var ITAF = {
 				me.activateGs();
 			} else if (t != 1) { # Do not do this if loop calls it
 				if (Output.vert.getValue() != 2) {
-					me.updategsArm(1);
+					me.updateGsArm(1);
 				}
 			}
 		} else {
 			Radio.signalQuality[Input.radioSelTemp].setValue(0); # Prevent bad behavior due to FG not updating it when not in range
-			me.updategsArm(0);
+			me.updateGsArm(0);
 		}
 	},
 	checkRadioReversion: func(l, v) { # Revert mode if signal lost
@@ -1202,7 +1202,7 @@ var ITAF = {
 			UpdateFma.arm();
 		}
 	},
-	updategsArm: func(n) {
+	updateGsArm: func(n) {
 		Output.gsArm.setBoolValue(n);
 		if (Settings.customFma.getBoolValue()) {
 			UpdateFma.arm();

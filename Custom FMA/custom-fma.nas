@@ -14,7 +14,7 @@ var UpdateFma = {
 	arm: func() { # Called when armed modes change
 		Output.lnavArm.getBoolValue();
 		Output.locArm.getBoolValue();
-		Output.apprArm.getBoolValue();
+		Output.gsArm.getBoolValue();
 	},
 	lat: func() { # Called when lateral mode changes
 		me.latText = Text.lat.getValue();
