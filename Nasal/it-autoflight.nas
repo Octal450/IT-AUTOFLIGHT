@@ -1,4 +1,4 @@
-# IT-AUTOFLIGHT System Controller V4.0.9
+# IT-AUTOFLIGHT System Controller V4.1.0
 # Copyright (c) 2024 Josh Davidson (Octal450)
 
 setprop("/it-autoflight/config/tuning-mode", 0); # Not used by controller
@@ -9,6 +9,7 @@ var Controls = {
 	aileron: props.globals.getNode("/controls/flight/aileron", 1),
 	elevator: props.globals.getNode("/controls/flight/elevator", 1),
 	rudder: props.globals.getNode("/controls/flight/rudder", 1),
+	throttle: [],
 };
 
 var FPLN = {
@@ -42,6 +43,8 @@ var Gear = {
 };
 
 var Misc = {
+	canvasAlt: props.globals.getNode("/autopilot/settings/target-altitude-ft", 1),
+	canvasHdg: props.globals.getNode("/autopilot/settings/heading-bug-deg", 1),
 	efis0Trk: props.globals.getNode("/instrumentation/efis[0]/hdg-trk-selected", 1),
 	efis0True: props.globals.getNode("/instrumentation/efis[0]/mfd/true-north", 1),
 	efis1Trk: props.globals.getNode("/instrumentation/efis[1]/hdg-trk-selected", 1),
@@ -215,7 +218,6 @@ var Settings = {
 	bankMaxDeg: props.globals.getNode("/it-autoflight/settings/bank-max-deg", 1),
 	customFma: props.globals.getNode("/it-autoflight/settings/custom-fma", 1),
 	disableFinal: props.globals.getNode("/it-autoflight/settings/disable-final", 1),
-	engineCount: props.globals.getNode("/it-autoflight/settings/engine-count", 1),
 	fdStartsOn: props.globals.getNode("/it-autoflight/settings/fd-starts-on", 1),
 	groundModeSelect: props.globals.getNode("/it-autoflight/settings/ground-mode-select", 1),
 	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-separate", 1),
@@ -297,9 +299,6 @@ var ITAF = {
 		Output.ap2.setBoolValue(0);
 		Output.ap3.setBoolValue(0);
 		Output.athr.setBoolValue(0);
-		for (var i = 0; i < Settings.engineCount.getValue(); i++) {
-			append(Internal.throttle, props.globals.initNode("/it-autoflight/internal/throttle[" ~ i ~ "]", 0, "DOUBLE"));
-		}
 		if (t != 1) {
 			Output.fd1.setBoolValue(Settings.fdStartsOn.getBoolValue());
 			Output.fd2.setBoolValue(Settings.fdStartsOn.getBoolValue());
@@ -668,9 +667,14 @@ var ITAF = {
 			}
 		} else {
 			if (!Settings.useControlsEngines.getBoolValue()) {
-				for (var i = 0; i < Settings.engineCount.getValue(); i++) {
-					setprop("/controls/engines/engine[" ~ i ~ "]/throttle", Internal.throttle[i].getValue());
-				}
+				Controls.throttle[0].setValue(Internal.throttle[0].getValue());
+				Controls.throttle[1].setValue(Internal.throttle[1].getValue());
+				Controls.throttle[2].setValue(Internal.throttle[2].getValue());
+				Controls.throttle[3].setValue(Internal.throttle[3].getValue());
+				Controls.throttle[4].setValue(Internal.throttle[4].getValue());
+				Controls.throttle[5].setValue(Internal.throttle[5].getValue());
+				Controls.throttle[6].setValue(Internal.throttle[6].getValue());
+				Controls.throttle[7].setValue(Internal.throttle[7].getValue());
 			}
 			Output.athr.setBoolValue(0);
 		}
@@ -923,14 +927,16 @@ var ITAF = {
 			Text.thr.setValue("RETARD");
 			if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) { # Disconnect A/THR on either main gear touch
 				me.athrMaster(0);
-				setprop("/controls/engines/engine[0]/throttle", 0);
-				setprop("/controls/engines/engine[1]/throttle", 0);
-				setprop("/controls/engines/engine[2]/throttle", 0);
-				setprop("/controls/engines/engine[3]/throttle", 0);
-				setprop("/controls/engines/engine[4]/throttle", 0);
-				setprop("/controls/engines/engine[5]/throttle", 0);
-				setprop("/controls/engines/engine[6]/throttle", 0);
-				setprop("/controls/engines/engine[7]/throttle", 0);
+				if (!Settings.useControlsEngines.getBoolValue()) {
+					Controls.throttle[0].setValue(Internal.throttle[0].getValue());
+					Controls.throttle[1].setValue(Internal.throttle[1].getValue());
+					Controls.throttle[2].setValue(Internal.throttle[2].getValue());
+					Controls.throttle[3].setValue(Internal.throttle[3].getValue());
+					Controls.throttle[4].setValue(Internal.throttle[4].getValue());
+					Controls.throttle[5].setValue(Internal.throttle[5].getValue());
+					Controls.throttle[6].setValue(Internal.throttle[6].getValue());
+					Controls.throttle[7].setValue(Internal.throttle[7].getValue());
+				}
 			}
 		} else if (Output.vertTemp == 4) {
 			if (Internal.alt.getValue() >= Position.indicatedAltitudeFt.getValue()) {
@@ -1392,13 +1398,18 @@ setlistener("/sim/signals/fdm-initialized", func() {
 	ITAF.init();
 });
 
+for (var i = 0; i < 8; i = i + 1) { # We MUST use 8 throttles
+	append(Controls.throttle, props.globals.initNode("/controls/engines/engine[" ~ i ~ "]/throttle", 0, "DOUBLE"));
+	append(Internal.throttle, props.globals.initNode("/it-autoflight/internal/throttle[" ~ i ~ "]", 0, "DOUBLE"));
+}
+
 # For Canvas Nav Display.
 setlistener("/it-autoflight/input/hdg", func() {
-	setprop("/autopilot/settings/heading-bug-deg", getprop("/it-autoflight/input/hdg"));
+	Misc.canvasHdg.setValue(Input.hdg.getValue());
 }, 0, 0);
 
 setlistener("/it-autoflight/internal/alt", func() {
-	setprop("/autopilot/settings/target-altitude-ft", getprop("/it-autoflight/internal/alt"));
+	Misc.canvasAlt.setValue(Internal.alt.getValue());
 }, 0, 0);
 
 var loopTimer = maketimer(0.1, ITAF, ITAF.loop);

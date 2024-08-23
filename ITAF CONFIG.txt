@@ -44,7 +44,6 @@ See wiki for details on parameters.
 			<bank-max-deg type="double">25</bank-max-deg> <!-- Maximum bank limit -->
 			<custom-fma type="bool">0</custom-fma> <!-- Call functions when modes change for a custom FMA to be implemented --> 
 			<disable-final type="bool">0</disable-final> <!-- Disable the Final Controllers for custom FCS integration -->
-			<engine-count type="int">2</engine-count> <!-- The number of engines your airplane has -->
 			<elevator-in-trim type="double">0.01</elevator-in-trim> <!-- Normalized elevator to stop trimming -->
 			<elevator-out-of-trim type="double">0.02</elevator-out-of-trim> <!-- Normalized elevator to start trimming -->
 			<fd-starts-on type="bool">1</fd-starts-on> <!-- Enable/Disable Flight Director being on by default -->
