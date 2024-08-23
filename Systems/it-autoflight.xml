@@ -1893,10 +1893,10 @@
 			<u_min>
 				<expression>
 					<max>
-						<dif>
+						<difference>
 							<property>/orientation/pitch-deg</property>
 							<value>5</value>
-						</dif>
+						</difference>
 						<value>-15</value>
 					</max>
 				</expression>
