@@ -12,10 +12,10 @@
 		<gain>1.0</gain>
 		<input>
 			<expression>
-				<dif>
+				<difference>
 					<property>/position/altitude-agl-ft</property>
 					<value>15</value> <!-- Change this value to adjust property -->
-				</dif>
+				</difference>
 			</expression>
 		</input>
 		<output>/position/gear-agl-ft</output>

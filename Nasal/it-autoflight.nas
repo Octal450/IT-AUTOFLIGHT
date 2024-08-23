@@ -168,7 +168,7 @@ var Internal = {
 	takeoffHdg: props.globals.initNode("/it-autoflight/internal/takeoff-hdg", 0, "INT"),
 	takeoffHdgCalc: 0,
 	takeoffLvl: props.globals.initNode("/it-autoflight/internal/takeoff-lvl", 1, "BOOL"),
-	throttle: [props.globals.initNode("/it-autoflight/internal/throttle[0]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[1]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[2]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[3]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[4]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[5]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[6]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[7]", 0, "DOUBLE")],
+	throttle: [],
 	vs: props.globals.initNode("/it-autoflight/internal/vert-speed-fpm", 0, "DOUBLE"),
 	vsTemp: 0,
 };
@@ -215,6 +215,7 @@ var Settings = {
 	bankMaxDeg: props.globals.getNode("/it-autoflight/settings/bank-max-deg", 1),
 	customFma: props.globals.getNode("/it-autoflight/settings/custom-fma", 1),
 	disableFinal: props.globals.getNode("/it-autoflight/settings/disable-final", 1),
+	engineCount: props.globals.getNode("/it-autoflight/settings/engine-count", 1),
 	fdStartsOn: props.globals.getNode("/it-autoflight/settings/fd-starts-on", 1),
 	groundModeSelect: props.globals.getNode("/it-autoflight/settings/ground-mode-select", 1),
 	hdgHldSeparate: props.globals.getNode("/it-autoflight/settings/hdg-hld-separate", 1),
@@ -296,6 +297,9 @@ var ITAF = {
 		Output.ap2.setBoolValue(0);
 		Output.ap3.setBoolValue(0);
 		Output.athr.setBoolValue(0);
+		for (var i = 0; i < Settings.engineCount.getValue(); i++) {
+			append(Internal.throttle, props.globals.initNode("/it-autoflight/internal/throttle[" ~ i ~ "]", 0, "DOUBLE"));
+		}
 		if (t != 1) {
 			Output.fd1.setBoolValue(Settings.fdStartsOn.getBoolValue());
 			Output.fd2.setBoolValue(Settings.fdStartsOn.getBoolValue());
@@ -664,14 +668,9 @@ var ITAF = {
 			}
 		} else {
 			if (!Settings.useControlsEngines.getBoolValue()) {
-				setprop("/controls/engines/engine[0]/throttle", Internal.throttle[0].getValue());
-				setprop("/controls/engines/engine[1]/throttle", Internal.throttle[1].getValue());
-				setprop("/controls/engines/engine[2]/throttle", Internal.throttle[2].getValue());
-				setprop("/controls/engines/engine[3]/throttle", Internal.throttle[3].getValue());
-				setprop("/controls/engines/engine[4]/throttle", Internal.throttle[4].getValue());
-				setprop("/controls/engines/engine[5]/throttle", Internal.throttle[5].getValue());
-				setprop("/controls/engines/engine[6]/throttle", Internal.throttle[6].getValue());
-				setprop("/controls/engines/engine[7]/throttle", Internal.throttle[7].getValue());
+				for (var i = 0; i < Settings.engineCount.getValue(); i++) {
+					setprop("/controls/engines/engine[" ~ i ~ "]/throttle", Internal.throttle[i].getValue());
+				}
 			}
 			Output.athr.setBoolValue(0);
 		}
