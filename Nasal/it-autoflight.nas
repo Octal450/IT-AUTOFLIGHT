@@ -342,7 +342,7 @@ var ITAF = {
 		if (!Input.ap2Avail.getBoolValue() and Output.ap2Temp) {
 			me.ap2Master(0);
 		}
-		if (!Input.ap3Avail.getBoolValue() and Output.ap3emp) {
+		if (!Input.ap3Avail.getBoolValue() and Output.ap3Temp) {
 			me.ap3Master(0);
 		}
 		if (!Input.athrAvail.getBoolValue() and Output.athr.getBoolValue()) {
